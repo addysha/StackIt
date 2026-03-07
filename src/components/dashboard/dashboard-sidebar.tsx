@@ -2,7 +2,6 @@
 
 import { Layers3, Link2 } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { BLOCK_REGISTRY } from "@/lib/block-registry/definitions";
 import { cn } from "@/lib/utils";
@@ -57,9 +56,9 @@ export function DashboardSidebar({
                     <p className="mt-1 text-xs text-slate-500">{block.category}</p>
                   </div>
                   {connected ? (
-                    <Button variant="secondary" size="sm" className="pointer-events-none">
+                    <span className="inline-flex h-9 items-center rounded-[12px] border border-white/10 bg-white/5 px-3 text-sm">
                       Add
-                    </Button>
+                    </span>
                   ) : (
                     <div className="flex items-center gap-1 text-xs text-slate-500">
                       <Link2 className="size-3" />
