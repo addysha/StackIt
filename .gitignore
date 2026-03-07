@@ -1,0 +1,17 @@
+.next
+node_modules
+.env
+.env.local
+.env.production
+.vercel
+coverage
+dist
+build
+.turbo
+*.log
+!.env.example
+generated
+node_modules
+
+# clerk configuration (can include secrets)
+/.clerk/

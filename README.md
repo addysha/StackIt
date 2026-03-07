@@ -7,6 +7,45 @@
 
 ---
 
+## Running the app locally
+
+**One-time setup**
+
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Generate the Prisma client (required for types; the app can run without a real database using in-memory demo data):
+   ```bash
+   npm run prisma:generate
+   ```
+3. (Optional) Copy `.env.example` to `.env` and add any keys you need. For local development with the current prototype you can leave it minimal—Clerk runs in keyless mode and the app uses in-memory data when the database is not configured.
+
+**Run the app**
+
+- **Web app only** (typical):
+  ```bash
+  npm run dev
+  ```
+  Opens at **http://localhost:3000** with hot reload.
+
+- **Web app + background worker** (Fastify + BullMQ; requires Redis):
+  ```bash
+  npm run dev:all
+  ```
+  Runs both the Next.js dev server and the worker. Set `REDIS_URL` in `.env` or use default `127.0.0.1:6379`.
+
+**Other commands**
+
+| Command | Purpose |
+|--------|--------|
+| `npm run build` | Production build |
+| `npm run start` | Run production server (`next start`) |
+| `npm run lint` | Run ESLint |
+| `npm run prisma:migrate` | Run database migrations (requires `DATABASE_URL`) |
+
+---
+
 ## 0. What We Are Building
 
 A **personal business assistant** for small business owners. Not a BI tool. Not a reporting platform. Not a dashboard for data teams.

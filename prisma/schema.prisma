@@ -1,0 +1,176 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id            String      @id @default(cuid())
+  clerkId       String      @unique
+  email         String      @unique
+  firstName     String?
+  createdAt     DateTime    @default(now())
+  organizations OrgMember[]
+}
+
+model Organization {
+  id              String           @id @default(cuid())
+  name            String
+  digestTime      String           @default("07:00")
+  timezone        String           @default("Pacific/Auckland")
+  createdAt       DateTime         @default(now())
+  members         OrgMember[]
+  integrations    Integration[]
+  dashboards      Dashboard[]
+  metricSnapshots MetricSnapshot[]
+  syncJobLogs     SyncJobLog[]
+  alerts          Alert[]
+  digestLogs      DigestLog[]
+}
+
+model OrgMember {
+  id             String       @id @default(cuid())
+  userId         String
+  organizationId String
+  role           String       @default("owner")
+  user           User         @relation(fields: [userId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id])
+
+  @@unique([userId, organizationId])
+}
+
+model Integration {
+  id             String       @id @default(cuid())
+  organizationId String
+  provider       String
+  accessToken    String
+  refreshToken   String?
+  shopDomain     String?
+  status         String       @default("active")
+  connectedAt    DateTime     @default(now())
+  lastSyncedAt   DateTime?
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  syncJobLogs    SyncJobLog[]
+}
+
+model Dashboard {
+  id             String       @id @default(cuid())
+  organizationId String
+  name           String       @default("My Dashboard")
+  layout         Json
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  blocks         Block[]
+}
+
+model Block {
+  id          String    @id @default(cuid())
+  dashboardId String
+  metricType  String
+  label       String
+  position    Json
+  visible     Boolean   @default(true)
+  config      Json?
+  dashboard   Dashboard @relation(fields: [dashboardId], references: [id])
+}
+
+model MetricSnapshot {
+  id                String       @id @default(cuid())
+  organizationId    String
+  metricType        String
+  value             Float
+  currency          String       @default("NZD")
+  timeRange         String
+  calculatedAt      DateTime     @default(now())
+  lastSyncedAt      DateTime
+  sourceSystems     String[]
+  status            String       @default("ok")
+  definitionVersion String       @default("1.0")
+  metadata          Json?
+  organization      Organization @relation(fields: [organizationId], references: [id])
+
+  @@index([organizationId, metricType])
+}
+
+model SyncJobLog {
+  id             String       @id @default(cuid())
+  organizationId String
+  integrationId  String
+  jobType        String
+  status         String
+  recordCount    Int?
+  errorMessage   String?
+  startedAt      DateTime     @default(now())
+  completedAt    DateTime?
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  integration    Integration  @relation(fields: [integrationId], references: [id])
+}
+
+model RawOrder {
+  id              String   @id @default(cuid())
+  organizationId  String
+  shopifyOrderId  String
+  totalPrice      Float
+  currency        String
+  status          String
+  customerId      String?
+  lineItems       Json
+  shopifyCreatedAt DateTime
+  syncedAt        DateTime @default(now())
+
+  @@unique([organizationId, shopifyOrderId])
+  @@index([organizationId, shopifyCreatedAt])
+}
+
+model RawCustomer {
+  id                String   @id @default(cuid())
+  organizationId    String
+  shopifyCustomerId String
+  ordersCount       Int
+  totalSpent        Float
+  shopifyCreatedAt  DateTime
+  syncedAt          DateTime @default(now())
+
+  @@unique([organizationId, shopifyCustomerId])
+}
+
+model RawTransaction {
+  id                 String   @id @default(cuid())
+  organizationId     String
+  akahuTransactionId String
+  amount             Float
+  direction          String
+  description        String
+  date               DateTime
+  accountId          String
+  accountName        String?
+  syncedAt           DateTime @default(now())
+
+  @@unique([organizationId, akahuTransactionId])
+  @@index([organizationId, date])
+}
+
+model Alert {
+  id             String       @id @default(cuid())
+  organizationId String
+  type           String
+  message        String
+  severity       String
+  read           Boolean      @default(false)
+  createdAt      DateTime     @default(now())
+  organization   Organization @relation(fields: [organizationId], references: [id])
+}
+
+model DigestLog {
+  id             String       @id @default(cuid())
+  organizationId String
+  sentAt         DateTime     @default(now())
+  content        String
+  opened         Boolean      @default(false)
+  organization   Organization @relation(fields: [organizationId], references: [id])
+}
