@@ -1,6 +1,4 @@
-
-
-# StackIt 
+# StackIt
 
 > Personal business assistant for small business owners.
 > Last updated: March 2026
@@ -24,9 +22,11 @@
 **Run the app**
 
 - **Web app only** (typical):
+
   ```bash
   npm run dev
   ```
+
   Opens at **http://localhost:3000** with hot reload.
 
 - **Web app + background worker** (Fastify + BullMQ; requires Redis):
@@ -37,14 +37,105 @@
 
 **Other commands**
 
-| Command | Purpose |
-|--------|--------|
-| `npm run build` | Production build |
-| `npm run start` | Run production server (`next start`) |
-| `npm run lint` | Run ESLint |
+| Command                  | Purpose                                           |
+| ------------------------ | ------------------------------------------------- |
+| `npm run build`          | Production build                                  |
+| `npm run start`          | Run production server (`next start`)              |
+| `npm run lint`           | Run ESLint                                        |
 | `npm run prisma:migrate` | Run database migrations (requires `DATABASE_URL`) |
 
 ---
+
+## Phase 1 — Landing Page (Current Focus)
+
+**Goal:** Build a fully shippable, conversion-optimised public marketing website before any app or service code.
+
+The website must stand on its own — it should be investor-ready, customer-ready, and deployable to Vercel as a standalone site.
+
+No app logic, no auth, no dashboard code in this phase.
+
+---
+
+### Why Phase 1 First
+
+- Validates positioning and messaging before a line of app code is written
+- Gives us a URL to share with early interest leads immediately
+- Forces clarity on what we're selling before we build it
+- SEO and waitlist collection starts now, not after the app ships
+
+---
+
+### Phase 1 Scope
+
+**Tech stack:**
+
+- Next.js 14 (App Router) + TypeScript
+- Tailwind CSS
+- Framer Motion (scroll animations)
+- Lucide React (icons)
+- Fonts: Sora (display) + DM Sans (body) — no Inter
+
+**Design direction:**
+
+- Dark theme (#0A0A0F background)
+- Primary accent: Indigo (#6366F1)
+- All-in-one scroll layout (inspired by cluely.com)
+- Sticky nav, smooth scroll anchors, mobile responsive
+
+**Page sections (in order):**
+
+1. Nav Bar — sticky, logo + links + CTA
+2. Hero — headline, subheadline, two CTAs, animated background
+3. Social Proof Bar — "trusted by NZ small businesses"
+4. Problem Section — 3 pain point cards
+5. Features Section — 6 feature tiles
+6. How It Works — 3-step flow
+7. Integrations — Shopify, Square, open banking logos
+8. Pricing — 3 tiers (Starter $99 / Growth $149 / Pro $199)
+9. Testimonials — 3 placeholder cards
+10. FAQ — 6 accordion items
+11. Final CTA — full-width banner + email capture
+12. Footer — links, "Made in NZ 🇳🇿", copyright
+
+---
+
+### Phase 1 Definition of Done
+
+- [ ] All 12 sections built and visually complete
+- [ ] Sticky nav with smooth scroll anchors working
+- [ ] Fully responsive on mobile
+- [ ] Pricing section with 3 tiers
+- [ ] FAQ accordion functional
+- [ ] Consistent dark theme throughout
+- [ ] No placeholder lorem ipsum — real StackIt copy throughout
+- [ ] Early access CTA captures email (can be a simple form, no backend needed yet)
+- [ ] Deployable to Vercel as a standalone site
+
+---
+
+### Phase 1 Build Order
+
+Day 1: Nav + Hero section
+Day 2: Social Proof + Problem + Features
+Day 3: How It Works + Integrations + Pricing
+Day 4: Testimonials + FAQ + Final CTA + Footer
+Day 5: Polish — animations, mobile responsiveness, copy review
+Day 6: Deploy to Vercel — share URL
+
+---
+
+### What Phase 1 Is NOT
+
+- No app code, dashboard code, or auth
+- No Shopify/Akahu integration code
+- No backend, no database
+- No real email backend needed (mailto or static form is fine for now)
+
+---
+
+## Phase 2 — MVP App
+
+> Full product spec. Build begins after Phase 1 landing page is live and deployed.
 
 ## 0. What We Are Building
 
@@ -75,7 +166,7 @@ Do not build toward any of these. Do not let descriptions drift toward these:
 
 ---
 
-## 0.2 Product Philosophy  Adaptability & Creative Freedom
+## 0.2 Product Philosophy Adaptability & Creative Freedom
 
 This is the most important product principle after data trust.
 
@@ -117,7 +208,7 @@ they are stuck with. From day one they can:
 - Remove any block they do not care about
 - Add any block from the full library at any time
 - Rename any block with their own label
-("My Revenue" instead of "Revenue This Month")
+  ("My Revenue" instead of "Revenue This Month")
 
 **2. Custom block labels**
 
@@ -137,7 +228,7 @@ Examples of how different owners use this:
 
 Each dashboard has its own layout, its own blocks, its own name.
 
-**4. Block library  open and growing**
+**4. Block library open and growing**
 
 The block library is not locked to 8 metrics.
 It is a growing library of analytical blocks that owners can
@@ -594,49 +685,64 @@ If it looks like it was built with care, specifically for them — we have succe
 
 ---
 
-## 1. Tech Stack — Use Exactly This
+1. Tech Stack — Use Exactly This
+   Frontend — Core (Fixed)
 
-### Frontend
+Next.js 14+ with TypeScript — App Router
+Tailwind CSS — all styling, no other CSS frameworks
+shadcn/ui — base UI components (always customise, never use defaults as-is)
+TanStack Query — all data fetching and caching
+react-grid-layout — drag and drop dashboard canvas
+React Hook Form + Zod — all forms and validation
+Recharts — metric visualisations inside blocks
 
-- **Next.js 14+ with TypeScript** — App Router
-- **Tailwind CSS** — all styling, no other CSS frameworks
-- **shadcn/ui** — all UI components
-- **TanStack Query** — all data fetching and caching
-- **react-grid-layout** — drag and drop dashboard canvas
-- **React Hook Form + Zod** — all forms and validation
-- **Recharts** — metric visualisations inside blocks
+Frontend — UI/UX & Animation (Flexible)
+The following layer is not fixed. When building any screen, page, or component, pick the best available tool for the visual and interaction goal. Do not default to the simplest option — default to the best option.
+Preferred starting points (use, swap, or combine as needed):
 
-### Backend
+Framer Motion — page transitions, block animations, scroll reveals, spring physics
+GSAP — complex timeline animations, scroll-triggered sequences, anything Framer can't do smoothly
+Motion One — lightweight CSS-based animations for micro-interactions
+Lottie (lottie-react) — icon animations, loading states, illustration animations
+Three.js / React Three Fiber — 3D elements, hero backgrounds, abstract visual scenes
+Tailwind CSS animations — simple hover states, fade-ins, utility-first transitions
 
-- **Next.js API routes** — simple CRUD endpoints
-- **Fastify + TypeScript** — dedicated backend for sync, webhooks, jobs
-- **Prisma ORM** — all database access
-- **BullMQ** — background job queue
-- **Pino** — structured logging (log by orgId, integrationId, jobId)
+Fonts: Always use Google Fonts or a premium font that fits the screen's aesthetic. The project default is Sora (display) + DM Sans (body), but Phase 1 landing page or any marketing screen can deviate if a better pairing serves the design.
+Colour: The app colour palette (defined in section 0.5) is fixed for the dashboard. For the landing page and marketing screens, accent colours and gradients can flex — reference the palette as a base but don't be constrained by it.
+Rule: Before picking any UI/animation library, ask — does this produce something a world-class product studio would ship? If yes, use it. If it produces generic output, find something better.
 
-### Database & Infrastructure
+Backend
 
-- **PostgreSQL via Neon** — primary database
-- **Redis via Upstash** — BullMQ queues and short-lived cache
-- **Vercel** — Next.js frontend deployment
-- **Railway** — Fastify backend + BullMQ workers
+Next.js API routes — simple CRUD endpoints
+Fastify + TypeScript — dedicated backend for sync, webhooks, jobs
+Prisma ORM — all database access
+BullMQ — background job queue
+Pino — structured logging (log by orgId, integrationId, jobId)
 
-### Auth & External Services
+Database & Infrastructure
 
-- **Clerk** — authentication and session management
-- **Sentry** — error tracking (required from day one)
-- **PostHog** — product analytics (track logins, refresh clicks, block usage)
-- **Resend** — morning digest emails
-- **Akahu** — NZ open banking / bank feed integration
-- **Shopify Admin API** — direct integration, no middleware abstraction
+PostgreSQL via Neon — primary database
+Redis via Upstash — BullMQ queues and short-lived cache
+Vercel — Next.js frontend deployment
+Railway — Fastify backend + BullMQ workers
 
-### Important Decisions
+Auth & External Services
 
-- Never use middleware (Apideck/Merge) for Shopify — build direct for control and trust
-- Never compute metrics live from external APIs in the request path — always serve from MetricSnapshot table
-- Never use GraphQL — REST only for v0.1
-- Never use WebSockets — use 60-second polling from frontend + manual refresh button
-- TypeScript strict mode throughout — inconsistent API responses from Shopify and Akahu make this essential
+Clerk — authentication and session management
+Sentry — error tracking (required from day one)
+PostHog — product analytics (track logins, refresh clicks, block usage)
+Resend — morning digest emails
+Akahu — NZ open banking / bank feed integration
+Shopify Admin API — direct integration, no middleware abstraction
+
+Important Decisions
+
+Never use middleware (Apideck/Merge) for Shopify — build direct for control and trust
+Never compute metrics live from external APIs in the request path — always serve from MetricSnapshot table
+Never use GraphQL — REST only for v0.1
+Never use WebSockets — use 60-second polling from frontend + manual refresh button
+TypeScript strict mode throughout — inconsistent API responses from Shopify and Akahu make this essential
+UI/UX library choices are the engineer's call per screen — optimise for quality, not familiarity
 
 ---
 
@@ -1654,4 +1760,4 @@ Day 20: Polish + pilot prep
 
 ---
 
-*This is the complete spec for v0.1. Do not deviate from the build order. Do not add features not listed here. Ship this, get pilots, then decide what comes next.*
+_This is the complete spec for v0.1. Do not deviate from the build order. Do not add features not listed here. Ship this, get pilots, then decide what comes next._
