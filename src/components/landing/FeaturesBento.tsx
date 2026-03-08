@@ -108,6 +108,7 @@ export function FeaturesBento() {
           gridTemplateColumns: "repeat(12, 1fr)",
           gap: 14,
           maxWidth: 1200,
+          margin: "0 auto",
         }}
         className="max-md:grid-cols-1"
       >
@@ -351,12 +352,12 @@ export function FeaturesBento() {
           </div>
         </RevealWrapper>
 
-        {/* Cell 3 — span 3, forest, "Your data. Your way." */}
+        {/* Cell 3 — span 3, terra, "Done for you in 30 minutes" */}
         <RevealWrapper
           delay={2}
           style={{
             gridColumn: "span 3",
-            background: "var(--forest)",
+            background: "var(--terra)",
             borderRadius: 18,
             padding: 28,
             overflow: "hidden",
@@ -383,42 +384,63 @@ export function FeaturesBento() {
               color: "#fff",
             }}
           >
-            Your data. Your way.
+            Done for you in 30 minutes
           </div>
           <p
             style={{
               fontSize: 13,
-              color: "rgba(255,255,255,.65)",
+              color: "rgba(255,255,255,.7)",
               lineHeight: 1.7,
               fontFamily: "var(--font-sans)",
+              marginBottom: 14,
             }}
           >
-            All connections use read-only OAuth. We can see your data — we can
-            never move your money or change anything in your systems.
+            We get you set up in 4 guaranteed steps — onboard your tools and
+            your numbers are already there.
           </p>
-          <div style={{ marginTop: 14 }}>
-            {["Read-only OAuth", "Encrypted at rest", "NZ data residency"].map((item) => (
+          <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
+            {[
+              { label: "Sign up", done: true },
+              { label: "Connect your tools", done: true },
+              { label: "Try the dashboard", done: true },
+              { label: "You love it", done: true },
+            ].map((step) => (
               <div
-                key={item}
+                key={step.label}
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: 8,
-                  padding: "6px 0",
-                  borderBottom: "1px solid rgba(255,255,255,.1)",
+                  justifyContent: "space-between",
+                  background: "rgba(255,255,255,.12)",
+                  border: "1px solid rgba(255,255,255,.15)",
+                  borderRadius: 8,
+                  padding: "7px 10px",
                 }}
               >
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
-                  <path d="M2 6L5 9L10 3" stroke="#6fcf97" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
                 <span
                   style={{
                     fontSize: 12,
-                    color: "rgba(255,255,255,.75)",
+                    color: "rgba(255,255,255,.9)",
+                    fontFamily: "var(--font-sans)",
+                    fontWeight: 500,
+                  }}
+                >
+                  {step.label}
+                </span>
+                <span
+                  style={{
+                    fontSize: 9,
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    letterSpacing: ".06em",
+                    color: "rgba(255,255,255,.6)",
+                    background: "rgba(255,255,255,.15)",
+                    padding: "2px 8px",
+                    borderRadius: 100,
                     fontFamily: "var(--font-sans)",
                   }}
                 >
-                  {item}
+                  Done
                 </span>
               </div>
             ))}
@@ -521,7 +543,12 @@ export function FeaturesBento() {
                   {d}
                 </div>
               ))}
-              {[0.12, 0.25, 0.4, 0.2, 0.55, 0.85, 0.72, 0.18, 0.3, 0.45, 0.22, 0.6, 0.9, 0.78].map(
+              {[
+                0.10, 0.22, 0.38, 0.18, 0.52, 0.82, 0.68,
+                0.15, 0.30, 0.48, 0.24, 0.60, 0.90, 0.75,
+                0.08, 0.18, 0.35, 0.14, 0.48, 0.78, 0.62,
+                0.20, 0.40, 0.58, 0.30, 0.70, 0.95, 0.80,
+              ].map(
                 (op, i) => (
                   <div
                     key={i}
@@ -539,21 +566,22 @@ export function FeaturesBento() {
               style={{
                 display: "flex",
                 alignItems: "flex-end",
-                gap: 4,
-                height: 44,
+                gap: 3,
+                height: 48,
                 background: "var(--cream)",
                 borderRadius: 10,
-                padding: 8,
+                padding: "8px 8px 6px",
+                marginTop: 6,
               }}
             >
-              {[40, 55, 48, 65, 70, 90].map((h, i) => (
+              {[38, 52, 44, 62, 58, 74, 68, 88, 95].map((h, i) => (
                 <div
                   key={i}
                   style={{
                     flex: 1,
                     height: `${h}%`,
-                    background: i === 5 ? "var(--terra)" : "var(--forest)",
-                    opacity: i === 5 ? 1 : 0.5 + i * 0.06,
+                    background: i === 8 ? "var(--terra)" : "var(--forest)",
+                    opacity: i === 8 ? 1 : 0.38 + i * 0.07,
                     borderRadius: "2px 2px 0 0",
                   }}
                 />

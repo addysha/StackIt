@@ -3,18 +3,19 @@
 import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
-interface RevealWrapperProps {
+type RevealWrapperProps = React.HTMLAttributes<HTMLElement> & {
   children: React.ReactNode;
   className?: string;
   delay?: 1 | 2 | 3 | 4;
   as?: keyof React.JSX.IntrinsicElements;
-}
+};
 
 export function RevealWrapper({
   children,
   className,
   delay,
   as: Tag = "div",
+  ...rest
 }: RevealWrapperProps) {
   const ref = useRef<HTMLElement>(null);
 
@@ -49,6 +50,7 @@ export function RevealWrapper({
         delay === 4 && "reveal-d4",
         className
       )}
+      {...(rest as React.HTMLAttributes<HTMLDivElement>)}
     >
       {children}
     </Tag>

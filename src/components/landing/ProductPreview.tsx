@@ -170,8 +170,8 @@ export function ProductPreview() {
     setWidgetIds((prev) => prev.filter((w) => w !== id));
   }, []);
 
-  const addWidget = useCallback((item: { id: string; name: string }) => {
-    setWidgetIds((prev) => [...prev, `custom-${item.id}-${Date.now()}`]);
+  const addWidget = useCallback((item: { id: string; name: string; viz: string }) => {
+    setWidgetIds((prev) => [...prev, `picker-${item.id}-${Date.now()}`]);
     setPickerOpen(false);
   }, []);
 
@@ -609,7 +609,7 @@ export function ProductPreview() {
                       {id === "products" && <ProductsWidget />}
                       {id === "cashflow" && <CashflowWidget />}
                       {id === "orders" && <OrdersWidget />}
-                      {id.startsWith("custom-") && <CustomWidget />}
+                      {id.startsWith("picker-") && <PickerWidget type={id.replace(/^picker-/, "").replace(/-\d+$/, "")} />}
                     </div>
                   );
                 })}
@@ -670,7 +670,7 @@ export function ProductPreview() {
         <>
           <div
             style={{
-              position: "fixed",
+              position: "absolute",
               inset: 0,
               zIndex: 40,
               background: "rgba(10,8,5,.7)",
@@ -681,7 +681,7 @@ export function ProductPreview() {
           />
           <div
             style={{
-              position: "fixed",
+              position: "absolute",
               bottom: 0,
               left: 0,
               right: 0,
@@ -880,7 +880,7 @@ export function ProductPreview() {
         <>
           <div
             style={{
-              position: "fixed",
+              position: "absolute",
               inset: 0,
               zIndex: 40,
               background: "rgba(10,8,5,.7)",
@@ -891,7 +891,7 @@ export function ProductPreview() {
           />
           <div
             style={{
-              position: "fixed",
+              position: "absolute",
               bottom: 0,
               left: 0,
               right: 0,
@@ -1160,26 +1160,58 @@ function BarsWidget() {
 }
 
 function HeatWidget({ cells }: { cells: number[] }) {
+  const [hoveredCell, setHoveredCell] = useState<number | null>(null);
+  const days = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
+  const SALES_VALUES = [
+    "$320", "$840", "$1,210", "$560", "$1,580", "$2,640", "$1,920",
+    "$410", "$790", "$1,340", "$620", "$1,740", "$2,890", "$2,180",
+  ];
+
   return (
     <>
       <WidgetHeader label="Sales by Day" />
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 2 }}>
-        {["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map((d) => (
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 2, position: "relative" }}>
+        {days.map((d) => (
           <div key={d} style={{ textAlign: "center", fontSize: 7.5, fontWeight: 600, color: "rgba(255,255,255,.25)", fontFamily: "var(--font-sans)" }}>{d}</div>
         ))}
         {cells.map((op, i) => (
           <div
             key={i}
+            onMouseEnter={() => setHoveredCell(i)}
+            onMouseLeave={() => setHoveredCell(null)}
             style={{
               aspectRatio: "1",
               borderRadius: 3,
-              background: `rgba(181,96,58,${op})`,
-              transition: "transform .15s",
+              background: hoveredCell === i ? `rgba(181,96,58,${Math.min(op + 0.25, 1)})` : `rgba(181,96,58,${op})`,
+              transition: "transform .12s, background .12s, box-shadow .12s",
+              transform: hoveredCell === i ? "scale(1.35)" : "scale(1)",
+              boxShadow: hoveredCell === i ? "0 0 8px rgba(181,96,58,.6)" : "none",
+              cursor: "pointer",
+              position: "relative",
+              zIndex: hoveredCell === i ? 2 : 1,
             }}
+            title={`${days[i % 7]}: ${SALES_VALUES[i]}`}
           />
         ))}
       </div>
-      <div style={{ display: "flex", alignItems: "center", gap: 4, marginTop: 6, fontFamily: "var(--font-sans)" }}>
+      {hoveredCell !== null && (
+        <div style={{
+          marginTop: 5,
+          padding: "4px 8px",
+          background: "rgba(181,96,58,.15)",
+          border: "1px solid rgba(181,96,58,.3)",
+          borderRadius: 6,
+          fontSize: 10.5,
+          color: "rgba(255,255,255,.8)",
+          fontFamily: "var(--font-sans)",
+          display: "flex",
+          justifyContent: "space-between",
+        }}>
+          <span>{days[hoveredCell % 7]}</span>
+          <span style={{ fontWeight: 700, color: "#e8916a" }}>{SALES_VALUES[hoveredCell]}</span>
+        </div>
+      )}
+      <div style={{ display: "flex", alignItems: "center", gap: 4, marginTop: hoveredCell !== null ? 4 : 6, fontFamily: "var(--font-sans)" }}>
         <span style={{ fontSize: 8.5, color: "rgba(255,255,255,.2)" }}>Less</span>
         <div style={{ flex: 1, height: 4, borderRadius: 2, background: "linear-gradient(to right, rgba(181,96,58,.08), rgba(181,96,58,.9))" }} />
         <span style={{ fontSize: 8.5, color: "rgba(255,255,255,.2)" }}>More</span>
@@ -1269,15 +1301,138 @@ function OrdersWidget() {
   );
 }
 
-function CustomWidget() {
+function PickerWidget({ type }: { type: string }) {
+  if (type === "revenue-today") {
+    return (
+      <>
+        <WidgetHeader label="Revenue · Today" />
+        <div style={{ fontFamily: "var(--font-serif)", fontSize: 26, fontWeight: 600, lineHeight: 1, marginBottom: 5, color: "#fff", letterSpacing: "-.8px" }}>$1,840</div>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: 3, fontSize: 10.5, fontWeight: 700, padding: "2px 8px", borderRadius: 100, background: "rgba(46,125,82,.2)", color: "#6fcf97", fontFamily: "var(--font-sans)" }}>
+          ↑ 8% vs yesterday
+        </span>
+        <div style={{ marginTop: 8, height: 28, opacity: .7 }}>
+          <svg viewBox="0 0 180 28" preserveAspectRatio="none" style={{ width: "100%", height: "100%" }}>
+            <path d="M0,24 L20,20 L40,22 L60,14 L80,16 L100,9 L120,11 L140,5 L160,7 L180,3" fill="none" stroke="#3fa85f" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+        </div>
+        <SyncBar ago="Synced 3m ago" source="shopify" />
+      </>
+    );
+  }
+  if (type === "avg-order") {
+    return (
+      <>
+        <WidgetHeader label="Avg Order Value" />
+        <div style={{ fontFamily: "var(--font-serif)", fontSize: 26, fontWeight: 600, lineHeight: 1, marginBottom: 5, color: "#fff", letterSpacing: "-.8px" }}>$59.13</div>
+        <span style={{ display: "inline-flex", gap: 3, fontSize: 10.5, fontWeight: 700, padding: "2px 8px", borderRadius: 100, background: "rgba(46,125,82,.2)", color: "#6fcf97", fontFamily: "var(--font-sans)" }}>
+          ↑ 4% vs last month
+        </span>
+        <SyncBar ago="Synced 3m ago" source="shopify" />
+      </>
+    );
+  }
+  if (type === "refunds") {
+    return (
+      <>
+        <WidgetHeader label="Refunds · Month" warn />
+        <div style={{ fontFamily: "var(--font-serif)", fontSize: 26, fontWeight: 600, lineHeight: 1, marginBottom: 5, color: "#e8916a", letterSpacing: "-.8px" }}>$240</div>
+        <span style={{ display: "inline-flex", gap: 3, fontSize: 10.5, fontWeight: 700, padding: "2px 8px", borderRadius: 100, background: "rgba(181,96,58,.2)", color: "#e8916a", fontFamily: "var(--font-sans)" }}>
+          ↑ 2 refunds this week
+        </span>
+        <SyncBar ago="Synced 3m ago" source="shopify" />
+      </>
+    );
+  }
+  if (type === "runway") {
+    return <CashWidget />;
+  }
+  if (type === "invoices") {
+    return (
+      <>
+        <WidgetHeader label="Overdue Invoices" warn />
+        <div style={{ fontFamily: "var(--font-serif)", fontSize: 26, fontWeight: 600, lineHeight: 1, marginBottom: 5, color: "var(--warn)", letterSpacing: "-.8px" }}>3</div>
+        <div style={{ fontSize: 11, color: "rgba(255,255,255,.4)", fontFamily: "var(--font-sans)", marginTop: 4 }}>
+          Total outstanding: <span style={{ color: "#e8916a", fontWeight: 700 }}>$4,200</span>
+        </div>
+        <SyncBar ago="Synced 2h ago" source="xero" />
+      </>
+    );
+  }
+  if (type === "expenses") {
+    return (
+      <>
+        <WidgetHeader label="Expenses · Week" />
+        <div style={{ fontFamily: "var(--font-serif)", fontSize: 22, fontWeight: 600, color: "#e8916a", marginBottom: 6 }}>$2,100</div>
+        <div style={{ display: "flex", alignItems: "flex-end", gap: 3, height: 36, marginTop: 4 }}>
+          {[60, 45, 72, 38, 80, 55, 90].map((h, i) => (
+            <div key={i} style={{ flex: 1, height: `${h}%`, background: i === 6 ? "#e8916a" : "rgba(181,96,58,.35)", borderRadius: "2px 2px 0 0" }} />
+          ))}
+        </div>
+        <SyncBar ago="Synced 2h ago" source="akahu" />
+      </>
+    );
+  }
+  if (type === "new-cust") {
+    return (
+      <>
+        <WidgetHeader label="New Customers · Week" />
+        <div style={{ fontFamily: "var(--font-serif)", fontSize: 26, fontWeight: 600, lineHeight: 1, marginBottom: 5, color: "#fff", letterSpacing: "-.8px" }}>12</div>
+        <span style={{ display: "inline-flex", gap: 3, fontSize: 10.5, fontWeight: 700, padding: "2px 8px", borderRadius: 100, background: "rgba(46,125,82,.2)", color: "#6fcf97", fontFamily: "var(--font-sans)" }}>
+          ↑ 3 more than last week
+        </span>
+        <SyncBar ago="Synced 3m ago" source="shopify" />
+      </>
+    );
+  }
+  if (type === "retention") {
+    return (
+      <>
+        <WidgetHeader label="Retention Rate" />
+        <div style={{ fontFamily: "var(--font-serif)", fontSize: 26, fontWeight: 600, lineHeight: 1, color: "#6fcf97", marginBottom: 8, letterSpacing: "-.8px" }}>87%</div>
+        <div style={{ height: 5, background: "rgba(255,255,255,.1)", borderRadius: 100, overflow: "hidden" }}>
+          <div style={{ width: "87%", height: "100%", background: "#3fa85f", borderRadius: 100 }} />
+        </div>
+        <div style={{ fontSize: 10, color: "rgba(255,255,255,.3)", marginTop: 3, fontFamily: "var(--font-sans)" }}>87 of 100 customers returned</div>
+        <SyncBar ago="Synced 1h ago" source="shopify" />
+      </>
+    );
+  }
+  if (type === "ltv") {
+    return (
+      <>
+        <WidgetHeader label="Customer LTV" />
+        <div style={{ fontFamily: "var(--font-serif)", fontSize: 26, fontWeight: 600, lineHeight: 1, marginBottom: 5, color: "#fff", letterSpacing: "-.8px" }}>$340</div>
+        <span style={{ display: "inline-flex", gap: 3, fontSize: 10.5, fontWeight: 700, padding: "2px 8px", borderRadius: 100, background: "rgba(46,125,82,.2)", color: "#6fcf97", fontFamily: "var(--font-sans)" }}>
+          ↑ 11% vs last quarter
+        </span>
+        <SyncBar ago="Synced 1h ago" source="shopify" />
+      </>
+    );
+  }
+  if (type === "goal") {
+    return (
+      <>
+        <WidgetHeader label="Revenue Goal · Month" />
+        <div style={{ fontFamily: "var(--font-serif)", fontSize: 22, fontWeight: 600, color: "#fff", marginBottom: 6, letterSpacing: "-.5px" }}>$14,250 <span style={{ fontSize: 13, color: "rgba(255,255,255,.3)", fontFamily: "var(--font-sans)", fontWeight: 400 }}>/ $20k</span></div>
+        <div style={{ height: 5, background: "rgba(255,255,255,.1)", borderRadius: 100, overflow: "hidden" }}>
+          <div style={{ width: "71%", height: "100%", background: "linear-gradient(to right, var(--terra), #e8916a)", borderRadius: 100 }} />
+        </div>
+        <div style={{ fontSize: 10, color: "rgba(255,255,255,.3)", marginTop: 3, fontFamily: "var(--font-sans)" }}>71% of monthly goal · 23 days left</div>
+        <SyncBar ago="Synced 3m ago" source="shopify" />
+      </>
+    );
+  }
+  if (type === "heatmap") {
+    return <HeatWidget cells={[0.2,0.5,0.7,0.3,0.8,0.95,0.6,0.15,0.4,0.55,0.25,0.7,0.85,0.65]} />;
+  }
+  // custom / fallback
   return (
     <>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
-        <span style={{ fontSize: 9.5, fontWeight: 700, color: "rgba(255,255,255,.35)", textTransform: "uppercase", letterSpacing: ".07em", fontFamily: "var(--font-sans)" }}>
-          New widget
-        </span>
+      <WidgetHeader label="Custom Metric" />
+      <div style={{ fontFamily: "var(--font-serif)", fontSize: 22, fontWeight: 600, color: "rgba(255,255,255,.5)", marginBottom: 6 }}>—</div>
+      <div style={{ fontSize: 11, color: "rgba(255,255,255,.3)", fontFamily: "var(--font-sans)", lineHeight: 1.6 }}>
+        Enter a name, value, and display type to create your own metric.
       </div>
-      <div style={{ fontFamily: "var(--font-serif)", fontSize: 18, fontWeight: 600, color: "rgba(255,255,255,.8)" }}>—</div>
       <SyncBar ago="just added" source="manual" />
     </>
   );
