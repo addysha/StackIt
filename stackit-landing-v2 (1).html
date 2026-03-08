@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stackit — Your whole business, one screen.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --terra:#B5603A;--terra-dk:#8F4A2B;--terra-lt:rgba(181,96,58,.09);
+  --forest:#2E4D38;--forest-lt:#EAF1EB;
+  --ink:#1E1810;--ink-2:#4A3C2C;--ink-3:#8A7A68;
+  --cream:#F4EFE6;--stone:#E2D8CA;--slate:#C8BFB0;
+  --w:#FDFAF5;--surf:#fff;
+  --up:#2E7D52;--up-bg:#E8F5EE;--dn:#B5603A;--dn-bg:#FBF0EB;
+  --warn:#C47A1A;--warn-bg:#FEF6E7;
+  --sh-sm:0 1px 4px rgba(30,24,16,.06),0 1px 2px rgba(30,24,16,.04);
+  --sh-md:0 4px 16px rgba(30,24,16,.08),0 2px 4px rgba(30,24,16,.05);
+  --sh-lg:0 8px 32px rgba(30,24,16,.1),0 4px 8px rgba(30,24,16,.06);
+  --sh-xl:0 20px 60px rgba(30,24,16,.14),0 8px 16px rgba(30,24,16,.08);
+  --r:14px;--serif:'Lora',Georgia,serif;--sans:'Nunito',system-ui,sans-serif;
+  --ease:cubic-bezier(.25,.46,.45,.94);
+}
+html{scroll-behavior:smooth}
+body{background:var(--w);color:var(--ink);font-family:var(--sans);overflow-x:hidden}
+
+/* ════════════════════════════════════════
+   NAV
+════════════════════════════════════════ */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(253,250,245,.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--stone);transition:box-shadow .3s}
+nav.scrolled{box-shadow:0 2px 20px rgba(30,24,16,.06)}
+.n-logo{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--ink);text-decoration:none;letter-spacing:-.2px}
+.n-logo span{color:var(--terra)}
+.n-links{display:flex;gap:2px;list-style:none}
+.n-links a{font-size:13px;font-weight:600;color:var(--ink-3);text-decoration:none;padding:5px 12px;border-radius:100px;transition:color .2s,background .2s}
+.n-links a:hover{color:var(--ink);background:rgba(30,24,16,.05)}
+.n-cta{background:var(--ink);color:var(--w);padding:8px 20px;border-radius:100px;font-size:13px;font-weight:700;text-decoration:none;transition:background .2s,transform .15s;font-family:var(--sans);letter-spacing:.01em}
+.n-cta:hover{background:#2c2012;transform:translateY(-1px)}
+
+/* ════════════════════════════════════════
+   HERO
+════════════════════════════════════════ */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 40px 80px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(181,96,58,.07) 0%,transparent 65%),radial-gradient(ellipse 40% 35% at 20% 80%,rgba(46,77,56,.05) 0%,transparent 55%),radial-gradient(ellipse 35% 30% at 80% 75%,rgba(181,96,58,.04) 0%,transparent 50%);pointer-events:none}
+/* Parallax layers */
+.para-dots{position:absolute;inset:0;background-image:radial-gradient(var(--stone) 1px,transparent 1px);background-size:28px 28px;will-change:transform}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;background:var(--forest-lt);border:1px solid rgba(46,77,56,.2);color:var(--forest);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:28px;animation:fadeUp .6s both}
+.hero-eyebrow::before{content:'';width:6px;height:6px;background:var(--forest);border-radius:50%;animation:blink 2.4s infinite}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.2;transform:scale(.7)}}
+#hero h1{font-family:var(--serif);font-size:clamp(40px,5.5vw,72px);font-weight:600;line-height:1.1;letter-spacing:-.025em;max-width:820px;margin-bottom:22px;animation:fadeUp .65s .08s both}
+#hero h1 em{font-style:italic;color:var(--terra)}
+.hero-sub{font-size:clamp(16px,1.5vw,19px);color:var(--ink-2);max-width:520px;line-height:1.75;margin-bottom:40px;animation:fadeUp .65s .16s both;font-weight:400}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:fadeUp .65s .24s both}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:14px 30px;border-radius:100px;font-family:var(--sans);font-size:14.5px;font-weight:700;text-decoration:none;border:none;cursor:pointer;transition:all .22s cubic-bezier(.34,1.56,.64,1);letter-spacing:.01em}
+.btn-primary{background:var(--terra);color:#fff;box-shadow:0 6px 24px rgba(181,96,58,.3)}
+.btn-primary:hover{background:var(--terra-dk);transform:translateY(-2px);box-shadow:0 10px 32px rgba(143,74,43,.32)}
+.btn-outline{background:transparent;color:var(--ink-2);border:1.5px solid var(--stone)}
+.btn-outline:hover{border-color:var(--slate);color:var(--ink);transform:translateY(-1px)}
+.hero-note{margin-top:18px;font-size:12.5px;color:var(--ink-3);animation:fadeUp .65s .32s both}
+
+/* Big dashboard mockup under hero text */
+.hero-screen{margin-top:64px;animation:fadeUp .8s .4s both;position:relative;z-index:1}
+.browser-chrome{background:var(--cream);border:1px solid var(--stone);border-radius:14px 14px 0 0;padding:12px 16px;display:flex;align-items:center;gap:10px;box-shadow:var(--sh-md)}
+.bc-dots{display:flex;gap:5px}
+.bc-dot{width:10px;height:10px;border-radius:50%}
+.bc-url{flex:1;background:rgba(255,255,255,.7);border:1px solid var(--stone);border-radius:6px;padding:5px 12px;font-size:11.5px;color:var(--ink-3);font-weight:500;margin:0 16px}
+.browser-body{background:#fff;border:1px solid var(--stone);border-top:none;border-radius:0 0 14px 14px;overflow:hidden;box-shadow:var(--sh-lg)}
+.hero-screenshot{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;padding:16px;background:var(--w);background-image:radial-gradient(var(--stone) 1px,transparent 1px);background-size:20px 20px}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* ════════════════════════════════════════
+   STRIP
+════════════════════════════════════════ */
+.strip{border-top:1px solid var(--stone);border-bottom:1px solid var(--stone);padding:14px 0;overflow:hidden;position:relative;background:var(--cream)}
+.strip::before,.strip::after{content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none}
+.strip::before{left:0;background:linear-gradient(to right,var(--cream),transparent)}
+.strip::after{right:0;background:linear-gradient(to left,var(--cream),transparent)}
+.strip-track{display:flex;gap:28px;animation:ticker 24s linear infinite;width:max-content}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.s-item{font-size:12px;font-weight:700;color:var(--ink-3);letter-spacing:.05em;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.s-sep{width:4px;height:4px;background:var(--terra);border-radius:50%;opacity:.4}
+
+/* ════════════════════════════════════════
+   PROBLEM
+════════════════════════════════════════ */
+#problem{padding:100px 40px;text-align:center;position:relative;overflow:hidden}
+.para-bg-2{position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 80% 50%,rgba(46,77,56,.04) 0%,transparent 60%);pointer-events:none;will-change:transform}
+.ey{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--terra);margin-bottom:14px}
+h2{font-family:var(--serif);font-size:clamp(30px,4vw,50px);font-weight:600;line-height:1.18;letter-spacing:-.02em}
+h2 em{font-style:italic;color:var(--terra)}
+.sec-lead{font-size:16.5px;color:var(--ink-2);max-width:540px;margin:16px auto 56px;line-height:1.8}
+.problem-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:900px;margin:0 auto}
+.prob-card{background:var(--surf);border:1px solid var(--stone);border-radius:18px;padding:28px 24px;text-align:left;transition:transform .3s var(--ease),box-shadow .3s;position:relative;overflow:hidden}
+.prob-card:hover{transform:translateY(-4px);box-shadow:var(--sh-md)}
+.prob-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.prob-card:nth-child(1)::before{background:linear-gradient(90deg,var(--dn),var(--terra))}
+.prob-card:nth-child(2)::before{background:linear-gradient(90deg,var(--warn),#e6a020)}
+.prob-card:nth-child(3)::before{background:linear-gradient(90deg,#c0c0c0,var(--slate))}
+.prob-icon{font-size:28px;margin-bottom:14px;display:block}
+.prob-title{font-family:var(--serif);font-size:18px;font-weight:600;margin-bottom:8px;color:var(--ink)}
+.prob-body{font-size:13.5px;color:var(--ink-2);line-height:1.75}
+
+/* ════════════════════════════════════════
+   BENTO FEATURES (Sketch-style)
+════════════════════════════════════════ */
+#features{padding:80px 40px 100px;background:var(--cream);border-top:1px solid var(--stone)}
+.feat-header{max-width:560px;margin-bottom:48px}
+.bento{display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:auto;gap:14px}
+
+/* Bento cells */
+.b{background:var(--surf);border:1px solid var(--stone);border-radius:18px;padding:28px;overflow:hidden;position:relative;transition:transform .28s var(--ease),box-shadow .28s;cursor:default}
+.b:hover{transform:translateY(-3px);box-shadow:var(--sh-md)}
+/* sizing */
+.b-5{grid-column:span 5}.b-4{grid-column:span 4}.b-3{grid-column:span 3}.b-7{grid-column:span 7}.b-6{grid-column:span 6}.b-8{grid-column:span 8}
+.b-dark{background:var(--ink);border-color:transparent;color:#fff}
+.b-terra{background:var(--terra);border-color:transparent;color:#fff}
+.b-forest{background:var(--forest);border-color:transparent;color:#fff}
+
+.b-tag{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:100px;margin-bottom:12px}
+.b-tag.new{background:rgba(181,96,58,.12);color:var(--terra);border:1px solid rgba(181,96,58,.2)}
+.b-tag.live{background:var(--up-bg);color:var(--up);border:1px solid rgba(46,125,82,.2)}
+.b-tag.live::before{content:'';width:5px;height:5px;background:var(--up);border-radius:50%;animation:blink 2s infinite}
+.b-h{font-family:var(--serif);font-size:20px;font-weight:600;line-height:1.3;margin-bottom:8px}
+.b-p{font-size:13px;color:var(--ink-2);line-height:1.7}
+.b-dark .b-p,.b-terra .b-p,.b-forest .b-p{color:rgba(255,255,255,.65)}
+.b-dark .b-h,.b-terra .b-h,.b-forest .b-h{color:#fff}
+
+/* Bento mini-visuals */
+.mini-widgets{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:16px}
+.mw{background:rgba(253,250,245,.9);border:1px solid var(--stone);border-radius:10px;padding:10px 12px}
+.mw-l{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin-bottom:4px}
+.mw-v{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--ink);line-height:1}
+.mw-t{font-size:10px;color:var(--up);font-weight:600;margin-top:3px}
+.mw-t.dn{color:var(--dn)}
+
+.mini-heatmap{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:14px}
+.mhc{aspect-ratio:1;border-radius:3px}
+.mhl{font-size:8px;color:rgba(255,255,255,.4);text-align:center;font-weight:600}
+
+.mini-bars{display:flex;align-items:flex-end;gap:4px;height:44px;margin-top:12px}
+.mb{flex:1;border-radius:2px 2px 0 0}
+
+.mini-rank{display:flex;flex-direction:column;gap:5px;margin-top:12px}
+.mr-row{display:flex;align-items:center;gap:8px}
+.mr-n{font-size:9.5px;color:rgba(255,255,255,.4);font-weight:700;width:14px}
+.mr-name{font-size:11.5px;color:rgba(255,255,255,.8);flex:1}
+.mr-bar-wrap{width:50px;height:4px;background:rgba(255,255,255,.12);border-radius:100px;overflow:hidden}
+.mr-bar{height:100%;border-radius:100px;background:rgba(255,255,255,.7)}
+.mr-val{font-size:11px;font-weight:700;color:rgba(255,255,255,.9);font-family:var(--serif)}
+
+.mini-conn{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.mc-row{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 10px}
+.mc-ico{font-size:14px}
+.mc-name{font-size:12px;color:rgba(255,255,255,.75);flex:1}
+.mc-dot{width:7px;height:7px;border-radius:50%;background:#3fa85f;box-shadow:0 0 5px #3fa85f;animation:blink 2.4s infinite;flex-shrink:0}
+.mc-dot.p{background:var(--warn);box-shadow:0 0 5px var(--warn)}
+
+.mini-donut{display:flex;align-items:center;gap:14px;margin-top:12px}
+.md-legend{display:flex;flex-direction:column;gap:5px}
+.mdl{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink-2)}
+.mdl-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+.onboard-steps{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.os{display:flex;align-items:center;gap:9px;padding:9px 11px;background:rgba(255,255,255,.06);border-radius:8px;border:1px solid rgba(255,255,255,.1)}
+.os-ico{font-size:14px;flex-shrink:0}
+.os-txt{font-size:12px;color:rgba(255,255,255,.75);flex:1}
+.os-status{font-size:9.5px;font-weight:700}
+.os-status.done{color:#6fcf97}
+.os-status.now{color:var(--warn)}
+.os-status.next{color:rgba(255,255,255,.3)}
+
+/* ════════════════════════════════════════
+   LIVE DEMO SECTION
+════════════════════════════════════════ */
+#demo{padding:100px 40px;background:var(--ink);position:relative;overflow:hidden}
+.demo-bg{position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 20% 30%,rgba(181,96,58,.08) 0%,transparent 55%),radial-gradient(ellipse 40% 50% at 80% 70%,rgba(46,77,56,.1) 0%,transparent 55%);pointer-events:none;will-change:transform}
+#demo .ey{color:rgba(253,250,245,.4)}
+#demo h2{color:#fff;max-width:640px;margin-bottom:10px}
+.demo-sub{font-size:16px;color:rgba(253,250,245,.55);max-width:520px;line-height:1.75;margin-bottom:40px}
+.demo-hints{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:32px}
+.hint{display:flex;align-items:center;gap:7px;font-size:13px;color:rgba(255,255,255,.55);font-weight:500}
+.hint-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* The demo browser */
+.demo-browser{background:rgba(253,250,245,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.05)}
+.demo-chrome{background:rgba(253,250,245,.06);border-bottom:1px solid rgba(255,255,255,.08);padding:11px 16px;display:flex;align-items:center;gap:10px}
+.dc-dots{display:flex;gap:5px}
+.dc-dot{width:9px;height:9px;border-radius:50%}
+.dc-bar{flex:1;background:rgba(255,255,255,.07);border-radius:5px;padding:5px 12px;font-size:11px;color:rgba(255,255,255,.3);font-weight:500;margin:0 16px}
+.dc-live{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:700;color:#6fcf97;letter-spacing:.06em}
+.dc-live::before{content:'';width:6px;height:6px;background:#3fa85f;border-radius:50%;animation:blink 2.4s infinite}
+
+/* ── Dashboard inside demo ── */
+.d-topbar{display:flex;align-items:center;justify-content:space-between;padding:0 18px;height:50px;background:rgba(253,250,245,.06);border-bottom:1px solid rgba(255,255,255,.07)}
+.d-logo{font-family:var(--serif);font-size:17px;font-weight:600;color:rgba(253,250,245,.9)}
+.d-logo span{color:var(--terra)}
+.d-tr{display:flex;align-items:center;gap:8px}
+.d-edit-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);padding:5px 13px;border-radius:100px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;font-family:var(--sans)}
+.d-edit-btn:hover{border-color:var(--terra);color:var(--terra)}
+.d-edit-btn.active{background:rgba(181,96,58,.15);border-color:var(--terra);color:var(--terra)}
+.d-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--terra),var(--terra-dk));display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;cursor:pointer}
+
+.d-greet{padding:16px 18px 4px}
+.d-greet h3{font-family:var(--serif);font-size:17px;font-weight:600;color:rgba(253,250,245,.9);margin-bottom:2px}
+.d-greet p{font-size:12px;color:rgba(253,250,245,.4)}
+
+.d-alert{margin:8px 16px;background:rgba(196,122,26,.1);border:1px solid rgba(196,122,26,.2);border-radius:10px;padding:9px 13px;display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(254,246,231,.8);cursor:pointer;font-weight:500}
+.d-alert:hover{background:rgba(196,122,26,.15)}
+
+.d-canvas{padding:8px 14px 80px}
+.d-sec-lbl{font-size:9.5px;font-weight:700;color:rgba(253,250,245,.3);text-transform:uppercase;letter-spacing:.1em;padding:10px 3px 6px}
+.d-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:9px}
+
+/* Dashboard widgets */
+.dw{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;cursor:pointer;position:relative;transition:transform .22s cubic-bezier(.34,1.56,.64,1),box-shadow .2s,border-color .2s;user-select:none;animation:wIn .4s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes wIn{from{opacity:0;transform:scale(.88) translateY(8px)}to{opacity:1;transform:none}}
+.dw:hover{border-color:rgba(255,255,255,.2);box-shadow:0 6px 20px rgba(0,0,0,.2);transform:translateY(-2px)}
+.dw.edit-mode{cursor:grab;animation:dwiggle .5s ease-in-out infinite alternate}
+@keyframes dwiggle{from{transform:rotate(-.5deg)}to{transform:rotate(.5deg) translateY(-1px)}}
+.dw.dragging{transform:scale(1.04) rotate(.8deg);box-shadow:0 16px 40px rgba(0,0,0,.3),0 0 0 2px var(--terra);border-color:var(--terra);z-index:999;opacity:.97}
+.dw.drop-over{border-color:var(--terra);background:rgba(181,96,58,.08);box-shadow:0 0 0 2px var(--terra)}
+.dw2{grid-column:span 2}.dw3{grid-column:span 3}.dw4{grid-column:span 4}.dw6{grid-column:span 6}
+
+/* remove btn */
+.d-rm{position:absolute;top:-7px;left:-7px;width:18px;height:18px;border-radius:50%;background:#e74c3c;border:2px solid #1E1810;color:#fff;font-size:11px;display:none;align-items:center;justify-content:center;cursor:pointer;z-index:10;font-weight:700;line-height:1;transition:transform .15s}
+.d-rm:hover{transform:scale(1.25)}
+.edit-mode .d-rm{display:flex}
+
+.dwh{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.dwl{font-size:9.5px;font-weight:700;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.07em}
+.ds-dot{width:5px;height:5px;border-radius:50%;background:#3fa85f;box-shadow:0 0 5px #3fa85f;animation:blink 3s infinite}
+.ds-dot.warn{background:var(--terra);box-shadow:0 0 5px var(--terra)}
+.dwval{font-family:var(--serif);font-size:26px;font-weight:600;line-height:1;margin-bottom:5px;color:#fff;letter-spacing:-.8px}
+.dw2 .dwval{font-size:22px}
+.dpill{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:100px}
+.dpill.up{background:rgba(46,125,82,.2);color:#6fcf97}
+.dpill.dn{background:rgba(181,96,58,.2);color:#e8916a}
+.dtbar{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:1px solid rgba(255,255,255,.07);gap:4px}
+.dtinfo{font-size:9px;color:rgba(255,255,255,.25);white-space:nowrap}
+.dsbadge{font-size:9px;color:rgba(255,255,255,.3);background:rgba(255,255,255,.06);padding:2px 7px;border-radius:5px;border:1px solid rgba(255,255,255,.08);font-weight:600}
+
+/* Sparkline in dark */
+.d-spark{margin-top:8px;height:30px;opacity:.7}
+.d-spark svg{width:100%;height:100%}
+
+/* Heatmap in dark */
+.d-heatmap{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:8px}
+.d-hml{font-size:7.5px;color:rgba(255,255,255,.25);text-align:center;font-weight:600}
+.d-hmc{aspect-ratio:1;border-radius:3px;transition:transform .15s}
+.d-hmc:hover{transform:scale(1.3)}
+
+/* Bars in dark */
+.d-bars{display:flex;align-items:flex-end;gap:3px;height:40px;margin-top:8px}
+.d-bar{flex:1;border-radius:2px 2px 0 0}
+.d-bar-lbl{font-size:7.5px;color:rgba(255,255,255,.25);text-align:center;margin-top:2px}
+
+/* Rank in dark */
+.d-rank{display:flex;flex-direction:column;gap:0;margin-top:4px}
+.d-rrow{display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.d-rrow:last-child{border-bottom:none}
+.d-rn{font-size:9.5px;color:rgba(255,255,255,.25);font-weight:700;width:14px}
+.d-rname{font-size:11.5px;font-weight:500;flex:1;color:rgba(255,255,255,.7)}
+.d-rbw{width:48px;height:4px;background:rgba(255,255,255,.1);border-radius:100px;overflow:hidden}
+.d-rbf{height:100%;border-radius:100px;background:var(--terra)}
+.d-rval{font-size:11px;font-weight:700;color:rgba(255,255,255,.85);font-family:var(--serif);min-width:38px;text-align:right}
+
+/* Cashflow in dark */
+.d-cf{display:flex;flex-direction:column;gap:0;margin-top:4px}
+.d-cfr{display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.d-cfr:last-child{border-bottom:none}
+.d-cfi{font-size:12px}
+.d-cfn{font-size:11.5px;color:rgba(255,255,255,.6);flex:1;font-weight:500}
+.d-cfa{font-size:11.5px;font-weight:700;font-family:var(--serif)}
+.d-cfa.in{color:#6fcf97}.d-cfa.out{color:#e8916a}
+
+/* Progress bar in dark */
+.d-pbar-wrap{margin-top:8px}
+.d-pbar-lbl{display:flex;justify-content:space-between;font-size:10px;color:rgba(255,255,255,.35);margin-bottom:4px}
+.d-pbar-track{height:5px;background:rgba(255,255,255,.1);border-radius:100px;overflow:hidden}
+.d-pbar-fill{height:100%;border-radius:100px;transition:width .6s cubic-bezier(.34,1.56,.64,1)}
+
+/* Add widget button */
+.d-add-bar{position:absolute;bottom:0;left:0;right:0;padding:12px 16px 20px;background:linear-gradient(to top,rgba(30,24,16,.95) 50%,transparent);display:flex;justify-content:center}
+.d-add-btn{display:flex;align-items:center;gap:7px;background:var(--terra);color:#fff;border:none;padding:10px 26px;border-radius:100px;font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 6px 20px rgba(181,96,58,.4);transition:all .2s cubic-bezier(.34,1.56,.64,1)}
+.d-add-btn:hover{background:var(--terra-dk);transform:scale(1.04) translateY(-2px)}
+
+/* ── Detail sheet ── */
+.d-det-ov{position:absolute;inset:0;background:rgba(10,8,5,.7);backdrop-filter:blur(8px);z-index:400;opacity:0;pointer-events:none;transition:opacity .3s;border-radius:0 0 15px 15px}
+.d-det-ov.open{opacity:1;pointer-events:all}
+.d-det-sheet{position:absolute;bottom:0;left:0;right:0;background:rgba(30,24,16,.97);border:1px solid rgba(255,255,255,.1);border-radius:14px 14px 0 0;padding:0 20px 36px;z-index:401;transform:translateY(100%);transition:transform .4s cubic-bezier(.34,1.56,.64,1);max-height:80%;overflow-y:auto}
+.d-det-sheet.open{transform:translateY(0)}
+.d-det-handle{width:30px;height:3px;background:rgba(255,255,255,.15);border-radius:2px;margin:11px auto 0}
+.d-det-head{display:flex;align-items:center;justify-content:space-between;padding:14px 0 10px}
+.d-det-lbl{font-size:11px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.08em}
+.d-det-close{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;font-family:var(--sans)}
+.d-det-close:hover{background:rgba(255,255,255,.14)}
+.d-det-val{font-family:var(--serif);font-size:42px;font-weight:600;letter-spacing:-1.5px;line-height:1;margin-bottom:8px;color:#fff}
+.d-det-trend{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;padding:4px 12px;border-radius:100px;margin-bottom:18px}
+.d-det-trend.up{background:rgba(46,125,82,.2);color:#6fcf97}
+.d-det-trend.dn{background:rgba(181,96,58,.2);color:#e8916a}
+.d-det-chart{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:13px;margin-bottom:12px}
+.d-det-clbl{font-size:9.5px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:9px;font-weight:700}
+.d-det-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.07);cursor:pointer}
+.d-det-row:last-child{border-bottom:none}
+.d-det-rl{font-size:13px;color:rgba(255,255,255,.5)}
+.d-det-rv{font-size:13px;font-weight:700;font-family:var(--serif);color:#fff;display:flex;align-items:center;gap:5px}
+.d-det-meta{margin-top:14px;padding:9px 12px;background:rgba(255,255,255,.04);border-radius:8px;border:1px solid rgba(255,255,255,.07);font-size:10px;color:rgba(255,255,255,.25);font-weight:500}
+
+/* ── Widget picker ── */
+.d-pick-ov{position:absolute;inset:0;background:rgba(10,8,5,.7);backdrop-filter:blur(8px);z-index:400;opacity:0;pointer-events:none;transition:opacity .3s;border-radius:0 0 15px 15px}
+.d-pick-ov.open{opacity:1;pointer-events:all}
+.d-pick-sheet{position:absolute;bottom:0;left:0;right:0;background:rgba(253,250,245,.97);border-radius:14px 14px 0 0;padding:0 16px 44px;z-index:401;transform:translateY(100%);transition:transform .4s cubic-bezier(.34,1.56,.64,1);max-height:75%;overflow-y:auto}
+.d-pick-sheet.open{transform:translateY(0)}
+.d-pick-handle{width:30px;height:3px;background:var(--stone);border-radius:2px;margin:11px auto 16px}
+.d-pick-title{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--ink);margin-bottom:12px}
+.d-pick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px}
+.d-pitem{background:var(--surf);border:1px solid var(--stone);border-radius:11px;padding:12px 8px;cursor:pointer;transition:all .2s cubic-bezier(.34,1.56,.64,1);text-align:center;box-shadow:var(--sh-sm)}
+.d-pitem:hover{border-color:var(--terra);background:rgba(181,96,58,.04);transform:scale(1.03) translateY(-1px);box-shadow:var(--sh-md)}
+.d-pi-icon{font-size:18px;margin-bottom:4px}
+.d-pi-name{font-size:10.5px;font-weight:600;color:var(--ink-2);line-height:1.3}
+.d-pi-viz{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--terra);margin-top:2px}
+.d-pick-cat{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-3);margin-bottom:8px;font-weight:700;padding-top:2px}
+
+/* ════════════════════════════════════════
+   HOW IT WORKS
+════════════════════════════════════════ */
+#how{padding:100px 40px;background:var(--w);position:relative;overflow:hidden}
+.para-bg-3{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 90% 60%,rgba(181,96,58,.05) 0%,transparent 55%);pointer-events:none;will-change:transform}
+.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-top:56px}
+.how-connector{position:absolute;top:28px;left:12%;right:12%;height:1px;background:linear-gradient(to right,transparent,var(--stone) 10%,var(--stone) 90%,transparent);z-index:0}
+.how-step{text-align:center;padding:0 20px;position:relative;z-index:1}
+.how-ico-wrap{width:56px;height:56px;background:var(--surf);border:1.5px solid var(--stone);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 18px;box-shadow:var(--sh-sm);position:relative}
+.how-num{position:absolute;top:-7px;right:-7px;width:18px;height:18px;background:var(--terra);color:#fff;font-size:9.5px;font-weight:700;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+.how-step h3{font-family:var(--serif);font-size:16px;font-weight:600;margin-bottom:7px;color:var(--ink)}
+.how-step p{font-size:13px;color:var(--ink-2);line-height:1.7}
+.how-badge{display:inline-block;font-size:10px;font-weight:700;color:var(--terra);background:var(--terra-lt);border:1px solid rgba(181,96,58,.2);padding:2px 9px;border-radius:100px;margin-top:9px;letter-spacing:.05em;text-transform:uppercase}
+
+/* ════════════════════════════════════════
+   INTEGRATIONS
+════════════════════════════════════════ */
+#integrations{padding:100px 40px;background:var(--cream);border-top:1px solid var(--stone)}
+.int-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:start}
+.int-cats{display:flex;flex-direction:column;gap:8px}
+.int-cat{background:var(--surf);border:1.5px solid var(--stone);border-radius:14px;padding:18px 20px;cursor:pointer;transition:border-color .2s,box-shadow .2s,transform .2s}
+.int-cat:hover{border-color:var(--slate);transform:translateX(3px)}
+.int-cat.active{border-color:var(--terra);background:#fff;box-shadow:0 4px 16px rgba(181,96,58,.1)}
+.int-cat-head{display:flex;align-items:center;gap:10px}
+.int-cat-icon{font-size:17px}
+.int-cat-name{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--ink);flex:1}
+.int-cat-count{font-size:10.5px;font-weight:700;color:var(--ink-3);background:var(--stone);padding:2px 8px;border-radius:100px}
+.int-cat-body{font-size:13px;color:var(--ink-2);line-height:1.7;max-height:0;overflow:hidden;transition:max-height .35s var(--ease),margin .35s}
+.int-cat.active .int-cat-body{max-height:60px;margin-top:10px}
+.int-cat-chips{display:flex;flex-wrap:wrap;gap:5px;max-height:0;overflow:hidden;transition:max-height .35s var(--ease),margin .35s}
+.int-cat.active .int-cat-chips{max-height:40px;margin-top:8px}
+.int-chip{font-size:11px;font-weight:600;color:var(--forest);background:var(--forest-lt);border:1px solid rgba(46,77,56,.18);padding:3px 9px;border-radius:100px}
+.int-diagram{background:var(--surf);border:1px solid var(--stone);border-radius:18px;padding:24px;position:sticky;top:76px;box-shadow:var(--sh-sm)}
+.int-center-box{background:var(--terra-lt);border:1.5px solid var(--terra);border-radius:12px;padding:14px 16px;text-align:center;margin:0 auto 18px;width:fit-content}
+.int-center-name{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--ink)}
+.int-center-name span{color:var(--terra)}
+.int-center-sub{font-size:10.5px;color:var(--ink-3);margin-top:2px}
+.int-nodes{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.int-node{background:var(--w);border:1px solid var(--stone);border-radius:10px;padding:9px 7px;text-align:center;transition:border-color .2s,box-shadow .2s,transform .15s;cursor:pointer}
+.int-node:hover{border-color:var(--terra);box-shadow:0 3px 10px rgba(181,96,58,.1);transform:translateY(-2px)}
+.int-node.on{border-color:rgba(46,77,56,.3);background:var(--forest-lt)}
+.int-node-icon{font-size:16px;margin-bottom:4px}
+.int-node-name{font-size:10.5px;font-weight:700;color:var(--ink-2)}
+.int-node-status{font-size:9px;color:var(--ink-3);margin-top:1px}
+.int-node.on .int-node-status{color:var(--forest);font-weight:700}
+.int-footer{text-align:center;margin-top:12px;font-size:11.5px;color:var(--ink-3);font-style:italic}
+
+/* ════════════════════════════════════════
+   PRICING
+════════════════════════════════════════ */
+#pricing{padding:100px 40px;background:var(--ink);position:relative;overflow:hidden}
+.price-para{position:absolute;inset:0;background:radial-gradient(ellipse 55% 50% at 10% 30%,rgba(181,96,58,.07) 0%,transparent 60%);pointer-events:none;will-change:transform}
+#pricing .ey{color:rgba(253,250,245,.35)}
+#pricing h2{color:#fff}
+#pricing .sec-lead{color:rgba(253,250,245,.5)}
+
+.price-toggle-wrap{display:flex;align-items:center;gap:10px;margin-bottom:40px}
+.pto{font-size:13.5px;font-weight:600;color:rgba(255,255,255,.35);cursor:pointer;transition:color .2s}
+.pto.active{color:#fff}
+.pt-track{width:44px;height:24px;background:rgba(255,255,255,.1);border-radius:100px;cursor:pointer;position:relative;transition:background .25s}
+.pt-track.on{background:var(--terra)}
+.pt-thumb{width:18px;height:18px;background:#fff;border-radius:50%;position:absolute;top:3px;left:3px;transition:transform .25s var(--ease)}
+.pt-track.on .pt-thumb{transform:translateX(20px)}
+.pt-save{font-size:10.5px;font-weight:700;color:var(--terra);background:rgba(181,96,58,.15);border:1px solid rgba(181,96,58,.25);padding:2px 9px;border-radius:100px}
+
+.price-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pc{border:1.5px solid rgba(255,255,255,.1);border-radius:18px;padding:32px 26px;transition:transform .22s,box-shadow .22s;position:relative;background:rgba(255,255,255,.04)}
+.pc:hover{transform:translateY(-4px);box-shadow:0 20px 48px rgba(0,0,0,.2)}
+.pc.feat{border-color:var(--terra);background:rgba(181,96,58,.07)}
+.pc-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--terra);color:#fff;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 13px;border-radius:100px;white-space:nowrap}
+.pc-plan{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:10px}
+.pc-price{font-family:var(--serif);font-size:48px;font-weight:600;color:#fff;line-height:1;margin-bottom:4px;display:flex;align-items:flex-start;gap:2px}
+.pc-price sup{font-size:16px;margin-top:9px;font-family:var(--sans);font-weight:400;color:rgba(255,255,255,.35)}
+.pc-per{font-size:12px;color:rgba(255,255,255,.3);margin-bottom:22px}
+.pc-feats{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.pc-feats li{font-size:13px;color:rgba(255,255,255,.6);display:flex;align-items:flex-start;gap:8px}
+.pc-feats li::before{content:'✓';color:#6fcf97;font-weight:700;font-size:11px;flex-shrink:0;margin-top:2px}
+.pc-feats li.no{color:rgba(255,255,255,.2)}.pc-feats li.no::before{content:'—';color:rgba(255,255,255,.18)}
+.btn-dk{background:var(--terra);color:#fff;display:block;text-align:center;padding:11px 0;border-radius:100px;font-size:13.5px;font-weight:700;text-decoration:none;transition:background .2s,transform .15s;font-family:var(--sans);cursor:pointer;border:none;width:100%}
+.btn-dk:hover{background:var(--terra-dk);transform:translateY(-1px)}
+.btn-ghost-dk{background:transparent;color:rgba(255,255,255,.6);border:1.5px solid rgba(255,255,255,.12);display:block;text-align:center;padding:11px 0;border-radius:100px;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .2s;font-family:var(--sans);cursor:pointer;width:100%}
+.btn-ghost-dk:hover{border-color:rgba(255,255,255,.35);color:#fff}
+
+.price-calc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:28px 32px;margin-top:28px;display:grid;grid-template-columns:1fr 1.2fr;gap:36px;align-items:center}
+.pc-l h3{font-family:var(--serif);font-size:19px;font-weight:600;color:#fff;margin-bottom:5px}
+.pc-l p{font-size:13px;color:rgba(255,255,255,.4);line-height:1.65}
+.pc-r{display:flex;flex-direction:column;gap:13px}
+.calc-row{display:flex;align-items:center;gap:12px}
+.calc-lbl{font-size:12.5px;color:rgba(255,255,255,.45);width:110px;flex-shrink:0}
+.calc-slider{flex:1;-webkit-appearance:none;appearance:none;height:3px;background:rgba(255,255,255,.1);border-radius:100px;outline:none;cursor:pointer}
+.calc-slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--terra);cursor:pointer;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.calc-val{font-family:var(--serif);font-size:13.5px;font-weight:600;color:#fff;width:50px;text-align:right}
+.calc-result{background:rgba(181,96,58,.12);border:1px solid rgba(181,96,58,.22);border-radius:10px;padding:13px 16px;display:flex;align-items:center;justify-content:space-between}
+.calc-rl{font-size:12.5px;color:rgba(255,255,255,.45)}
+.calc-rv{font-family:var(--serif);font-size:22px;font-weight:600;color:#fff}
+
+/* ════════════════════════════════════════
+   FAQ
+════════════════════════════════════════ */
+#faq{padding:100px 40px;background:var(--w)}
+.faq-layout{display:grid;grid-template-columns:1fr 1.6fr;gap:80px;align-items:start}
+.faq-left{position:sticky;top:80px}
+.faq-left p{font-size:14.5px;color:var(--ink-2);line-height:1.75;margin-top:12px}
+.faq-left a{color:var(--terra);font-weight:600;text-decoration:none}
+.faq-list{display:flex;flex-direction:column}
+.faq-item{border-bottom:1px solid var(--stone)}
+.faq-item:first-child{border-top:1px solid var(--stone)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:18px 0;cursor:pointer;gap:14px}
+.faq-q-txt{font-family:var(--serif);font-size:16.5px;font-weight:500;color:var(--ink);line-height:1.35}
+.faq-ico{width:24px;height:24px;border-radius:50%;background:var(--cream);border:1px solid var(--stone);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--ink-3);transition:transform .3s var(--ease),background .2s,border-color .2s;flex-shrink:0}
+.faq-item.open .faq-ico{transform:rotate(45deg);background:var(--terra-lt);border-color:rgba(181,96,58,.25);color:var(--terra)}
+.faq-ans{max-height:0;overflow:hidden;transition:max-height .4s var(--ease)}
+.faq-item.open .faq-ans{max-height:200px}
+.faq-ans-inner{padding-bottom:18px;font-size:14px;color:var(--ink-2);line-height:1.8;padding-right:38px}
+.faq-ans-inner a{color:var(--terra);font-weight:600;text-decoration:none}
+
+/* ════════════════════════════════════════
+   CTA
+════════════════════════════════════════ */
+#cta{padding:100px 40px;background:var(--cream);border-top:1px solid var(--stone);text-align:center}
+.cta-inner{max-width:520px;margin:0 auto}
+.cta-inner h2{margin-bottom:14px}
+.cta-inner .sec-lead{text-align:center;margin:0 auto 36px}
+.cta-note{margin-top:14px;font-size:12.5px;color:var(--ink-3)}
+.cta-badges{display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;margin-top:32px}
+.cta-badge{background:var(--surf);border:1px solid var(--stone);border-radius:7px;padding:7px 12px;font-size:12px;font-weight:600;color:var(--ink-3)}
+
+/* ════════════════════════════════════════
+   FOOTER — Sketch-inspired
+════════════════════════════════════════ */
+#footer{background:var(--w);border-top:1px solid var(--stone);padding:64px 40px 0}
+
+/* Top: centered final CTA */
+.foot-top{text-align:center;padding-bottom:56px;border-bottom:1px solid var(--stone)}
+.foot-logo-mark{width:52px;height:52px;background:linear-gradient(135deg,var(--terra),var(--terra-dk));border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;box-shadow:0 4px 16px rgba(181,96,58,.25)}
+.foot-logo-mark span{font-family:var(--serif);font-size:20px;font-weight:600;color:#fff}
+.foot-top h2{font-family:var(--serif);font-size:clamp(28px,3.5vw,44px);font-weight:600;letter-spacing:-.02em;margin-bottom:10px}
+.foot-top h2 em{font-style:italic;color:var(--terra)}
+.foot-top p{font-size:15px;color:var(--ink-2);max-width:400px;margin:0 auto 30px;line-height:1.75}
+.foot-cta-row{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+.foot-note{font-size:12px;color:var(--ink-3);margin-top:14px}
+
+/* Newsletter */
+.foot-newsletter{padding:40px 0 36px;border-bottom:1px solid var(--stone);display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.fn-left h3{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--ink);margin-bottom:5px}
+.fn-left p{font-size:13.5px;color:var(--ink-2);line-height:1.65}
+.fn-right{display:flex;gap:0}
+.fn-input{flex:1;background:var(--surf);border:1.5px solid var(--stone);border-radius:10px 0 0 10px;padding:11px 16px;font-family:var(--sans);font-size:13.5px;color:var(--ink);outline:none;transition:border-color .2s}
+.fn-input:focus{border-color:var(--terra)}
+.fn-input::placeholder{color:var(--ink-3)}
+.fn-btn{background:var(--ink);color:var(--w);border:none;padding:11px 22px;border-radius:0 10px 10px 0;font-family:var(--sans);font-size:13.5px;font-weight:700;cursor:pointer;transition:background .2s;white-space:nowrap}
+.fn-btn:hover{background:#2c2012}
+.fn-consent{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:var(--ink-3);cursor:pointer}
+.fn-consent input{accent-color:var(--terra)}
+
+/* Link columns */
+.foot-links{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:40px 0 32px;border-bottom:1px solid var(--stone)}
+.fl-col h4{font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:14px;letter-spacing:.02em}
+.fl-col ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.fl-col ul li a{font-size:13px;color:var(--ink-3);text-decoration:none;transition:color .2s}
+.fl-col ul li a:hover{color:var(--terra)}
+.fl-col ul li a .ext{font-size:10px;opacity:.5;margin-left:2px}
+
+/* Bottom bar */
+.foot-bottom{display:flex;align-items:center;justify-content:space-between;padding:24px 0 32px;gap:16px}
+.fb-logo{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--ink-2)}
+.fb-logo span{color:var(--terra)}
+.fb-copy{font-size:12.5px;color:var(--ink-3)}
+.fb-socials{display:flex;gap:8px}
+.fb-soc{width:32px;height:32px;border-radius:8px;background:var(--cream);border:1px solid var(--stone);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;transition:border-color .2s,background .2s;color:var(--ink-3);text-decoration:none}
+.fb-soc:hover{border-color:var(--slate);background:var(--stone);color:var(--ink)}
+
+/* ════════════════════════════════════════
+   SCROLL ANIMATIONS
+════════════════════════════════════════ */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.reveal.vis{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+.reveal-delay-4{transition-delay:.4s}
+
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--w)}
+::-webkit-scrollbar-thumb{background:var(--stone);border-radius:3px}
+
+@media(max-width:960px){
+  nav{padding:0 18px}.n-links{display:none}
+  #hero{padding:100px 20px 60px}
+  .problem-cards,.bento{grid-template-columns:1fr}
+  .b-5,.b-4,.b-3,.b-7,.b-6,.b-8{grid-column:span 1}
+  .how-grid{grid-template-columns:1fr 1fr;gap:28px}.how-connector{display:none}
+  .int-layout,.faq-layout{grid-template-columns:1fr}
+  .faq-left{position:relative;top:0}
+  .price-cards,.price-calc{grid-template-columns:1fr}
+  .foot-newsletter,.foot-links{grid-template-columns:1fr 1fr}
+  .foot-bottom{flex-direction:column;text-align:center}
+  .sec{padding:68px 20px}
+  #demo,#pricing,#faq,#how,#integrations,#problem,#features,#cta,#footer{padding-left:20px;padding-right:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- ════ NAV ════ -->
+<nav id="mainNav">
+  <a href="#hero" class="n-logo">Stack<span>it</span></a>
+  <ul class="n-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#demo">Try it</a></li>
+    <li><a href="#integrations">Integrations</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#cta" class="n-cta">Get early access →</a>
+</nav>
+
+<!-- ════ HERO ════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="para-dots" id="paraDots"></div>
+  <div class="hero-eyebrow">Now in early access · NZ-built</div>
+  <h1>Your whole business,<br><em>one screen.</em></h1>
+  <p class="hero-sub">Stackit pulls your revenue, cash, customers, and stock into one live dashboard. Drag the widgets you want. We set it up while you watch.</p>
+  <div class="hero-btns">
+    <a href="#cta" class="btn btn-primary">Book your free setup call</a>
+    <a href="#demo" class="btn btn-outline">Try the dashboard →</a>
+  </div>
+  <p class="hero-note">First 10 businesses get in free &nbsp;·&nbsp; 30-min onboarding call &nbsp;·&nbsp; No credit card</p>
+
+  <!-- Static hero preview -->
+  <div class="hero-screen" style="width:100%;max-width:900px;margin:64px auto 0">
+    <div class="browser-chrome">
+      <div class="bc-dots">
+        <div class="bc-dot" style="background:#FF6058"></div>
+        <div class="bc-dot" style="background:#FFBD2E"></div>
+        <div class="bc-dot" style="background:#29C940"></div>
+      </div>
+      <div class="bc-url">app.stackit.co.nz/dashboard</div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:10.5px;color:var(--up);font-weight:700"><span style="width:6px;height:6px;background:#3fa85f;border-radius:50%;display:inline-block;animation:blink 2.4s infinite"></span>LIVE</div>
+    </div>
+    <div class="browser-body">
+      <!-- Topbar -->
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:44px;background:rgba(253,250,245,.95);border-bottom:1px solid var(--stone)">
+        <div style="font-family:var(--serif);font-size:16px;font-weight:600;color:var(--ink)">Stack<span style="color:var(--terra)">it</span></div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="background:var(--surf);border:1px solid var(--stone);color:var(--ink-2);padding:4px 12px;border-radius:100px;font-size:11.5px;font-weight:600">✏️ Edit</div>
+          <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--terra),var(--terra-dk));display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff">AD</div>
+        </div>
+      </div>
+      <!-- Mini grid -->
+      <div style="padding:14px;background:var(--w);background-image:radial-gradient(var(--stone) 1px,transparent 1px);background-size:20px 20px;display:grid;grid-template-columns:repeat(6,1fr);gap:8px">
+        <!-- Revenue card -->
+        <div style="grid-column:span 3;background:#fff;border:1px solid var(--stone);border-radius:11px;padding:14px">
+          <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin-bottom:6px">Revenue · Month</div>
+          <div style="font-family:var(--serif);font-size:26px;font-weight:600;color:var(--ink);line-height:1;margin-bottom:5px">$14,250</div>
+          <div style="display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;background:var(--up-bg);color:var(--up)">↑ 12% vs last month</div>
+          <div style="margin-top:9px;height:28px;opacity:.7">
+            <svg viewBox="0 0 220 28" preserveAspectRatio="none" style="width:100%;height:100%">
+              <defs><linearGradient id="hg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2E4D38" stop-opacity=".2"/><stop offset="100%" stop-color="#2E4D38" stop-opacity="0"/></linearGradient></defs>
+              <path d="M0,26 L28,21 L55,23 L83,14 L110,17 L138,9 L165,12 L193,5 L220,2" fill="none" stroke="#2E4D38" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M0,26 L28,21 L55,23 L83,14 L110,17 L138,9 L165,12 L193,5 L220,2 L220,28 L0,28Z" fill="url(#hg1)"/>
+            </svg>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:8px;padding-top:7px;border-top:1px solid var(--stone)">
+            <span style="font-size:9px;color:var(--ink-3)">Synced 3m ago</span>
+            <span style="font-size:9px;color:var(--ink-3);background:var(--cream);padding:1px 6px;border-radius:4px;border:1px solid var(--stone);font-weight:600">shopify</span>
+          </div>
+        </div>
+        <!-- Cash card -->
+        <div style="grid-column:span 2;background:#fff;border:1px solid var(--stone);border-radius:11px;padding:14px">
+          <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin-bottom:6px">Cash · Runway</div>
+          <div style="font-family:var(--serif);font-size:22px;font-weight:600;color:var(--warn);line-height:1;margin-bottom:5px">18 days</div>
+          <div style="height:5px;background:var(--stone);border-radius:100px;overflow:hidden;margin-top:10px"><div style="width:28%;height:100%;background:linear-gradient(to right,var(--up),var(--warn),var(--dn));border-radius:100px"></div></div>
+          <div style="display:flex;justify-content:space-between;margin-top:4px"><span style="font-size:8.5px;color:var(--ink-3)">$8,420 in bank</span><span style="font-size:8.5px;color:var(--dn);font-weight:700">Low</span></div>
+          <div style="display:flex;justify-content:space-between;margin-top:9px;padding-top:7px;border-top:1px solid var(--stone)">
+            <span style="font-size:9px;color:var(--ink-3)">Synced 1h ago</span>
+            <span style="font-size:9px;color:var(--ink-3);background:var(--cream);padding:1px 6px;border-radius:4px;border:1px solid var(--stone);font-weight:600">akahu</span>
+          </div>
+        </div>
+        <!-- Orders -->
+        <div style="grid-column:span 1;background:#fff;border:1px solid var(--stone);border-radius:11px;padding:14px">
+          <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin-bottom:6px">Orders</div>
+          <div style="font-family:var(--serif);font-size:22px;font-weight:600;color:var(--ink);line-height:1;margin-bottom:5px">24</div>
+          <div style="display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:700;padding:2px 6px;border-radius:100px;background:var(--up-bg);color:var(--up)">↑ 3</div>
+        </div>
+        <!-- Heatmap -->
+        <div style="grid-column:span 2;background:#fff;border:1px solid var(--stone);border-radius:11px;padding:14px">
+          <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin-bottom:8px">Sales by Day</div>
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px">
+            <div style="font-size:7px;color:var(--ink-3);text-align:center">M</div><div style="font-size:7px;color:var(--ink-3);text-align:center">T</div><div style="font-size:7px;color:var(--ink-3);text-align:center">W</div><div style="font-size:7px;color:var(--ink-3);text-align:center">T</div><div style="font-size:7px;color:var(--ink-3);text-align:center">F</div><div style="font-size:7px;color:var(--ink-3);text-align:center">S</div><div style="font-size:7px;color:var(--ink-3);text-align:center">S</div>
+            <div style="aspect-ratio:1;border-radius:2px;background:rgba(181,96,58,.15)"></div><div style="aspect-ratio:1;border-radius:2px;background:rgba(181,96,58,.28)"></div><div style="aspect-ratio:1;border-radius:2px;background:rgba(181,96,58,.42)"></div><div style="aspect-ratio:1;border-radius:2px;background:rgba(181,96,58,.2)"></div><div style="aspect-ratio:1;border-radius:2px;background:rgba(181,96,58,.6)"></div><div style="aspect-ratio:1;border-radius:2px;background:rgba(181,96,58,.9)"></div><div style="aspect-ratio:1;border-radius:2px;background:rgba(181,96,58,.75)"></div>
+            <div style="aspect-ratio:1;border-radius:2px;background:rgba(181,96,58,.18)"></div><div style="aspect-ratio:1;border-radius:2px;background:rgba(181,96,58,.32)"></div><div style="aspect-ratio:1;border-radius:2px;background:rgba(181,96,58,.48)"></div><div style="aspect-ratio:1;border-radius:2px;background:rgba(181,96,58,.24)"></div><div style="aspect-ratio:1;border-radius:2px;background:rgba(181,96,58,.65)"></div><div style="aspect-ratio:1;border-radius:2px;background:rgba(181,96,58,.88)"></div><div style="aspect-ratio:1;border-radius:2px;background:rgba(181,96,58,.7)"></div>
+          </div>
+        </div>
+        <!-- Top products -->
+        <div style="grid-column:span 4;background:#fff;border:1px solid var(--stone);border-radius:11px;padding:14px">
+          <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin-bottom:8px">Top Products · Month</div>
+          <div style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid var(--stone)"><span style="font-size:9px;color:var(--ink-3);font-weight:700;width:13px">01</span><span style="font-size:11px;font-weight:500;flex:1;color:var(--ink)">Merino Tee — Black</span><div style="width:48px;height:4px;background:var(--stone);border-radius:100px;overflow:hidden"><div style="width:100%;height:100%;background:var(--terra);border-radius:100px"></div></div><span style="font-size:11px;font-weight:700;color:var(--forest);font-family:var(--serif);min-width:38px;text-align:right">$4,260</span></div>
+            <div style="display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid var(--stone)"><span style="font-size:9px;color:var(--ink-3);font-weight:700;width:13px">02</span><span style="font-size:11px;font-weight:500;flex:1;color:var(--ink)">Canvas Tote</span><div style="width:48px;height:4px;background:var(--stone);border-radius:100px;overflow:hidden"><div style="width:69%;height:100%;background:var(--terra);border-radius:100px"></div></div><span style="font-size:11px;font-weight:700;color:var(--forest);font-family:var(--serif);min-width:38px;text-align:right">$2,940</span></div>
+            <div style="display:flex;align-items:center;gap:7px;padding:5px 0"><span style="font-size:9px;color:var(--ink-3);font-weight:700;width:13px">03</span><span style="font-size:11px;font-weight:500;flex:1;color:var(--ink)">Beanie — Grey</span><div style="width:48px;height:4px;background:var(--stone);border-radius:100px;overflow:hidden"><div style="width:31%;height:100%;background:var(--terra);border-radius:100px"></div></div><span style="font-size:11px;font-weight:700;color:var(--forest);font-family:var(--serif);min-width:38px;text-align:right">$1,340</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ STRIP ════ -->
+<div class="strip">
+  <div class="strip-track">
+    <span class="s-item">Shopify<span class="s-sep"></span></span><span class="s-item">Square<span class="s-sep"></span></span><span class="s-item">Stripe<span class="s-sep"></span></span><span class="s-item">Xero<span class="s-sep"></span></span><span class="s-item">ANZ Bank Feed<span class="s-sep"></span></span><span class="s-item">ASB Bank Feed<span class="s-sep"></span></span><span class="s-item">BNZ Bank Feed<span class="s-sep"></span></span><span class="s-item">PayPal<span class="s-sep"></span></span><span class="s-item">MYOB<span class="s-sep"></span></span><span class="s-item">Etsy<span class="s-sep"></span></span>
+    <span class="s-item">Shopify<span class="s-sep"></span></span><span class="s-item">Square<span class="s-sep"></span></span><span class="s-item">Stripe<span class="s-sep"></span></span><span class="s-item">Xero<span class="s-sep"></span></span><span class="s-item">ANZ Bank Feed<span class="s-sep"></span></span><span class="s-item">ASB Bank Feed<span class="s-sep"></span></span><span class="s-item">BNZ Bank Feed<span class="s-sep"></span></span><span class="s-item">PayPal<span class="s-sep"></span></span><span class="s-item">MYOB<span class="s-sep"></span></span><span class="s-item">Etsy<span class="s-sep"></span></span>
+  </div>
+</div>
+
+<!-- ════ PROBLEM ════ -->
+<section id="problem">
+  <div class="para-bg-2" id="paraBg2"></div>
+  <div class="ey reveal">The problem</div>
+  <h2 class="reveal reveal-delay-1">Small businesses run on<br><em>scattered information.</em></h2>
+  <p class="sec-lead reveal reveal-delay-2">Your revenue is in Shopify. Your cash is in your bank app. Your invoices are in Xero. Your sales are in Square. You're running the business in your head.</p>
+  <div class="problem-cards">
+    <div class="prob-card reveal reveal-delay-1">
+      <span class="prob-icon">💸</span>
+      <div class="prob-title">Too expensive</div>
+      <p class="prob-body">Proper business intelligence tools cost $500–$2,000/month and need someone to set them up. They're built for analysts, not café owners.</p>
+    </div>
+    <div class="prob-card reveal reveal-delay-2">
+      <span class="prob-icon">🤯</span>
+      <div class="prob-title">Too complex</div>
+      <p class="prob-body">Most dashboards take weeks to configure, require API tokens, and break the moment something changes. You didn't sign up for that.</p>
+    </div>
+    <div class="prob-card reveal reveal-delay-3">
+      <span class="prob-icon">🧩</span>
+      <div class="prob-title">Too fragmented</div>
+      <p class="prob-body">You have 4 apps open at once. None of them talk to each other. You're manually piecing together a picture of your business every time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════ BENTO FEATURES ════ -->
+<section id="features">
+  <div class="feat-header reveal">
+    <div class="ey">Features</div>
+    <h2>Everything you need.<br><em>Exactly how you need it.</em></h2>
+    <p class="sec-lead" style="margin-bottom:0">Each feature was built around one kind of person — someone brilliant at their business, not at software.</p>
+  </div>
+  <div class="bento">
+
+    <!-- Big left: Drag canvas -->
+    <div class="b b-5 reveal">
+      <div class="b-tag new">New</div>
+      <div class="b-h">Flexible, drag-and-drop canvas</div>
+      <p class="b-p">Build your exact dashboard by dragging metric blocks onto a canvas. They snap into place. No code, no config — it works like Lego.</p>
+      <div class="mini-widgets">
+        <div class="mw"><div class="mw-l">Revenue</div><div class="mw-v">$14,250</div><div class="mw-t">↑ 12%</div></div>
+        <div class="mw"><div class="mw-l">Orders</div><div class="mw-v">241</div><div class="mw-t">↑ 8%</div></div>
+        <div class="mw"><div class="mw-l">Cash</div><div class="mw-v">$8,420</div><div class="mw-t dn">↓ 8%</div></div>
+        <div class="mw"><div class="mw-l">Customers</div><div class="mw-v">142</div><div class="mw-t">↑ 18%</div></div>
+      </div>
+    </div>
+
+    <!-- Dark: Live data -->
+    <div class="b b-4 b-dark reveal reveal-delay-1" style="padding:28px">
+      <div class="b-tag live">Live</div>
+      <div class="b-h">Always current. Always yours.</div>
+      <p class="b-p">Data syncs in real time from every connected source. No manual refreshes. No CSV uploads. Open Stackit every morning and your numbers are already there.</p>
+      <div class="mini-conn">
+        <div class="mc-row"><span class="mc-ico">🛒</span><span class="mc-name">Shopify</span><div class="mc-dot"></div></div>
+        <div class="mc-row"><span class="mc-ico">🏦</span><span class="mc-name">ANZ Bank Feed</span><div class="mc-dot"></div></div>
+        <div class="mc-row"><span class="mc-ico">💳</span><span class="mc-name">Stripe</span><div class="mc-dot"></div></div>
+        <div class="mc-row"><span class="mc-ico">📋</span><span class="mc-name">Xero</span><div class="mc-dot p"></div></div>
+      </div>
+    </div>
+
+    <!-- Terra: Onboarding -->
+    <div class="b b-3 b-terra reveal reveal-delay-2" style="padding:28px">
+      <div class="b-h">Done for you in 30 minutes</div>
+      <p class="b-p">We get on a Zoom, ask 5 questions, and build your dashboard while you watch. You leave with live data.</p>
+      <div class="onboard-steps">
+        <div class="os"><span class="os-ico">✉️</span><span class="os-txt">Sign up</span><span class="os-status done">Done</span></div>
+        <div class="os"><span class="os-ico">📅</span><span class="os-txt">Book call</span><span class="os-status done">Done</span></div>
+        <div class="os"><span class="os-ico">🧱</span><span class="os-txt">We build live</span><span class="os-status now">Now</span></div>
+        <div class="os"><span class="os-ico">☕</span><span class="os-txt">You use it</span><span class="os-status next">Next</span></div>
+      </div>
+    </div>
+
+    <!-- Full width: 10 viz types header -->
+    <div class="b b-8 reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center">
+      <div>
+        <div class="b-tag new">10 types</div>
+        <div class="b-h">Data shown the way it makes sense</div>
+        <p class="b-p">Cash runway is a gauge. Weekly sales is a heatmap. Top products is a ranked bar list. Revenue trend is a sparkline. Every metric gets the visualisation that fits it.</p>
+      </div>
+      <div>
+        <div class="mini-heatmap" style="grid-template-columns:repeat(7,1fr);background:var(--cream);border-radius:10px;padding:10px;gap:3px;display:grid">
+          <div style="font-size:8px;color:var(--ink-3);text-align:center">Mo</div><div style="font-size:8px;color:var(--ink-3);text-align:center">Tu</div><div style="font-size:8px;color:var(--ink-3);text-align:center">We</div><div style="font-size:8px;color:var(--ink-3);text-align:center">Th</div><div style="font-size:8px;color:var(--ink-3);text-align:center">Fr</div><div style="font-size:8px;color:var(--ink-3);text-align:center">Sa</div><div style="font-size:8px;color:var(--ink-3);text-align:center">Su</div>
+          <div style="aspect-ratio:1;border-radius:3px;background:rgba(181,96,58,.12)"></div><div style="aspect-ratio:1;border-radius:3px;background:rgba(181,96,58,.25)"></div><div style="aspect-ratio:1;border-radius:3px;background:rgba(181,96,58,.4)"></div><div style="aspect-ratio:1;border-radius:3px;background:rgba(181,96,58,.2)"></div><div style="aspect-ratio:1;border-radius:3px;background:rgba(181,96,58,.55)"></div><div style="aspect-ratio:1;border-radius:3px;background:rgba(181,96,58,.85)"></div><div style="aspect-ratio:1;border-radius:3px;background:rgba(181,96,58,.72)"></div>
+          <div style="aspect-ratio:1;border-radius:3px;background:rgba(181,96,58,.18)"></div><div style="aspect-ratio:1;border-radius:3px;background:rgba(181,96,58,.3)"></div><div style="aspect-ratio:1;border-radius:3px;background:rgba(181,96,58,.45)"></div><div style="aspect-ratio:1;border-radius:3px;background:rgba(181,96,58,.22)"></div><div style="aspect-ratio:1;border-radius:3px;background:rgba(181,96,58,.6)"></div><div style="aspect-ratio:1;border-radius:3px;background:rgba(181,96,58,.92)"></div><div style="aspect-ratio:1;border-radius:3px;background:rgba(181,96,58,.78)"></div>
+        </div>
+        <div style="display:flex;align-items:flex-end;gap:4px;height:36px;margin-top:8px;padding:8px;background:var(--cream);border-radius:10px">
+          <div style="flex:1;height:40%;background:var(--forest);opacity:.5;border-radius:2px 2px 0 0"></div><div style="flex:1;height:55%;background:var(--forest);opacity:.6;border-radius:2px 2px 0 0"></div><div style="flex:1;height:48%;background:var(--forest);opacity:.65;border-radius:2px 2px 0 0"></div><div style="flex:1;height:65%;background:var(--forest);opacity:.75;border-radius:2px 2px 0 0"></div><div style="flex:1;height:70%;background:var(--forest);opacity:.8;border-radius:2px 2px 0 0"></div><div style="flex:1;height:90%;background:var(--terra);border-radius:2px 2px 0 0"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Forest: Top products -->
+    <div class="b b-4 b-forest reveal reveal-delay-1" style="padding:28px">
+      <div class="b-h">See what's driving revenue</div>
+      <p class="b-p">Ranked product performance with proportional bars. Know your best-sellers at a glance.</p>
+      <div class="mini-rank">
+        <div class="mr-row"><span class="mr-n">01</span><span class="mr-name">Merino Tee — Black</span><div class="mr-bar-wrap"><div class="mr-bar" style="width:100%"></div></div><span class="mr-val">$4,260</span></div>
+        <div class="mr-row"><span class="mr-n">02</span><span class="mr-name">Canvas Tote</span><div class="mr-bar-wrap"><div class="mr-bar" style="width:69%"></div></div><span class="mr-val">$2,940</span></div>
+        <div class="mr-row"><span class="mr-n">03</span><span class="mr-name">Beanie — Grey</span><div class="mr-bar-wrap"><div class="mr-bar" style="width:31%"></div></div><span class="mr-val">$1,340</span></div>
+      </div>
+    </div>
+
+    <!-- Small: Custom widgets -->
+    <div class="b b-4 reveal reveal-delay-2">
+      <div class="b-tag new">Custom</div>
+      <div class="b-h">Add any metric you want</div>
+      <p class="b-p">No integration for it? Name it, enter the value, pick how it displays. Your dashboard, your rules.</p>
+      <div style="margin-top:14px;background:var(--cream);border:1.5px dashed var(--slate);border-radius:10px;padding:12px">
+        <div style="font-size:10px;font-weight:700;color:var(--ink-3);margin-bottom:6px">Widget name</div>
+        <div style="background:#fff;border:1px solid var(--stone);border-radius:7px;padding:7px 10px;font-size:12px;color:var(--terra);font-weight:600">Weekly Tips</div>
+        <div style="height:5px;background:var(--stone);border-radius:100px;overflow:hidden;margin-top:9px"><div style="width:62%;height:100%;background:var(--terra);border-radius:100px"></div></div>
+        <div style="font-size:10px;color:var(--ink-3);margin-top:4px;display:flex;justify-content:space-between"><span>$0</span><span style="font-weight:700;color:var(--ink-2)">$1,240 / $2,000</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════ LIVE DEMO ════ -->
+<section id="demo">
+  <div class="demo-bg" id="demoBg"></div>
+  <div class="ey reveal">Interactive demo</div>
+  <h2 class="reveal reveal-delay-1">This is the actual dashboard.<br><em>Try it right here.</em></h2>
+  <p class="demo-sub reveal reveal-delay-2">Not a video. Not screenshots. A working demo — drag widgets around, go into edit mode, add new widgets, click any metric to see the detail view.</p>
+  <div class="demo-hints reveal reveal-delay-3">
+    <div class="hint"><div class="hint-dot" style="background:var(--terra)"></div>Click ✏️ Edit to rearrange</div>
+    <div class="hint"><div class="hint-dot" style="background:#3fa85f"></div>Drag widgets to reorder</div>
+    <div class="hint"><div class="hint-dot" style="background:#6fcf97"></div>Tap any metric for details</div>
+    <div class="hint"><div class="hint-dot" style="background:#e8916a"></div>Press + to add widgets</div>
+  </div>
+
+  <div class="demo-browser reveal reveal-delay-4" style="position:relative">
+    <div class="demo-chrome">
+      <div class="dc-dots">
+        <div class="dc-dot" style="background:#FF6058"></div>
+        <div class="dc-dot" style="background:#FFBD2E"></div>
+        <div class="dc-dot" style="background:#29C940"></div>
+      </div>
+      <div class="dc-bar">app.stackit.co.nz/dashboard</div>
+      <div class="dc-live">LIVE</div>
+    </div>
+
+    <!-- The actual working dashboard -->
+    <div style="background:#1E1810;max-height:620px;overflow-y:auto;position:relative" id="demoInner">
+
+      <!-- Dashboard topbar -->
+      <div class="d-topbar">
+        <div class="d-logo">Stack<span>it</span></div>
+        <div class="d-tr">
+          <button class="d-edit-btn" id="dEditBtn" onclick="dToggleEdit()">✏️ Edit</button>
+          <div class="d-av">AD</div>
+        </div>
+      </div>
+
+      <!-- Greeting -->
+      <div class="d-greet">
+        <h3>Morning, Addy ☀️</h3>
+        <p>Here's your business at a glance · Sun 08 Mar 2026</p>
+      </div>
+
+      <!-- Alert -->
+      <div class="d-alert" onclick="dOpenDetail('cash')">
+        <span>⚠️</span>
+        <span style="flex:1">Cash runway is tighter than usual — <strong>18 days</strong> at current spend</span>
+        <span style="opacity:.4">›</span>
+      </div>
+
+      <!-- Canvas -->
+      <div class="d-canvas">
+        <div class="d-sec-lbl">Overview</div>
+        <div class="d-grid" id="dGrid">
+
+          <!-- Revenue sparkline -->
+          <div class="dw dw3" id="dw-revenue" draggable="true" style="animation-delay:0ms"
+               onclick="dOpenDetail('revenue')" ondragstart="dds(event,'dw-revenue')" ondragover="ddv(event)" ondrop="ddp(event,'dw-revenue')">
+            <div class="d-rm" onclick="dRm(event,'dw-revenue')">×</div>
+            <div class="dwh"><span class="dwl">Revenue · Month</span><span class="ds-dot"></span></div>
+            <div class="dwval">$14,250</div>
+            <span class="dpill up">↑ 12% vs last month</span>
+            <div class="d-spark">
+              <svg viewBox="0 0 220 30" preserveAspectRatio="none">
+                <defs><linearGradient id="dg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2E4D38" stop-opacity=".3"/><stop offset="100%" stop-color="#2E4D38" stop-opacity="0"/></linearGradient></defs>
+                <path d="M0,28 L28,22 L55,24 L83,15 L110,18 L138,10 L165,13 L193,6 L220,3" fill="none" stroke="#3fa85f" stroke-width="2" stroke-linecap="round"/>
+                <path d="M0,28 L28,22 L55,24 L83,15 L110,18 L138,10 L165,13 L193,6 L220,3 L220,30 L0,30Z" fill="url(#dg1)"/>
+              </svg>
+            </div>
+            <div class="dtbar"><span class="dtinfo">Synced 3m ago</span><span class="dsbadge">shopify</span></div>
+          </div>
+
+          <!-- Cash runway -->
+          <div class="dw dw2" id="dw-cash" draggable="true" style="animation-delay:60ms"
+               onclick="dOpenDetail('cash')" ondragstart="dds(event,'dw-cash')" ondragover="ddv(event)" ondrop="ddp(event,'dw-cash')">
+            <div class="d-rm" onclick="dRm(event,'dw-cash')">×</div>
+            <div class="dwh"><span class="dwl">Cash · Runway</span><span class="ds-dot warn"></span></div>
+            <div class="dwval" style="color:var(--warn)">18 days</div>
+            <div class="d-pbar-wrap">
+              <div class="d-pbar-lbl"><span>$8,420</span><span style="color:#e8916a;font-weight:700">Low</span></div>
+              <div class="d-pbar-track"><div class="d-pbar-fill" style="width:28%;background:linear-gradient(to right,#3fa85f,var(--warn),#e8916a)"></div></div>
+              <div class="d-pbar-lbl" style="margin-top:3px"><span>0d</span><span>90d</span></div>
+            </div>
+            <div class="dtbar"><span class="dtinfo">Synced 1h ago</span><span class="dsbadge">akahu</span></div>
+          </div>
+
+          <!-- Bars: 6 month trend -->
+          <div class="dw dw2" id="dw-bars" draggable="true" style="animation-delay:100ms"
+               ondragstart="dds(event,'dw-bars')" ondragover="ddv(event)" ondrop="ddp(event,'dw-bars')">
+            <div class="d-rm" onclick="dRm(event,'dw-bars')">×</div>
+            <div class="dwh"><span class="dwl">Sales · 6 Months</span><span class="ds-dot"></span></div>
+            <div class="dwval" style="font-size:18px;color:#6fcf97">+12% MoM</div>
+            <div style="display:flex;align-items:flex-end;gap:3px;height:40px;margin-top:8px">
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px"><div style="flex:1;width:100%;background:rgba(46,77,56,.5);border-radius:2px 2px 0 0;height:55%"></div><div style="font-size:7px;color:rgba(255,255,255,.25)">Oct</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px"><div style="flex:1;width:100%;background:rgba(46,77,56,.6);border-radius:2px 2px 0 0;height:68%"></div><div style="font-size:7px;color:rgba(255,255,255,.25)">Nov</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px"><div style="flex:1;width:100%;background:rgba(46,77,56,.65);border-radius:2px 2px 0 0;height:62%"></div><div style="font-size:7px;color:rgba(255,255,255,.25)">Dec</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px"><div style="flex:1;width:100%;background:rgba(46,77,56,.7);border-radius:2px 2px 0 0;height:72%"></div><div style="font-size:7px;color:rgba(255,255,255,.25)">Jan</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px"><div style="flex:1;width:100%;background:rgba(46,77,56,.8);border-radius:2px 2px 0 0;height:76%"></div><div style="font-size:7px;color:rgba(255,255,255,.25)">Feb</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px"><div style="flex:1;width:100%;background:var(--terra);border-radius:2px 2px 0 0;height:95%"></div><div style="font-size:7px;color:var(--terra);font-weight:700">Mar</div></div>
+            </div>
+            <div class="dtbar"><span class="dtinfo">Synced 3m ago</span><span class="dsbadge">shopify</span></div>
+          </div>
+
+          <!-- Heatmap -->
+          <div class="dw dw2" id="dw-heat" draggable="true" style="animation-delay:140ms"
+               ondragstart="dds(event,'dw-heat')" ondragover="ddv(event)" ondrop="ddp(event,'dw-heat')">
+            <div class="d-rm" onclick="dRm(event,'dw-heat')">×</div>
+            <div class="dwh"><span class="dwl">Sales by Day</span><span class="ds-dot"></span></div>
+            <div class="d-heatmap">
+              <div class="d-hml">Mo</div><div class="d-hml">Tu</div><div class="d-hml">We</div><div class="d-hml">Th</div><div class="d-hml">Fr</div><div class="d-hml">Sa</div><div class="d-hml">Su</div>
+              <div class="d-hmc" style="background:rgba(181,96,58,.12)"></div><div class="d-hmc" style="background:rgba(181,96,58,.25)"></div><div class="d-hmc" style="background:rgba(181,96,58,.4)"></div><div class="d-hmc" style="background:rgba(181,96,58,.18)"></div><div class="d-hmc" style="background:rgba(181,96,58,.58)"></div><div class="d-hmc" style="background:rgba(181,96,58,.88)"></div><div class="d-hmc" style="background:rgba(181,96,58,.72)"></div>
+              <div class="d-hmc" style="background:rgba(181,96,58,.15)"></div><div class="d-hmc" style="background:rgba(181,96,58,.3)"></div><div class="d-hmc" style="background:rgba(181,96,58,.46)"></div><div class="d-hmc" style="background:rgba(181,96,58,.22)"></div><div class="d-hmc" style="background:rgba(181,96,58,.62)"></div><div class="d-hmc" style="background:rgba(181,96,58,.9)"></div><div class="d-hmc" style="background:rgba(181,96,58,.76)"></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:4px;margin-top:6px"><span style="font-size:8.5px;color:rgba(255,255,255,.2)">Less</span><div style="flex:1;height:4px;border-radius:2px;background:linear-gradient(to right,rgba(181,96,58,.08),rgba(181,96,58,.9))"></div><span style="font-size:8.5px;color:rgba(255,255,255,.2)">More</span></div>
+            <div class="dtbar"><span class="dtinfo">Synced 3m ago</span><span class="dsbadge">shopify</span></div>
+          </div>
+
+          <!-- Top products rank -->
+          <div class="dw dw4" id="dw-products" draggable="true" style="animation-delay:180ms"
+               ondragstart="dds(event,'dw-products')" ondragover="ddv(event)" ondrop="ddp(event,'dw-products')">
+            <div class="d-rm" onclick="dRm(event,'dw-products')">×</div>
+            <div class="dwh"><span class="dwl">Top Products · Month</span><span class="ds-dot"></span></div>
+            <div class="d-rank">
+              <div class="d-rrow"><span class="d-rn">01</span><span class="d-rname">Merino Tee — Black</span><div class="d-rbw"><div class="d-rbf" style="width:100%"></div></div><span class="d-rval">$4,260</span></div>
+              <div class="d-rrow"><span class="d-rn">02</span><span class="d-rname">Canvas Tote</span><div class="d-rbw"><div class="d-rbf" style="width:69%"></div></div><span class="d-rval">$2,940</span></div>
+              <div class="d-rrow"><span class="d-rn">03</span><span class="d-rname">Beanie — Grey</span><div class="d-rbw"><div class="d-rbf" style="width:31%"></div></div><span class="d-rval">$1,340</span></div>
+              <div class="d-rrow"><span class="d-rn">04</span><span class="d-rname">Hoodie — Slate</span><div class="d-rbw"><div class="d-rbf" style="width:23%"></div></div><span class="d-rval">$980</span></div>
+            </div>
+            <div class="dtbar"><span class="dtinfo">Synced 3m ago</span><span class="dsbadge">shopify</span></div>
+          </div>
+
+          <!-- Cashflow -->
+          <div class="dw dw2" id="dw-cashflow" draggable="true" style="animation-delay:220ms"
+               ondragstart="dds(event,'dw-cashflow')" ondragover="ddv(event)" ondrop="ddp(event,'dw-cashflow')">
+            <div class="d-rm" onclick="dRm(event,'dw-cashflow')">×</div>
+            <div class="dwh"><span class="dwl">Cashflow · Week</span><span class="ds-dot"></span></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
+              <div style="background:rgba(46,125,82,.1);border-radius:7px;padding:8px 9px"><div style="font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.3);margin-bottom:3px">In</div><div style="font-family:var(--serif);font-size:16px;font-weight:600;color:#6fcf97">$6,820</div></div>
+              <div style="background:rgba(181,96,58,.1);border-radius:7px;padding:8px 9px"><div style="font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.3);margin-bottom:3px">Out</div><div style="font-family:var(--serif);font-size:16px;font-weight:600;color:#e8916a">$4,240</div></div>
+            </div>
+            <div class="d-cf">
+              <div class="d-cfr"><span class="d-cfi">📦</span><span class="d-cfn">Shopify sales</span><span class="d-cfa in">+$4,260</span></div>
+              <div class="d-cfr"><span class="d-cfi">🏢</span><span class="d-cfn">Rent</span><span class="d-cfa out">−$1,440</span></div>
+            </div>
+            <div class="dtbar"><span class="dtinfo">Synced 1h ago</span><span class="dsbadge">akahu</span></div>
+          </div>
+
+          <!-- Orders today -->
+          <div class="dw dw2" id="dw-orders" draggable="true" style="animation-delay:260ms"
+               onclick="dOpenDetail('orders')" ondragstart="dds(event,'dw-orders')" ondragover="ddv(event)" ondrop="ddp(event,'dw-orders')">
+            <div class="d-rm" onclick="dRm(event,'dw-orders')">×</div>
+            <div class="dwh"><span class="dwl">Orders · Today</span><span class="ds-dot"></span></div>
+            <div class="dwval">24</div>
+            <span class="dpill up">↑ 3 vs yesterday</span>
+            <div style="margin-top:10px;background:rgba(255,255,255,.04);border-radius:7px;padding:9px">
+              <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:rgba(255,255,255,.4)">Avg order</span><span style="color:#fff;font-weight:700;font-family:var(--serif)">$59.13</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:11px;margin-top:4px"><span style="color:rgba(255,255,255,.4)">Refunds</span><span style="color:#e8916a;font-weight:700;font-family:var(--serif)">$240</span></div>
+            </div>
+            <div class="dtbar"><span class="dtinfo">Synced 3m ago</span><span class="dsbadge">shopify</span></div>
+          </div>
+
+        </div><!-- /grid -->
+      </div><!-- /canvas -->
+
+      <!-- Add widget button -->
+      <div class="d-add-bar">
+        <button class="d-add-btn" onclick="dOpenPick()">
+          <span style="font-size:17px;font-weight:300;line-height:1">+</span> Add Widget
+        </button>
+      </div>
+
+      <!-- Detail sheet -->
+      <div class="d-det-ov" id="dDetOv" onclick="dCloseDetail()"></div>
+      <div class="d-det-sheet" id="dDetSheet">
+        <div class="d-det-handle"></div>
+        <div class="d-det-head">
+          <span class="d-det-lbl" id="dDetTitle">Revenue This Month</span>
+          <button class="d-det-close" onclick="dCloseDetail()">✕</button>
+        </div>
+        <div class="d-det-val" id="dDetVal">$14,250</div>
+        <div class="d-det-trend up" id="dDetTrend"><span id="dDetArrow">↑</span> <span id="dDetTxt">12% vs last month</span></div>
+        <div class="d-det-chart">
+          <div class="d-det-clbl">30-day trend</div>
+          <svg viewBox="0 0 300 55" preserveAspectRatio="none" style="width:100%;height:55px">
+            <defs><linearGradient id="ddg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#B5603A" stop-opacity=".2"/><stop offset="100%" stop-color="#B5603A" stop-opacity="0"/></linearGradient></defs>
+            <path d="M0,50 L30,40 L60,44 L90,27 L120,32 L150,18 L180,23 L210,13 L240,16 L270,7 L300,4" fill="none" stroke="#e8916a" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M0,50 L30,40 L60,44 L90,27 L120,32 L150,18 L180,23 L210,13 L240,16 L270,7 L300,4 L300,55 L0,55Z" fill="url(#ddg)"/>
+          </svg>
+        </div>
+        <div id="dDetRows">
+          <div class="d-det-row"><span class="d-det-rl">Revenue today</span><span class="d-det-rv">$1,840 <span style="color:rgba(255,255,255,.25);font-size:11px;font-family:var(--sans);font-weight:400">›</span></span></div>
+          <div class="d-det-row"><span class="d-det-rl">Orders this month</span><span class="d-det-rv">241</span></div>
+          <div class="d-det-row"><span class="d-det-rl">Avg order value</span><span class="d-det-rv">$59.13</span></div>
+          <div class="d-det-row"><span class="d-det-rl">Last month total</span><span class="d-det-rv" style="color:rgba(255,255,255,.5)">$12,720</span></div>
+        </div>
+        <div class="d-det-meta" id="dDetMeta">Synced 3 minutes ago · Source: Shopify</div>
+      </div>
+
+      <!-- Widget picker sheet -->
+      <div class="d-pick-ov" id="dPickOv" onclick="dClosePick()"></div>
+      <div class="d-pick-sheet" id="dPickSheet">
+        <div class="d-pick-handle"></div>
+        <div class="d-pick-title">Add a Widget</div>
+        <div class="d-pick-cat">💰 Revenue & Sales</div>
+        <div class="d-pick-grid">
+          <div class="d-pitem" onclick="dAddWidget('revenue-today','Revenue Today','💰','$1,840','sparkline')"><div class="d-pi-icon">💰</div><div class="d-pi-name">Revenue Today</div><div class="d-pi-viz">Sparkline</div></div>
+          <div class="d-pitem" onclick="dAddWidget('avg-order','Avg Order','🧾','$59.13','number')"><div class="d-pi-icon">🧾</div><div class="d-pi-name">Avg Order Value</div><div class="d-pi-viz">Number</div></div>
+          <div class="d-pitem" onclick="dAddWidget('refunds','Refunds','↩️','$240','number')"><div class="d-pi-icon">↩️</div><div class="d-pi-name">Refunds</div><div class="d-pi-viz">Number</div></div>
+        </div>
+        <div class="d-pick-cat">🏦 Cash & Finance</div>
+        <div class="d-pick-grid">
+          <div class="d-pitem" onclick="dAddWidget('runway','Cash Runway','📅','18 days','progress')"><div class="d-pi-icon">📅</div><div class="d-pi-name">Cash Runway</div><div class="d-pi-viz">Gauge</div></div>
+          <div class="d-pitem" onclick="dAddWidget('invoices','Invoices','📋','$3,200','number')"><div class="d-pi-icon">📋</div><div class="d-pi-name">Overdue Invoices</div><div class="d-pi-viz">Number</div></div>
+          <div class="d-pitem" onclick="dAddWidget('expenses','Expenses','💸','$9,440','bars')"><div class="d-pi-icon">💸</div><div class="d-pi-name">Expenses</div><div class="d-pi-viz">Bar chart</div></div>
+        </div>
+        <div class="d-pick-cat">👥 Customers</div>
+        <div class="d-pick-grid">
+          <div class="d-pitem" onclick="dAddWidget('new-cust','New Customers','👥','142','number')"><div class="d-pi-icon">👥</div><div class="d-pi-name">New Customers</div><div class="d-pi-viz">Number</div></div>
+          <div class="d-pitem" onclick="dAddWidget('retention','Retention','🔁','68%','progress')"><div class="d-pi-icon">🔁</div><div class="d-pi-name">Retention Rate</div><div class="d-pi-viz">Progress</div></div>
+          <div class="d-pitem" onclick="dAddWidget('ltv','Customer LTV','💎','$184','number')"><div class="d-pi-icon">💎</div><div class="d-pi-name">Customer LTV</div><div class="d-pi-viz">Number</div></div>
+        </div>
+        <div class="d-pick-cat">🎯 Goals</div>
+        <div class="d-pick-grid">
+          <div class="d-pitem" onclick="dAddWidget('goal','Revenue Goal','🎯','89%','progress')"><div class="d-pi-icon">🎯</div><div class="d-pi-name">Revenue Goal</div><div class="d-pi-viz">Progress bar</div></div>
+          <div class="d-pitem" onclick="dAddWidget('heatmap','Sales Heatmap','🗓️','by day','heatmap')"><div class="d-pi-icon">🗓️</div><div class="d-pi-name">Sales Heatmap</div><div class="d-pi-viz">Heatmap</div></div>
+          <div class="d-pitem" onclick="dAddWidget('custom','Custom Metric','✏️','—','number')"><div class="d-pi-icon">✏️</div><div class="d-pi-name">Custom Metric</div><div class="d-pi-viz">Set yours</div></div>
+        </div>
+      </div>
+
+    </div><!-- /demoInner -->
+  </div><!-- /demo-browser -->
+</section>
+
+<!-- ════ HOW IT WORKS ════ -->
+<section id="how">
+  <div class="para-bg-3" id="paraBg3"></div>
+  <div style="text-align:center">
+    <div class="ey reveal">How it works</div>
+    <h2 class="reveal reveal-delay-1">Live in <em>30 minutes.</em><br>We handle everything.</h2>
+    <p class="sec-lead reveal reveal-delay-2" style="margin:16px auto 0">Show up to a call. We do the rest.</p>
+  </div>
+  <div class="how-grid">
+    <div class="how-connector"></div>
+    <div class="how-step reveal"><div class="how-ico-wrap"><div class="how-num">1</div>✉️</div><h3>Sign up — no card</h3><p>Email, password, done. Takes under a minute.</p><span class="how-badge">1 min</span></div>
+    <div class="how-step reveal reveal-delay-1"><div class="how-ico-wrap"><div class="how-num">2</div>📅</div><h3>Book your call</h3><p>Pick a time. 30 minutes on Zoom. We'll take it from here.</p><span class="how-badge">30 sec</span></div>
+    <div class="how-step reveal reveal-delay-2"><div class="how-ico-wrap"><div class="how-num">3</div>🧱</div><h3>We build it live</h3><p>5 questions, we connect your tools and set up your dashboard while you watch.</p><span class="how-badge">30 min</span></div>
+    <div class="how-step reveal reveal-delay-3"><div class="how-ico-wrap"><div class="how-num">4</div>☕</div><h3>Open it every morning</h3><p>Your numbers are always current. No exports, no refreshes.</p><span class="how-badge">Every day</span></div>
+  </div>
+</section>
+
+<!-- ════ INTEGRATIONS ════ -->
+<section id="integrations">
+  <div class="ey reveal">Integrations</div>
+  <h2 class="reveal reveal-delay-1">Connects to the tools<br>you <em>already use.</em></h2>
+  <p class="sec-lead reveal reveal-delay-2">One click to connect. OAuth login — no API keys, no CSV uploads, no technical knowledge needed.</p>
+  <div class="int-layout">
+    <div class="int-cats reveal">
+      <div class="int-cat active" onclick="setInt(0)"><div class="int-cat-head"><span class="int-cat-icon">🛒</span><span class="int-cat-name">Online selling</span><span class="int-cat-count">3 apps</span></div><div class="int-cat-body">Pulls revenue, orders, top products, refunds, customer counts, and average order value directly.</div><div class="int-cat-chips"><span class="int-chip">Shopify</span><span class="int-chip">Square</span><span class="int-chip">Etsy</span></div></div>
+      <div class="int-cat" onclick="setInt(1)"><div class="int-cat-head"><span class="int-cat-icon">💳</span><span class="int-cat-name">Payments</span><span class="int-cat-count">2 apps</span></div><div class="int-cat-body">Track payments received, refunds, and processing fees in real time.</div><div class="int-cat-chips"><span class="int-chip">Stripe</span><span class="int-chip">PayPal</span></div></div>
+      <div class="int-cat" onclick="setInt(2)"><div class="int-cat-head"><span class="int-cat-icon">🏦</span><span class="int-cat-name">Bank feeds</span><span class="int-cat-count">3 banks</span></div><div class="int-cat-body">Direct open-banking connection. Works even if you have no software at all.</div><div class="int-cat-chips"><span class="int-chip">ANZ</span><span class="int-chip">ASB</span><span class="int-chip">BNZ</span></div></div>
+      <div class="int-cat" onclick="setInt(3)"><div class="int-cat-head"><span class="int-cat-icon">📋</span><span class="int-cat-name">Accounting</span><span class="int-cat-count">2 apps</span></div><div class="int-cat-body">Pull invoices, P&L, expenses and cash flow from your accounting software.</div><div class="int-cat-chips"><span class="int-chip">Xero</span><span class="int-chip">MYOB</span></div></div>
+      <div class="int-cat" onclick="setInt(4)"><div class="int-cat-head"><span class="int-cat-icon">🔌</span><span class="int-cat-name">200+ via Apideck</span><span class="int-cat-count">Ask us</span></div><div class="int-cat-body">CRMs, ERPs, marketing platforms and more. Ask us about your stack.</div><div class="int-cat-chips"><span class="int-chip">Klaviyo</span><span class="int-chip">HubSpot</span><span class="int-chip">Meta Ads</span></div></div>
+    </div>
+    <div class="int-diagram reveal reveal-delay-1">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:16px">Your connected business</div>
+      <div class="int-center-box"><div class="int-center-name">Stack<span>it</span></div><div class="int-center-sub">Your live dashboard</div></div>
+      <div class="int-nodes" id="intNodes">
+        <div class="int-node on"><div class="int-node-icon">🛒</div><div class="int-node-name">Shopify</div><div class="int-node-status">Connected</div></div>
+        <div class="int-node on"><div class="int-node-icon">🏦</div><div class="int-node-name">ANZ Feed</div><div class="int-node-status">Connected</div></div>
+        <div class="int-node on"><div class="int-node-icon">💳</div><div class="int-node-name">Stripe</div><div class="int-node-status">Connected</div></div>
+        <div class="int-node"><div class="int-node-icon">📋</div><div class="int-node-name">Xero</div><div class="int-node-status">Tap to connect</div></div>
+        <div class="int-node"><div class="int-node-icon">🏪</div><div class="int-node-name">Square</div><div class="int-node-status">Tap to connect</div></div>
+        <div class="int-node"><div class="int-node-icon">🔌</div><div class="int-node-name">+200 more</div><div class="int-node-status">Via Apideck</div></div>
+      </div>
+      <div class="int-footer">Every node feeds your dashboard automatically</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ PRICING ════ -->
+<section id="pricing">
+  <div class="price-para" id="pricePara"></div>
+  <div class="ey reveal">Pricing</div>
+  <h2 class="reveal reveal-delay-1">Straightforward.<br><em>In NZD.</em></h2>
+  <p class="sec-lead reveal reveal-delay-2">No hidden fees. Onboarding call always included. Cancel any time.</p>
+  <div class="price-toggle-wrap reveal reveal-delay-3">
+    <span class="pto active" id="togMo" onclick="setBill('mo')">Monthly</span>
+    <div class="pt-track" id="ptTrack" onclick="toggleBill()"><div class="pt-thumb"></div></div>
+    <span class="pto" id="togAn" onclick="setBill('an')">Annual</span>
+    <span class="pt-save">Save 20%</span>
+  </div>
+  <div class="price-cards reveal">
+    <div class="pc">
+      <div class="pc-plan">Base</div>
+      <div class="pc-price"><sup>$</sup><span id="pBase">99</span></div>
+      <div class="pc-per" id="perBase">per month, NZD</div>
+      <ul class="pc-feats"><li>All core metric blocks</li><li>1 integration</li><li>Onboarding call included</li><li>Always live data</li><li class="no">Multiple integrations</li><li class="no">Priority support</li></ul>
+      <button class="btn-ghost-dk">Get started</button>
+    </div>
+    <div class="pc feat">
+      <div class="pc-badge">Most popular</div>
+      <div class="pc-plan">Growth</div>
+      <div class="pc-price"><sup>$</sup><span id="pGrowth">199</span></div>
+      <div class="pc-per" id="perGrowth">per month, NZD</div>
+      <ul class="pc-feats"><li>Unlimited metric blocks</li><li>All integrations</li><li>Onboarding call included</li><li>Priority support</li><li>Quarterly check-in call</li><li>Early access to new blocks</li></ul>
+      <button class="btn-dk">Get started</button>
+    </div>
+    <div class="pc">
+      <div class="pc-plan">Add-ons</div>
+      <div class="pc-price"><sup>+$</sup><span id="pAddon">30</span></div>
+      <div class="pc-per">per module / month</div>
+      <ul class="pc-feats"><li>Inventory Management</li><li>Staff & Labour Tracker</li><li>Marketing Spend ROI</li><li>Social Performance</li><li>Custom KPI blocks</li></ul>
+      <button class="btn-ghost-dk">Learn more</button>
+    </div>
+  </div>
+  <div class="price-calc reveal">
+    <div class="pc-l"><h3>What's it worth to you?</h3><p>Most users find one insight in week one that earns more than a year's subscription.</p></div>
+    <div class="pc-r">
+      <div class="calc-row"><span class="calc-lbl">Monthly revenue</span><input class="calc-slider" type="range" min="1" max="100" value="20" oninput="updateCalc()" id="slRev"><span class="calc-val" id="cvRev">$20k</span></div>
+      <div class="calc-row"><span class="calc-lbl">Hrs/wk on admin</span><input class="calc-slider" type="range" min="1" max="20" value="5" oninput="updateCalc()" id="slHrs"><span class="calc-val" id="cvHrs">5 hrs</span></div>
+      <div class="calc-result"><div><div class="calc-rl">Est. monthly value</div><div style="font-size:10.5px;color:rgba(255,255,255,.25);margin-top:1px">Time saved + better decisions</div></div><div style="text-align:right"><div class="calc-rv" id="calcOut">$840</div><div style="font-size:10.5px;color:rgba(255,255,255,.3);margin-top:1px">vs $199/mo Growth</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FAQ ════ -->
+<section id="faq">
+  <div class="faq-layout">
+    <div class="faq-left reveal">
+      <div class="ey">FAQ</div>
+      <h2>Questions people <em>actually</em> ask.</h2>
+      <p>Still unsure? <a href="#cta">Book a call</a> — we'll walk you through it in 15 minutes.</p>
+    </div>
+    <div class="faq-list reveal reveal-delay-1">
+      <div class="faq-item open"><div class="faq-q" onclick="tFaq(this)"><span class="faq-q-txt">Do I need any tech skills?</span><div class="faq-ico">+</div></div><div class="faq-ans"><div class="faq-ans-inner">None at all. That's the whole point. Show up to a 30-minute call — we set everything up while you watch. You leave with a live dashboard and never touch a settings screen.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="faq-q-txt">What does the onboarding call involve?</span><div class="faq-ico">+</div></div><div class="faq-ans"><div class="faq-ans-inner">30 minutes on Zoom. We ask 5 questions — what tools do you use, what numbers matter most, what does a good week look like. Then we build your dashboard live. You don't do any of the clicking.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="faq-q-txt">What if I only have a bank account?</span><div class="faq-ico">+</div></div><div class="faq-ans"><div class="faq-ans-inner">One of our best use cases. We connect directly to your NZ bank via open banking (ANZ, ASB, BNZ). Money in, money out, categorised automatically. Live dashboard even if you've never used accounting software.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="faq-q-txt">Is my financial data safe?</span><div class="faq-ico">+</div></div><div class="faq-ans"><div class="faq-ans-inner">All integrations use read-only OAuth — we can see data but never move money. Bank connections use Akahu, a regulated open-banking provider. Data is encrypted in transit and at rest.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="faq-q-txt">How is this different from Shopify Analytics?</span><div class="faq-ico">+</div></div><div class="faq-ans"><div class="faq-ans-inner">Shopify only shows Shopify data. It doesn't know about your bank, invoices, in-person sales, or expenses. Stackit pulls everything into one view — your whole business, not just one slice.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="faq-q-txt">Can I cancel anytime?</span><div class="faq-ico">+</div></div><div class="faq-ans"><div class="faq-ans-inner">Yes, no lock-in. Monthly plans cancel with 30 days notice. We'd rather earn your business every month than trap you into staying.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="faq-q-txt">What's the catch with the first 10 free?</span><div class="faq-ico">+</div></div><div class="faq-ans"><div class="faq-ans-inner">There isn't one. We want 10 real businesses using Stackit so we can make it better. In exchange: honest feedback, and a testimonial if you love it. That's it.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CTA ════ -->
+<section id="cta">
+  <div class="cta-inner">
+    <div class="ey reveal">Limited spots</div>
+    <h2 class="reveal reveal-delay-1">First 10 businesses<br>get in <em>free.</em></h2>
+    <p class="sec-lead reveal reveal-delay-2">Free setup. Free onboarding. We build your dashboard — you just show up. All we ask is honest feedback and a kind word if you love it.</p>
+    <a href="#" class="btn btn-primary reveal reveal-delay-3" style="font-size:16px;padding:16px 44px;display:inline-flex">Book your free setup call</a>
+    <p class="cta-note reveal reveal-delay-4">30 minutes &nbsp;·&nbsp; No credit card &nbsp;·&nbsp; Live dashboard when you leave</p>
+    <div class="cta-badges reveal">
+      <div class="cta-badge">🛒 Shopify</div><div class="cta-badge">🏦 Bank feed</div><div class="cta-badge">💳 Stripe</div><div class="cta-badge">📋 Xero</div><div class="cta-badge">🏪 Square</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FOOTER — Sketch-inspired ════ -->
+<footer id="footer">
+  <!-- Top: Big CTA -->
+  <div class="foot-top">
+    <div class="foot-logo-mark"><span>S</span></div>
+    <h2>Discover a better way<br>to <em>run your business.</em></h2>
+    <p>Get started today and join the businesses already using Stackit — from local cafés to Shopify sellers across New Zealand.</p>
+    <div class="foot-cta-row">
+      <a href="#" class="btn btn-primary">Get started for free</a>
+      <a href="#demo" class="btn btn-outline">Watch the demo</a>
+    </div>
+    <p class="foot-note">No credit card required &nbsp;·&nbsp; 30-min onboarding included &nbsp;·&nbsp; Cancel anytime</p>
+  </div>
+
+  <!-- Newsletter -->
+  <div class="foot-newsletter">
+    <div class="fn-left">
+      <h3>Never miss an update</h3>
+      <p>Get product updates, NZ business tips, and Stackit news — delivered directly to your inbox. We rarely send more than one email a month.</p>
+    </div>
+    <div>
+      <div class="fn-right">
+        <input class="fn-input" type="email" placeholder="Email address">
+        <button class="fn-btn">Sign up</button>
+      </div>
+      <label class="fn-consent"><input type="checkbox"> I agree to receive emails from Stackit.</label>
+    </div>
+  </div>
+
+  <!-- Link columns -->
+  <div class="foot-links">
+    <div class="fl-col">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#demo">Live demo</a></li>
+        <li><a href="#integrations">Integrations</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#">Changelog</a></li>
+        <li><a href="#">Roadmap</a></li>
+      </ul>
+    </div>
+    <div class="fl-col">
+      <h4>Use cases</h4>
+      <ul>
+        <li><a href="#">Shopify stores</a></li>
+        <li><a href="#">Cafés & hospitality</a></li>
+        <li><a href="#">Tradies & services</a></li>
+        <li><a href="#">Market stall sellers</a></li>
+        <li><a href="#">Etsy sellers</a></li>
+        <li><a href="#">Retail stores</a></li>
+      </ul>
+    </div>
+    <div class="fl-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Help centre</a></li>
+        <li><a href="#">Documentation</a></li>
+        <li><a href="#">Book onboarding call</a></li>
+        <li><a href="#">Contact us</a></li>
+        <li><a href="#">Service status <span class="ext">↗</span></a></li>
+      </ul>
+    </div>
+    <div class="fl-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About us</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Privacy policy</a></li>
+        <li><a href="#">Terms of service</a></li>
+        <li><a href="#">hello@stackit.co.nz</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="foot-bottom">
+    <div class="fb-logo">Stack<span>it</span></div>
+    <p class="fb-copy">© 2026 Stackit Ltd · Built in Auckland, New Zealand 🇳🇿</p>
+    <div class="fb-socials">
+      <a href="#" class="fb-soc" title="X / Twitter">𝕏</a>
+      <a href="#" class="fb-soc" title="Instagram">📷</a>
+      <a href="#" class="fb-soc" title="LinkedIn">in</a>
+      <a href="#" class="fb-soc" title="TikTok">♪</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════
+   PARALLAX
+══════════════════════════════════════ */
+const paraDots  = document.getElementById('paraDots');
+const paraBg2   = document.getElementById('paraBg2');
+const paraBg3   = document.getElementById('paraBg3');
+const demoBg    = document.getElementById('demoBg');
+const pricePara = document.getElementById('pricePara');
+
+window.addEventListener('scroll',()=>{
+  const y = window.scrollY;
+  if(paraDots)  paraDots.style.transform  = `translateY(${y * 0.25}px)`;
+  if(paraBg2)   paraBg2.style.transform   = `translateY(${y * 0.12}px)`;
+  if(paraBg3)   paraBg3.style.transform   = `translateY(${(y - 3200) * 0.1}px)`;
+  if(demoBg)    demoBg.style.transform    = `translateY(${(y - 2400) * 0.12}px)`;
+  if(pricePara) pricePara.style.transform = `translateY(${(y - 4200) * 0.1}px)`;
+  // Nav shadow
+  document.getElementById('mainNav').classList.toggle('scrolled', y > 20);
+},{ passive:true });
+
+/* ══════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════ */
+const revObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('vis'); });
+},{threshold:.1, rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+
+/* ══════════════════════════════════════
+   INTEGRATIONS
+══════════════════════════════════════ */
+const intData=[
+  [{i:'🛒',n:'Shopify',s:'Connected',c:true},{i:'🏦',n:'ANZ Feed',s:'Connected',c:true},{i:'💳',n:'Stripe',s:'Connected',c:true},{i:'📋',n:'Xero',s:'Tap to connect',c:false},{i:'🏪',n:'Square',s:'Tap to connect',c:false},{i:'🔌',n:'+200 more',s:'Via Apideck',c:false}],
+  [{i:'💳',n:'Stripe',s:'Connected',c:true},{i:'💰',n:'PayPal',s:'Tap to connect',c:false},{i:'🛒',n:'Shopify',s:'Connected',c:true},{i:'📋',n:'Xero',s:'Tap to connect',c:false},{i:'🏦',n:'ANZ Feed',s:'Connected',c:true},{i:'🔌',n:'+200 more',s:'Via Apideck',c:false}],
+  [{i:'🏦',n:'ANZ',s:'Connected',c:true},{i:'🏦',n:'ASB',s:'Tap to connect',c:false},{i:'🏦',n:'BNZ',s:'Tap to connect',c:false},{i:'💳',n:'Stripe',s:'Connected',c:true},{i:'🛒',n:'Shopify',s:'Connected',c:true},{i:'🔌',n:'+200 more',s:'Via Apideck',c:false}],
+  [{i:'📋',n:'Xero',s:'Add-on',c:false},{i:'📊',n:'MYOB',s:'Tap to connect',c:false},{i:'🏦',n:'ANZ Feed',s:'Connected',c:true},{i:'🛒',n:'Shopify',s:'Connected',c:true},{i:'💳',n:'Stripe',s:'Connected',c:true},{i:'🔌',n:'+200 more',s:'Via Apideck',c:false}],
+  [{i:'📣',n:'Klaviyo',s:'Via Apideck',c:false},{i:'📱',n:'Meta Ads',s:'Via Apideck',c:false},{i:'🔍',n:'Google Ads',s:'Via Apideck',c:false},{i:'🤝',n:'HubSpot',s:'Via Apideck',c:false},{i:'🛒',n:'Shopify',s:'Connected',c:true},{i:'🔌',n:'+195 more',s:'Ask us',c:false}],
+];
+function setInt(i){
+  document.querySelectorAll('.int-cat').forEach((el,j)=>el.classList.toggle('active',i===j));
+  const nd=document.getElementById('intNodes');
+  nd.style.opacity='0';
+  setTimeout(()=>{
+    nd.innerHTML=intData[i].map(n=>`<div class="int-node${n.c?' on':''}"><div class="int-node-icon">${n.i}</div><div class="int-node-name">${n.n}</div><div class="int-node-status">${n.s}</div></div>`).join('');
+    nd.style.transition='opacity .3s';nd.style.opacity='1';
+  },180);
+}
+
+/* ══════════════════════════════════════
+   PRICING
+══════════════════════════════════════ */
+let bill='mo';
+const PR={mo:{b:99,g:199,a:30},an:{b:79,g:159,a:24}};
+function setBill(m){
+  bill=m;const p=PR[m];
+  document.getElementById('pBase').textContent=p.b;
+  document.getElementById('pGrowth').textContent=p.g;
+  document.getElementById('pAddon').textContent=p.a;
+  const isAn=m==='an';
+  document.getElementById('ptTrack').classList.toggle('on',isAn);
+  document.getElementById('togMo').classList.toggle('active',!isAn);
+  document.getElementById('togAn').classList.toggle('active',isAn);
+  const per=isAn?'per month, billed annually (NZD)':'per month, NZD';
+  document.getElementById('perBase').textContent=per;
+  document.getElementById('perGrowth').textContent=per;
+}
+function toggleBill(){setBill(bill==='mo'?'an':'mo')}
+function updateCalc(){
+  const rev=parseInt(document.getElementById('slRev').value);
+  const hrs=parseInt(document.getElementById('slHrs').value);
+  document.getElementById('cvRev').textContent=rev>=100?'$100k+':('$'+rev+'k');
+  document.getElementById('cvHrs').textContent=hrs+' hrs';
+  const total=hrs*50+Math.round(rev*1000*.02);
+  document.getElementById('calcOut').textContent=total>=1000?('$'+(total/1000).toFixed(1)+'k'):('$'+total);
+}
+updateCalc();
+
+/* ══════════════════════════════════════
+   FAQ
+══════════════════════════════════════ */
+function tFaq(qEl){
+  const item=qEl.parentElement;
+  const was=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if(!was)item.classList.add('open');
+}
+
+/* ══════════════════════════════════════
+   DEMO DASHBOARD
+══════════════════════════════════════ */
+let dEditMode=false,dDragId=null;
+
+const D_DETAIL={
+  revenue:{title:'Revenue This Month',val:'$14,250',dir:'up',txt:'12% vs last month',meta:'Synced 3m ago · Shopify'},
+  cash:   {title:'Cash & Runway',     val:'$8,420', dir:'dn',txt:'18-day runway — low',meta:'Synced 1h ago · Akahu'},
+  orders: {title:'Orders Today',      val:'24',      dir:'up',txt:'3 more than yesterday',meta:'Synced 3m ago · Shopify'},
+};
+
+function dToggleEdit(){
+  dEditMode=!dEditMode;
+  const btn=document.getElementById('dEditBtn');
+  document.querySelectorAll('.dw').forEach(w=>w.classList.toggle('edit-mode',dEditMode));
+  btn.textContent=dEditMode?'✓ Done':'✏️ Edit';
+  btn.classList.toggle('active',dEditMode);
+}
+
+function dRm(e,id){
+  e.stopPropagation();
+  const el=document.getElementById(id);
+  el.style.transition='all .3s cubic-bezier(.34,1.56,.64,1)';
+  el.style.transform='scale(0) rotate(8deg)';
+  el.style.opacity='0';
+  setTimeout(()=>el.remove(),300);
+}
+
+function dds(e,id){
+  if(!dEditMode){e.preventDefault();return}
+  dDragId=id;
+  setTimeout(()=>document.getElementById(id)?.classList.add('dragging'),0);
+  e.dataTransfer.effectAllowed='move';
+}
+function ddv(e){
+  e.preventDefault();
+  if(dDragId&&e.currentTarget.id!==dDragId)e.currentTarget.classList.add('drop-over');
+}
+function ddp(e,tid){
+  e.preventDefault();
+  if(!dDragId||dDragId===tid)return;
+  const dragged=document.getElementById(dDragId),target=document.getElementById(tid);
+  if(dragged&&target){
+    const grid=document.getElementById('dGrid'),nodes=[...grid.children];
+    const di=nodes.indexOf(dragged),ti=nodes.indexOf(target);
+    grid.insertBefore(dragged,di<ti?target.nextSibling:target);
+    dragged.classList.remove('dragging');target.classList.remove('drop-over');
+    dragged.style.animation='none';
+    setTimeout(()=>{dragged.style.animation='wIn .3s cubic-bezier(.34,1.56,.64,1)'},10);
+  }
+  dDragId=null;
+}
+document.addEventListener('dragend',()=>{
+  document.querySelectorAll('.dw').forEach(w=>w.classList.remove('dragging','drop-over'));
+  dDragId=null;
+});
+
+function dOpenDetail(type){
+  if(dEditMode)return;
+  const d=D_DETAIL[type];if(!d)return;
+  document.getElementById('dDetTitle').textContent=d.title;
+  document.getElementById('dDetVal').textContent=d.val;
+  document.getElementById('dDetArrow').textContent=d.dir==='up'?'↑':'↓';
+  document.getElementById('dDetTxt').textContent=d.txt;
+  document.getElementById('dDetMeta').textContent=d.meta;
+  document.getElementById('dDetTrend').className='d-det-trend '+(d.dir==='up'?'up':'dn');
+  document.getElementById('dDetOv').classList.add('open');
+  document.getElementById('dDetSheet').classList.add('open');
+}
+function dCloseDetail(){
+  document.getElementById('dDetOv').classList.remove('open');
+  document.getElementById('dDetSheet').classList.remove('open');
+}
+
+function dOpenPick(){
+  document.getElementById('dPickOv').classList.add('open');
+  document.getElementById('dPickSheet').classList.add('open');
+}
+function dClosePick(){
+  document.getElementById('dPickOv').classList.remove('open');
+  document.getElementById('dPickSheet').classList.remove('open');
+}
+
+function dAddWidget(type,name,icon,preview,viz){
+  dClosePick();
+  const grid=document.getElementById('dGrid');
+  const id='dw-'+Date.now();
+  const div=document.createElement('div');
+  div.className='dw dw2';div.id=id;div.draggable=true;
+  div.setAttribute('ondragstart',`dds(event,'${id}')`);
+  div.setAttribute('ondragover','ddv(event)');
+  div.setAttribute('ondrop',`ddp(event,'${id}')`);
+  div.innerHTML=dBuildWidget(id,name,icon,preview,viz);
+  div.style.opacity='0';div.style.transform='scale(0.5) translateY(8px)';
+  grid.appendChild(div);
+  if(dEditMode)div.classList.add('edit-mode');
+  div.addEventListener('dragleave',()=>div.classList.remove('drop-over'));
+  setTimeout(()=>{
+    div.style.transition='all .4s cubic-bezier(.34,1.56,.64,1)';
+    div.style.opacity='1';div.style.transform='scale(1) translateY(0)';
+  },10);
+  // Scroll to show new widget
+  setTimeout(()=>div.scrollIntoView({behavior:'smooth',block:'nearest'}),450);
+}
+
+function dBuildWidget(id,name,icon,preview,viz){
+  let inner='';
+  if(viz==='sparkline'){
+    inner=`<div class="d-spark"><svg viewBox="0 0 200 30" preserveAspectRatio="none"><path d="M0,28 L40,20 L80,24 L120,12 L160,16 L200,6" fill="none" stroke="#3fa85f" stroke-width="1.8" stroke-linecap="round"/></svg></div>`;
+  } else if(viz==='progress'){
+    inner=`<div class="d-pbar-wrap"><div class="d-pbar-lbl"><span>${name}</span><span style="font-weight:700;color:#6fcf97">${preview}</span></div><div class="d-pbar-track"><div class="d-pbar-fill" style="width:72%;background:var(--terra)"></div></div></div>`;
+  } else if(viz==='heatmap'){
+    inner=`<div class="d-heatmap">${['Mo','Tu','We','Th','Fr','Sa','Su'].map(d=>`<div class="d-hml">${d}</div>`).join('')}${Array(14).fill(0).map(()=>`<div class="d-hmc" style="background:rgba(181,96,58,${(Math.random()*.8+.1).toFixed(2)})"></div>`).join('')}</div>`;
+  } else if(viz==='bars'){
+    inner=`<div style="display:flex;align-items:flex-end;gap:3px;height:32px;margin-top:8px">${['Oct','Nov','Dec','Jan','Feb','Mar'].map((m,i)=>`<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px"><div style="flex:1;width:100%;background:${i===5?'var(--terra)':'rgba(46,77,56,.6)'};border-radius:2px 2px 0 0;height:${40+i*12}%"></div><div style="font-size:7px;color:rgba(255,255,255,.25)">${m}</div></div>`).join('')}</div>`;
+  }
+  return `<div class="d-rm" onclick="dRm(event,'${id}')">×</div>
+    <div class="dwh"><span class="dwl">${name}</span><span class="ds-dot"></span></div>
+    <div class="dwval" style="font-size:20px">${icon} ${preview}</div>
+    ${inner}
+    <div class="dtbar"><span class="dtinfo">just added</span><span class="dsbadge">manual</span></div>`;
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){dCloseDetail();dClosePick();}
+});
+</script>
+</body>
+</html>

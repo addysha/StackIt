@@ -6,6 +6,7 @@ import { cn, scrollToHash } from "@/lib/utils";
 
 const NAV_LINKS = [
   { label: "Features", href: "#features" },
+  { label: "Try it", href: "#demo" },
   { label: "Integrations", href: "#integrations" },
   { label: "Pricing", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
@@ -48,10 +49,11 @@ export function Navbar() {
           {/* Logo — subtle pill behind wordmark */}
           <a
             href="#"
+            onClick={handleAnchorClick}
             className="flex shrink-0 items-center rounded-full bg-[var(--bg-elevated)] py-2 pl-3 pr-4 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2 focus:ring-offset-[var(--bg-base)] min-h-[44px]"
           >
             <span className="font-[family-name:var(--font-body)] text-xl font-semibold text-[var(--text-primary)]">
-              StackIt
+              Stack<span className="text-[var(--accent)]">it</span>
             </span>
           </a>
 
@@ -72,11 +74,11 @@ export function Navbar() {
           {/* Desktop CTA — pill */}
           <div className="hidden md:block shrink-0">
             <a
-              href="#early-access"
+              href="#cta"
               onClick={handleAnchorClick}
               className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-[var(--accent)] px-5 py-2 text-sm font-medium text-[var(--text-inverse)] shadow-[0_2px_8px_rgba(91,87,232,0.25)] transition-colors duration-200 hover:bg-[var(--accent-hover)] hover:shadow-[0_4px_12px_rgba(91,87,232,0.35)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2 focus:ring-offset-[var(--bg-base)]"
             >
-              Get Early Access
+              Get early access
             </a>
           </div>
 
@@ -108,11 +110,11 @@ export function Navbar() {
               </a>
             ))}
             <a
-              href="#early-access"
+              href="#cta"
               onClick={handleAnchorClick}
               className="mt-2 flex min-h-[44px] items-center justify-center rounded-full bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] shadow-[0_2px_8px_rgba(91,87,232,0.25)]"
             >
-              Get Early Access
+              Get early access
             </a>
           </div>
         </div>

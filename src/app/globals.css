@@ -108,3 +108,16 @@ select {
   background-size: 32px 32px;
   opacity: 0.4;
 }
+
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-ticker {
+  animation: ticker 24s linear infinite;
+}
