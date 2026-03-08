@@ -383,15 +383,24 @@ export function ProductPreview() {
             </div>
           </div>
 
-          {/* Dashboard inner */}
+          {/* Dashboard inner: flex column so Add Widget bar stays at bottom */}
           <div
             style={{
               background: "var(--ink)",
               maxHeight: 620,
-              overflowY: "auto",
+              display: "flex",
+              flexDirection: "column",
               position: "relative",
             }}
           >
+            {/* Scrollable content */}
+            <div
+              style={{
+                flex: 1,
+                minHeight: 0,
+                overflowY: "auto",
+              }}
+            >
             {/* Topbar */}
             <div
               style={{
@@ -512,7 +521,7 @@ export function ProductPreview() {
             </button>
 
             {/* Canvas */}
-            <div style={{ padding: "8px 14px 80px" }}>
+            <div style={{ padding: "8px 14px 24px" }}>
               <div
                 style={{
                   fontSize: 9.5,
@@ -615,14 +624,12 @@ export function ProductPreview() {
                 })}
               </div>
             </div>
+            </div>
 
-            {/* Add widget bar */}
+            {/* Add widget bar - fixed at bottom of dashboard */}
             <div
               style={{
-                position: "absolute",
-                bottom: 0,
-                left: 0,
-                right: 0,
+                flexShrink: 0,
                 padding: "12px 16px 20px",
                 background: "linear-gradient(to top, rgba(30,24,16,.95) 50%, transparent)",
                 display: "flex",
@@ -661,40 +668,175 @@ export function ProductPreview() {
                 Add Widget
               </button>
             </div>
-          </div>
-        </motion.div>
-      </div>
 
-      {/* Detail sheet */}
-      {detailWidget && DEMO_DETAIL[detailWidget] && (
-        <>
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              zIndex: 40,
-              background: "rgba(10,8,5,.7)",
-              backdropFilter: "blur(8px)",
-            }}
-            onClick={() => setDetailWidget(null)}
-            aria-hidden
-          />
-          <div
-            style={{
-              position: "absolute",
-              bottom: 0,
-              left: 0,
-              right: 0,
-              zIndex: 50,
-              maxHeight: "80%",
-              overflowY: "auto",
-              background: "rgba(30,24,16,.97)",
-              border: "1px solid rgba(255,255,255,.1)",
-              borderRadius: "14px 14px 0 0",
-              padding: "0 20px 36px",
-              boxShadow: "var(--sh-xl)",
-            }}
-          >
+            {/* Widget picker - constrained to dashboard area */}
+            {pickerOpen && (
+              <>
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    zIndex: 40,
+                    background: "rgba(10,8,5,.7)",
+                    backdropFilter: "blur(8px)",
+                  }}
+                  onClick={() => setPickerOpen(false)}
+                  aria-hidden
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    zIndex: 50,
+                    maxHeight: "75%",
+                    overflowY: "auto",
+                    background: "rgba(253,250,245,.97)",
+                    borderRadius: "14px 14px 0 0",
+                    padding: "0 16px 44px",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: 30,
+                      height: 3,
+                      background: "var(--stone)",
+                      borderRadius: 2,
+                      margin: "11px auto 16px",
+                    }}
+                  />
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-serif)",
+                      fontSize: 17,
+                      fontWeight: 600,
+                      color: "var(--ink)",
+                      marginBottom: 12,
+                    }}
+                  >
+                    Add a Widget
+                  </h3>
+                  {PICKER_CATEGORIES.map((cat) => (
+                    <div key={cat.title} style={{ marginBottom: 18 }}>
+                      <div
+                        style={{
+                          fontSize: 10,
+                          textTransform: "uppercase",
+                          letterSpacing: ".1em",
+                          color: "var(--ink-3)",
+                          marginBottom: 8,
+                          fontWeight: 700,
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 6,
+                          fontFamily: "var(--font-sans)",
+                        }}
+                      >
+                        <cat.icon style={{ width: 13, height: 13 }} />
+                        {cat.title}
+                      </div>
+                      <div
+                        style={{
+                          display: "grid",
+                          gridTemplateColumns: "repeat(3, 1fr)",
+                          gap: 8,
+                        }}
+                      >
+                        {cat.items.map((it) => (
+                          <button
+                            key={it.id}
+                            type="button"
+                            onClick={() => addWidget(it)}
+                            style={{
+                              background: "var(--surf)",
+                              border: "1px solid var(--stone)",
+                              borderRadius: 11,
+                              padding: "12px 8px",
+                              cursor: "pointer",
+                              textAlign: "center",
+                              boxShadow: "var(--sh-sm)",
+                              transition: "all .2s cubic-bezier(.34,1.56,.64,1)",
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                              gap: 4,
+                            }}
+                            onMouseEnter={(e) => {
+                              (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--terra)";
+                              (e.currentTarget as HTMLButtonElement).style.background = "rgba(181,96,58,.04)";
+                              (e.currentTarget as HTMLButtonElement).style.transform = "scale(1.03) translateY(-1px)";
+                            }}
+                            onMouseLeave={(e) => {
+                              (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--stone)";
+                              (e.currentTarget as HTMLButtonElement).style.background = "var(--surf)";
+                              (e.currentTarget as HTMLButtonElement).style.transform = "none";
+                            }}
+                          >
+                            <it.icon style={{ width: 18, height: 18, color: "var(--terra)", marginBottom: 2 }} />
+                            <span
+                              style={{
+                                fontSize: 10.5,
+                                fontWeight: 600,
+                                color: "var(--ink-2)",
+                                lineHeight: 1.3,
+                                fontFamily: "var(--font-sans)",
+                              }}
+                            >
+                              {it.name}
+                            </span>
+                            <span
+                              style={{
+                                fontSize: 8.5,
+                                fontWeight: 700,
+                                textTransform: "uppercase",
+                                letterSpacing: ".07em",
+                                color: "var(--terra)",
+                                fontFamily: "var(--font-sans)",
+                              }}
+                            >
+                              {it.viz}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Detail sheet - constrained to demo container, max half height */}
+          {detailWidget && DEMO_DETAIL[detailWidget] && (
+            <>
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  zIndex: 40,
+                  background: "rgba(10,8,5,.7)",
+                  backdropFilter: "blur(8px)",
+                }}
+                onClick={() => setDetailWidget(null)}
+                aria-hidden
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  zIndex: 50,
+                  maxHeight: "50%",
+                  overflowY: "auto",
+                  background: "rgba(30,24,16,.97)",
+                  border: "1px solid rgba(255,255,255,.1)",
+                  borderRadius: "14px 14px 0 0",
+                  padding: "0 20px 36px",
+                  boxShadow: "var(--sh-xl)",
+                }}
+              >
             <div
               style={{
                 width: 30,
@@ -871,146 +1013,11 @@ export function ProductPreview() {
             >
               {DEMO_DETAIL[detailWidget].meta}
             </p>
-          </div>
-        </>
-      )}
-
-      {/* Widget picker sheet */}
-      {pickerOpen && (
-        <>
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              zIndex: 40,
-              background: "rgba(10,8,5,.7)",
-              backdropFilter: "blur(8px)",
-            }}
-            onClick={() => setPickerOpen(false)}
-            aria-hidden
-          />
-          <div
-            style={{
-              position: "absolute",
-              bottom: 0,
-              left: 0,
-              right: 0,
-              zIndex: 50,
-              maxHeight: "75%",
-              overflowY: "auto",
-              background: "rgba(253,250,245,.97)",
-              borderRadius: "14px 14px 0 0",
-              padding: "0 16px 44px",
-            }}
-          >
-            <div
-              style={{
-                width: 30,
-                height: 3,
-                background: "var(--stone)",
-                borderRadius: 2,
-                margin: "11px auto 16px",
-              }}
-            />
-            <h3
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: 17,
-                fontWeight: 600,
-                color: "var(--ink)",
-                marginBottom: 12,
-              }}
-            >
-              Add a Widget
-            </h3>
-            {PICKER_CATEGORIES.map((cat) => (
-              <div key={cat.title} style={{ marginBottom: 18 }}>
-                <div
-                  style={{
-                    fontSize: 10,
-                    textTransform: "uppercase",
-                    letterSpacing: ".1em",
-                    color: "var(--ink-3)",
-                    marginBottom: 8,
-                    fontWeight: 700,
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 6,
-                    fontFamily: "var(--font-sans)",
-                  }}
-                >
-                  <cat.icon style={{ width: 13, height: 13 }} />
-                  {cat.title}
-                </div>
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(3, 1fr)",
-                    gap: 8,
-                  }}
-                >
-                  {cat.items.map((it) => (
-                    <button
-                      key={it.id}
-                      type="button"
-                      onClick={() => addWidget(it)}
-                      style={{
-                        background: "var(--surf)",
-                        border: "1px solid var(--stone)",
-                        borderRadius: 11,
-                        padding: "12px 8px",
-                        cursor: "pointer",
-                        textAlign: "center",
-                        boxShadow: "var(--sh-sm)",
-                        transition: "all .2s cubic-bezier(.34,1.56,.64,1)",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        gap: 4,
-                      }}
-                      onMouseEnter={(e) => {
-                        (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--terra)";
-                        (e.currentTarget as HTMLButtonElement).style.background = "rgba(181,96,58,.04)";
-                        (e.currentTarget as HTMLButtonElement).style.transform = "scale(1.03) translateY(-1px)";
-                      }}
-                      onMouseLeave={(e) => {
-                        (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--stone)";
-                        (e.currentTarget as HTMLButtonElement).style.background = "var(--surf)";
-                        (e.currentTarget as HTMLButtonElement).style.transform = "none";
-                      }}
-                    >
-                      <it.icon style={{ width: 18, height: 18, color: "var(--terra)", marginBottom: 2 }} />
-                      <span
-                        style={{
-                          fontSize: 10.5,
-                          fontWeight: 600,
-                          color: "var(--ink-2)",
-                          lineHeight: 1.3,
-                          fontFamily: "var(--font-sans)",
-                        }}
-                      >
-                        {it.name}
-                      </span>
-                      <span
-                        style={{
-                          fontSize: 8.5,
-                          fontWeight: 700,
-                          textTransform: "uppercase",
-                          letterSpacing: ".07em",
-                          color: "var(--terra)",
-                          fontFamily: "var(--font-sans)",
-                        }}
-                      >
-                        {it.viz}
-                      </span>
-                    </button>
-                  ))}
-                </div>
               </div>
-            ))}
-          </div>
-        </>
-      )}
+            </>
+          )}
+        </motion.div>
+      </div>
 
       <style>{`
         @keyframes dwiggle {
