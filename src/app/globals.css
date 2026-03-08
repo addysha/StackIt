@@ -57,3 +57,35 @@ select {
     radial-gradient(rgb(42 42 58 / 0.35) 0.8px, transparent 0.8px);
   background-size: 24px 24px;
 }
+
+@keyframes hero-glow {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translate(2%, 2%) scale(1.02);
+    opacity: 0.2;
+  }
+}
+
+@keyframes hero-glow-delayed {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.08;
+  }
+  50% {
+    transform: translate(-2%, -1%) scale(1.03);
+    opacity: 0.12;
+  }
+}
+
+.animate-hero-glow {
+  animation: hero-glow 8s ease-in-out infinite;
+}
+
+.animate-hero-glow-delayed {
+  animation: hero-glow-delayed 10s ease-in-out infinite 1s;
+}

@@ -32,3 +32,20 @@ export function toTitleCase(value: string) {
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(" ");
 }
+
+/**
+ * Smooth-scroll to an in-page section by hash. Use as onClick for anchor links
+ * so scrolling works reliably in Next.js (native hash scroll can fail).
+ */
+export function scrollToHash(e: React.MouseEvent<HTMLAnchorElement>) {
+  const href = e.currentTarget.getAttribute("href");
+  if (href?.startsWith("#")) {
+    e.preventDefault();
+    const id = href.slice(1);
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.history.pushState(null, "", href);
+    }
+  }
+}
