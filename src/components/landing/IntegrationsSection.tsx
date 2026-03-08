@@ -2,24 +2,13 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  ShoppingCart,
-  CreditCard,
-  Landmark,
-  FileText,
-  Plug,
-  Store,
-  Megaphone,
-  Smartphone,
-  Search,
-  Handshake,
-} from "lucide-react";
 import { cn } from "@/lib/utils";
+import { RevealWrapper } from "@/components/ui/RevealWrapper";
 
 const CATEGORIES = [
   {
     id: 0,
-    icon: ShoppingCart,
+    abbr: "SH",
     name: "Online selling",
     count: "3 apps",
     body: "Pulls revenue, orders, top products, refunds, customer counts, and average order value directly.",
@@ -27,7 +16,7 @@ const CATEGORIES = [
   },
   {
     id: 1,
-    icon: CreditCard,
+    abbr: "ST",
     name: "Payments",
     count: "2 apps",
     body: "Track payments received, refunds, and processing fees in real time.",
@@ -35,7 +24,7 @@ const CATEGORIES = [
   },
   {
     id: 2,
-    icon: Landmark,
+    abbr: "AN",
     name: "Bank feeds",
     count: "3 banks",
     body: "Direct open-banking connection. Works even if you have no software at all.",
@@ -43,7 +32,7 @@ const CATEGORIES = [
   },
   {
     id: 3,
-    icon: FileText,
+    abbr: "XR",
     name: "Accounting",
     count: "2 apps",
     body: "Pull invoices, P&L, expenses and cash flow from your accounting software.",
@@ -51,7 +40,7 @@ const CATEGORIES = [
   },
   {
     id: 4,
-    icon: Plug,
+    abbr: "+2",
     name: "200+ via Apideck",
     count: "Ask us",
     body: "CRMs, ERPs, marketing platforms and more. Ask us about your stack.",
@@ -59,50 +48,99 @@ const CATEGORIES = [
   },
 ];
 
-const NODES_BY_CATEGORY: { icon: LucideIcon; name: string; status: string; on: boolean }[][] = [
+const NODES_BY_CATEGORY: { abbr: string; name: string; status: string; on: boolean }[][] = [
   [
-    { icon: ShoppingCart, name: "Shopify", status: "Connected", on: true },
-    { icon: Landmark, name: "ANZ Feed", status: "Connected", on: true },
-    { icon: CreditCard, name: "Stripe", status: "Connected", on: true },
-    { icon: FileText, name: "Xero", status: "Tap to connect", on: false },
-    { icon: Store, name: "Square", status: "Tap to connect", on: false },
-    { icon: Plug, name: "+200 more", status: "Via Apideck", on: false },
+    { abbr: "SH", name: "Shopify", status: "Connected", on: true },
+    { abbr: "AN", name: "ANZ Feed", status: "Connected", on: true },
+    { abbr: "ST", name: "Stripe", status: "Connected", on: true },
+    { abbr: "XR", name: "Xero", status: "Tap to connect", on: false },
+    { abbr: "SQ", name: "Square", status: "Tap to connect", on: false },
+    { abbr: "+2", name: "+200 more", status: "Via Apideck", on: false },
   ],
   [
-    { icon: CreditCard, name: "Stripe", status: "Connected", on: true },
-    { icon: CreditCard, name: "PayPal", status: "Tap to connect", on: false },
-    { icon: ShoppingCart, name: "Shopify", status: "Connected", on: true },
-    { icon: FileText, name: "Xero", status: "Tap to connect", on: false },
-    { icon: Landmark, name: "ANZ Feed", status: "Connected", on: true },
-    { icon: Plug, name: "+200 more", status: "Via Apideck", on: false },
+    { abbr: "ST", name: "Stripe", status: "Connected", on: true },
+    { abbr: "PP", name: "PayPal", status: "Tap to connect", on: false },
+    { abbr: "SH", name: "Shopify", status: "Connected", on: true },
+    { abbr: "XR", name: "Xero", status: "Tap to connect", on: false },
+    { abbr: "AN", name: "ANZ Feed", status: "Connected", on: true },
+    { abbr: "+2", name: "+200 more", status: "Via Apideck", on: false },
   ],
   [
-    { icon: Landmark, name: "ANZ", status: "Connected", on: true },
-    { icon: Landmark, name: "ASB", status: "Tap to connect", on: false },
-    { icon: Landmark, name: "BNZ", status: "Tap to connect", on: false },
-    { icon: CreditCard, name: "Stripe", status: "Connected", on: true },
-    { icon: ShoppingCart, name: "Shopify", status: "Connected", on: true },
-    { icon: Plug, name: "+200 more", status: "Via Apideck", on: false },
+    { abbr: "AN", name: "ANZ", status: "Connected", on: true },
+    { abbr: "AS", name: "ASB", status: "Tap to connect", on: false },
+    { abbr: "BN", name: "BNZ", status: "Tap to connect", on: false },
+    { abbr: "ST", name: "Stripe", status: "Connected", on: true },
+    { abbr: "SH", name: "Shopify", status: "Connected", on: true },
+    { abbr: "+2", name: "+200 more", status: "Via Apideck", on: false },
   ],
   [
-    { icon: FileText, name: "Xero", status: "Add-on", on: false },
-    { icon: FileText, name: "MYOB", status: "Tap to connect", on: false },
-    { icon: Landmark, name: "ANZ Feed", status: "Connected", on: true },
-    { icon: ShoppingCart, name: "Shopify", status: "Connected", on: true },
-    { icon: CreditCard, name: "Stripe", status: "Connected", on: true },
-    { icon: Plug, name: "+200 more", status: "Via Apideck", on: false },
+    { abbr: "XR", name: "Xero", status: "Add-on", on: false },
+    { abbr: "MY", name: "MYOB", status: "Tap to connect", on: false },
+    { abbr: "AN", name: "ANZ Feed", status: "Connected", on: true },
+    { abbr: "SH", name: "Shopify", status: "Connected", on: true },
+    { abbr: "ST", name: "Stripe", status: "Connected", on: true },
+    { abbr: "+2", name: "+200 more", status: "Via Apideck", on: false },
   ],
   [
-    { icon: Megaphone, name: "Klaviyo", status: "Via Apideck", on: false },
-    { icon: Smartphone, name: "Meta Ads", status: "Via Apideck", on: false },
-    { icon: Search, name: "Google Ads", status: "Via Apideck", on: false },
-    { icon: Handshake, name: "HubSpot", status: "Via Apideck", on: false },
-    { icon: ShoppingCart, name: "Shopify", status: "Connected", on: true },
-    { icon: Plug, name: "+195 more", status: "Ask us", on: false },
+    { abbr: "KL", name: "Klaviyo", status: "Via Apideck", on: false },
+    { abbr: "MA", name: "Meta Ads", status: "Via Apideck", on: false },
+    { abbr: "GA", name: "Google Ads", status: "Via Apideck", on: false },
+    { abbr: "HS", name: "HubSpot", status: "Via Apideck", on: false },
+    { abbr: "SH", name: "Shopify", status: "Connected", on: true },
+    { abbr: "+2", name: "+195 more", status: "Ask us", on: false },
   ],
 ];
 
-type LucideIcon = React.ComponentType<{ className?: string }>;
+function Monogram({ abbr, on }: { abbr: string; on: boolean }) {
+  return (
+    <div
+      style={{
+        width: 32,
+        height: 32,
+        borderRadius: 8,
+        background: on ? "rgba(46,77,56,.15)" : "rgba(30,24,16,.06)",
+        border: `1px solid ${on ? "rgba(46,77,56,.3)" : "var(--stone)"}`,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: 11,
+        fontWeight: 700,
+        color: on ? "var(--forest)" : "var(--ink-3)",
+        fontFamily: "var(--font-sans)",
+        letterSpacing: ".02em",
+        margin: "0 auto 4px",
+        flexShrink: 0,
+      }}
+    >
+      {abbr}
+    </div>
+  );
+}
+
+function CatMonogram({ abbr }: { abbr: string }) {
+  return (
+    <div
+      style={{
+        width: 32,
+        height: 32,
+        borderRadius: 8,
+        background: "rgba(181,96,58,.08)",
+        border: "1px solid rgba(181,96,58,.2)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: 11,
+        fontWeight: 700,
+        color: "var(--terra)",
+        fontFamily: "var(--font-sans)",
+        letterSpacing: ".02em",
+        flexShrink: 0,
+      }}
+    >
+      {abbr}
+    </div>
+  );
+}
 
 export function IntegrationsSection() {
   const [activeCat, setActiveCat] = useState(0);
@@ -111,77 +149,158 @@ export function IntegrationsSection() {
   return (
     <section
       id="integrations"
-      className="border-t border-[var(--border-default)] bg-[var(--bg-elevated)] px-4 py-20 md:px-6 md:py-28"
+      style={{
+        padding: "100px 40px",
+        background: "var(--cream)",
+        borderTop: "1px solid var(--stone)",
+      }}
     >
-      <div className="mx-auto max-w-4xl text-center">
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-3.5 text-xs font-bold uppercase tracking-[0.1em] text-[var(--accent)]"
+      <RevealWrapper>
+        <p
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            letterSpacing: ".1em",
+            textTransform: "uppercase",
+            color: "var(--terra)",
+            marginBottom: 14,
+            fontFamily: "var(--font-sans)",
+          }}
         >
           Integrations
-        </motion.p>
-        <motion.h2
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-3xl font-semibold leading-tight tracking-tight md:text-4xl"
-          style={{ fontFamily: "var(--font-hero)" }}
+        </p>
+      </RevealWrapper>
+
+      <RevealWrapper delay={1}>
+        <h2
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: "clamp(30px, 4vw, 50px)",
+            fontWeight: 600,
+            lineHeight: 1.18,
+            letterSpacing: "-.02em",
+            color: "var(--ink)",
+          }}
         >
           Connects to the tools
           <br />
-          you <em className="italic text-[var(--accent)]">already use.</em>
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mx-auto mt-4 max-w-[540px] text-base leading-relaxed text-[var(--text-secondary)]"
+          you <em style={{ fontStyle: "italic", color: "var(--terra)" }}>already use.</em>
+        </h2>
+      </RevealWrapper>
+
+      <RevealWrapper delay={2}>
+        <p
+          style={{
+            fontSize: 16.5,
+            color: "var(--ink-2)",
+            maxWidth: 540,
+            margin: "16px 0 56px",
+            lineHeight: 1.8,
+            fontFamily: "var(--font-sans)",
+          }}
         >
           One click to connect. OAuth login — no API keys, no CSV uploads, no
           technical knowledge needed.
-        </motion.p>
-      </div>
+        </p>
+      </RevealWrapper>
 
-      <div className="mx-auto mt-14 grid max-w-6xl gap-12 md:grid-cols-[1fr,1.2fr] md:gap-16">
-        <motion.div
-          initial={{ opacity: 0, x: -12 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className="flex flex-col gap-2"
-        >
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1.2fr",
+          gap: 64,
+          alignItems: "start",
+          maxWidth: 1100,
+        }}
+        className="max-md:grid-cols-1"
+      >
+        {/* Left accordion */}
+        <RevealWrapper style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {CATEGORIES.map((cat) => (
             <button
               key={cat.id}
               type="button"
               onClick={() => setActiveCat(cat.id)}
-              className={cn(
-                "rounded-xl border px-5 py-4 text-left transition-all",
-                activeCat === cat.id
-                  ? "border-[var(--accent)] bg-[var(--bg-surface)] shadow-[0_4px_16px_var(--accent-glow)]"
-                  : "border-[var(--border-default)] bg-[var(--bg-surface)] hover:border-[var(--border-strong)] hover:translate-x-0.5"
-              )}
+              style={{
+                background: activeCat === cat.id ? "#fff" : "var(--surf)",
+                border: `1.5px solid ${activeCat === cat.id ? "var(--terra)" : "var(--stone)"}`,
+                borderRadius: 14,
+                padding: "18px 20px",
+                cursor: "pointer",
+                textAlign: "left",
+                transition: "border-color .2s, box-shadow .2s, transform .2s",
+                boxShadow: activeCat === cat.id ? "0 4px 16px rgba(181,96,58,.1)" : "none",
+                transform: activeCat !== cat.id ? undefined : undefined,
+              }}
+              onMouseEnter={(e) => {
+                if (activeCat !== cat.id) {
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--slate)";
+                  (e.currentTarget as HTMLButtonElement).style.transform = "translateX(3px)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (activeCat !== cat.id) {
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--stone)";
+                  (e.currentTarget as HTMLButtonElement).style.transform = "none";
+                }
+              }}
             >
-              <div className="flex items-center gap-2.5">
-                <cat.icon className="size-4 shrink-0 text-[var(--text-secondary)]" />
-                <span className="flex-1 text-[15px] font-semibold text-[var(--text-primary)]" style={{ fontFamily: "var(--font-hero)" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <CatMonogram abbr={cat.abbr} />
+                <span
+                  style={{
+                    flex: 1,
+                    fontFamily: "var(--font-serif)",
+                    fontSize: 15,
+                    fontWeight: 600,
+                    color: "var(--ink)",
+                  }}
+                >
                   {cat.name}
                 </span>
-                <span className="rounded-full bg-[var(--border-default)] px-2 py-0.5 text-[10.5px] font-bold text-[var(--text-tertiary)]">
+                <span
+                  style={{
+                    fontSize: 10.5,
+                    fontWeight: 700,
+                    color: "var(--ink-3)",
+                    background: "var(--stone)",
+                    padding: "2px 8px",
+                    borderRadius: 100,
+                    fontFamily: "var(--font-sans)",
+                  }}
+                >
                   {cat.count}
                 </span>
               </div>
               {activeCat === cat.id && (
                 <>
-                  <p className="mt-2.5 text-[13px] leading-relaxed text-[var(--text-secondary)]">
+                  <p
+                    style={{
+                      fontSize: 13,
+                      color: "var(--ink-2)",
+                      lineHeight: 1.7,
+                      maxHeight: 60,
+                      overflow: "hidden",
+                      marginTop: 10,
+                      fontFamily: "var(--font-sans)",
+                    }}
+                  >
                     {cat.body}
                   </p>
-                  <div className="mt-2 flex flex-wrap gap-1.5">
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 5, maxHeight: 40, overflow: "hidden", marginTop: 8 }}>
                     {cat.chips.map((chip) => (
                       <span
                         key={chip}
-                        className="rounded-full border border-[var(--success)]/20 bg-[var(--success)]/10 px-2 py-0.5 text-[11px] font-semibold text-[var(--success)]"
+                        style={{
+                          fontSize: 11,
+                          fontWeight: 600,
+                          color: "var(--forest)",
+                          background: "var(--forest-lt)",
+                          border: "1px solid rgba(46,77,56,.18)",
+                          padding: "3px 9px",
+                          borderRadius: 100,
+                          fontFamily: "var(--font-sans)",
+                        }}
                       >
                         {chip}
                       </span>
@@ -191,56 +310,139 @@ export function IntegrationsSection() {
               )}
             </button>
           ))}
-        </motion.div>
+        </RevealWrapper>
 
-        <motion.div
-          key={activeCat}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.2 }}
-          className="sticky top-20 rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)] p-6 shadow-[var(--shadow-sm)]"
+        {/* Right diagram */}
+        <RevealWrapper
+          delay={1}
+          style={{
+            background: "var(--surf)",
+            border: "1px solid var(--stone)",
+            borderRadius: 18,
+            padding: 24,
+            position: "sticky",
+            top: 76,
+            boxShadow: "var(--sh-sm)",
+          }}
         >
-          <div className="mb-4 text-[10px] font-bold uppercase tracking-wider text-[var(--text-tertiary)]">
+          <div
+            style={{
+              fontSize: 10,
+              fontWeight: 700,
+              letterSpacing: ".08em",
+              textTransform: "uppercase",
+              color: "var(--ink-3)",
+              marginBottom: 16,
+              fontFamily: "var(--font-sans)",
+            }}
+          >
             Your connected business
           </div>
-          <div className="mb-4 rounded-xl border border-[var(--accent)] bg-[var(--accent)]/10 p-4 text-center">
-            <div className="text-base font-semibold text-[var(--text-primary)]" style={{ fontFamily: "var(--font-hero)" }}>
-              Stack<span className="text-[var(--accent)]">it</span>
+
+          {/* Center box */}
+          <div
+            style={{
+              background: "var(--terra-lt)",
+              border: "1.5px solid var(--terra)",
+              borderRadius: 12,
+              padding: "14px 16px",
+              textAlign: "center",
+              margin: "0 auto 18px",
+              width: "fit-content",
+            }}
+          >
+            <div
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: 16,
+                fontWeight: 600,
+                color: "var(--ink)",
+              }}
+            >
+              Stack<span style={{ color: "var(--terra)" }}>it</span>
             </div>
-            <div className="mt-0.5 text-[10.5px] text-[var(--text-tertiary)]">
+            <div
+              style={{
+                fontSize: 10.5,
+                color: "var(--ink-3)",
+                marginTop: 2,
+                fontFamily: "var(--font-sans)",
+              }}
+            >
               Your live dashboard
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-2">
+
+          {/* Nodes grid */}
+          <motion.div
+            key={activeCat}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.2 }}
+            style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 7 }}
+          >
             {nodes.map((node) => (
               <div
                 key={node.name}
-                className={cn(
-                  "rounded-lg border p-2.5 text-center transition-all",
-                  node.on
-                    ? "border-[var(--success)]/30 bg-[var(--success)]/10"
-                    : "border-[var(--border-default)] bg-[var(--bg-base)] hover:border-[var(--accent)] hover:shadow-md"
-                )}
+                style={{
+                  background: node.on ? "var(--forest-lt)" : "var(--w)",
+                  border: `1px solid ${node.on ? "rgba(46,77,56,.3)" : "var(--stone)"}`,
+                  borderRadius: 10,
+                  padding: "9px 7px",
+                  textAlign: "center",
+                  transition: "border-color .2s, box-shadow .2s, transform .15s",
+                  cursor: "pointer",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.borderColor = "var(--terra)";
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = "0 3px 10px rgba(181,96,58,.1)";
+                  (e.currentTarget as HTMLDivElement).style.transform = "translateY(-2px)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.borderColor = node.on ? "rgba(46,77,56,.3)" : "var(--stone)";
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
+                  (e.currentTarget as HTMLDivElement).style.transform = "none";
+                }}
               >
-                <node.icon className="mx-auto mb-1 size-4 text-[var(--text-secondary)]" />
-                <div className="text-[10.5px] font-bold text-[var(--text-secondary)]">
+                <Monogram abbr={node.abbr} on={node.on} />
+                <div
+                  style={{
+                    fontSize: 10.5,
+                    fontWeight: 700,
+                    color: "var(--ink-2)",
+                    fontFamily: "var(--font-sans)",
+                  }}
+                >
                   {node.name}
                 </div>
                 <div
-                  className={cn(
-                    "mt-0.5 text-[9px]",
-                    node.on ? "font-bold text-[var(--success)]" : "text-[var(--text-tertiary)]"
-                  )}
+                  style={{
+                    fontSize: 9,
+                    color: node.on ? "var(--forest)" : "var(--ink-3)",
+                    marginTop: 1,
+                    fontWeight: node.on ? 700 : 400,
+                    fontFamily: "var(--font-sans)",
+                  }}
                 >
                   {node.status}
                 </div>
               </div>
             ))}
-          </div>
-          <p className="mt-3 text-center text-[11.5px] italic text-[var(--text-tertiary)]">
+          </motion.div>
+
+          <p
+            style={{
+              textAlign: "center",
+              marginTop: 12,
+              fontSize: 11.5,
+              color: "var(--ink-3)",
+              fontStyle: "italic",
+              fontFamily: "var(--font-sans)",
+            }}
+          >
             Every node feeds your dashboard automatically
           </p>
-        </motion.div>
+        </RevealWrapper>
       </div>
     </section>
   );

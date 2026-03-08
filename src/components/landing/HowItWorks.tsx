@@ -1,127 +1,232 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Mail, Calendar, Layers, Coffee } from "lucide-react";
+import { RevealWrapper } from "@/components/ui/RevealWrapper";
 
 const STEPS = [
   {
-    icon: Mail,
+    num: 1,
     title: "Sign up — no card",
     body: "Email, password, done. Takes under a minute.",
     badge: "1 min",
   },
   {
-    icon: Calendar,
-    title: "Book your call",
-    body: "Pick a time. 30 minutes on Zoom. We'll take it from here.",
-    badge: "30 sec",
+    num: 2,
+    title: "Connect your tools",
+    body: "One click to link Shopify, your bank, Stripe. OAuth login — no API keys needed.",
+    badge: "5 min",
   },
   {
-    icon: Layers,
-    title: "We build it live",
-    body: "5 questions, we connect your tools and set up your dashboard while you watch.",
-    badge: "30 min",
-  },
-  {
-    icon: Coffee,
+    num: 3,
     title: "Open it every morning",
     body: "Your numbers are always current. No exports, no refreshes.",
     badge: "Every day",
   },
 ];
 
-const container = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
-  },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0 },
-};
-
 export function HowItWorks() {
   return (
     <section
       id="how"
-      className="relative overflow-hidden bg-[var(--bg-base)] px-4 py-20 md:px-6 md:py-28"
+      style={{
+        padding: "100px 40px",
+        background: "var(--w)",
+        position: "relative",
+        overflow: "hidden",
+      }}
     >
-      <div className="mx-auto max-w-4xl text-center">
-        <motion.p
-          variants={item}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="mb-3.5 text-xs font-bold uppercase tracking-[0.1em] text-[var(--accent)]"
-        >
-          How it works
-        </motion.p>
-        <motion.h2
-          variants={item}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="text-3xl font-semibold leading-tight tracking-tight md:text-4xl lg:text-5xl"
-          style={{ fontFamily: "var(--font-hero)" }}
-        >
-          Live in <em className="italic text-[var(--accent)]">30 minutes.</em>
-          <br />
-          We handle everything.
-        </motion.h2>
-        <motion.p
-          variants={item}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="mt-4 text-base leading-relaxed text-[var(--text-secondary)]"
-        >
-          Show up to a call. We do the rest.
-        </motion.p>
+      {/* Background blob */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "radial-gradient(ellipse 60% 50% at 90% 60%, rgba(181,96,58,.05) 0%, transparent 55%)",
+          pointerEvents: "none",
+        }}
+      />
+
+      <div style={{ textAlign: "center", position: "relative", zIndex: 1 }}>
+        <RevealWrapper>
+          <p
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              letterSpacing: ".1em",
+              textTransform: "uppercase",
+              color: "var(--terra)",
+              marginBottom: 14,
+              fontFamily: "var(--font-sans)",
+            }}
+          >
+            How it works
+          </p>
+        </RevealWrapper>
+
+        <RevealWrapper delay={1}>
+          <h2
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: "clamp(30px, 4vw, 50px)",
+              fontWeight: 600,
+              lineHeight: 1.18,
+              letterSpacing: "-.02em",
+              color: "var(--ink)",
+            }}
+          >
+            Live in <em style={{ fontStyle: "italic", color: "var(--terra)" }}>30 minutes.</em>
+          </h2>
+        </RevealWrapper>
+
+        <RevealWrapper delay={2}>
+          <p
+            style={{
+              fontSize: 16.5,
+              color: "var(--ink-2)",
+              maxWidth: 540,
+              margin: "16px auto 0",
+              lineHeight: 1.8,
+              fontFamily: "var(--font-sans)",
+            }}
+          >
+            You connect your tools. We handle the rest.
+          </p>
+        </RevealWrapper>
       </div>
 
-      <motion.div
-        variants={container}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-40px" }}
-        className="relative mx-auto mt-14 grid max-w-5xl grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-4 md:gap-0"
+      {/* Steps grid */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: 0,
+          position: "relative",
+          marginTop: 56,
+          maxWidth: 900,
+          margin: "56px auto 0",
+        }}
+        className="max-md:grid-cols-1 max-md:gap-8"
       >
         {/* Connector line — desktop only */}
         <div
-          className="absolute left-[12%] right-[12%] top-7 hidden h-px bg-gradient-to-r from-transparent via-[var(--border-default)] to-transparent md:block"
           aria-hidden
+          className="hidden md:block"
+          style={{
+            position: "absolute",
+            top: 28,
+            left: "12%",
+            right: "12%",
+            height: 1,
+            background:
+              "linear-gradient(to right, transparent, var(--stone) 10%, var(--stone) 90%, transparent)",
+            zIndex: 0,
+          }}
         />
+
         {STEPS.map((step, idx) => (
-          <motion.div
+          <RevealWrapper
             key={step.title}
-            variants={item}
-            className="relative z-10 flex flex-col items-center text-center"
+            delay={((idx + 1) as 1 | 2 | 3)}
+            style={{
+              textAlign: "center",
+              padding: "0 20px",
+              position: "relative",
+              zIndex: 1,
+            }}
           >
-            <div className="mb-4 flex size-14 items-center justify-center rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)] shadow-[var(--shadow-sm)]">
-              <step.icon
-                className="size-6 text-[var(--text-secondary)]"
-                strokeWidth={1.5}
-                aria-hidden
-              />
-              <span className="absolute -right-1.5 -top-1.5 flex size-5 items-center justify-center rounded-full bg-[var(--accent)] text-[9.5px] font-bold text-white">
-                {idx + 1}
+            {/* Icon box */}
+            <div
+              style={{
+                width: 56,
+                height: 56,
+                background: "var(--surf)",
+                border: "1.5px solid var(--stone)",
+                borderRadius: 16,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: "0 auto 18px",
+                boxShadow: "var(--sh-sm)",
+                position: "relative",
+              }}
+            >
+              {/* Step number badge */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: -7,
+                  right: -7,
+                  width: 18,
+                  height: 18,
+                  background: "var(--terra)",
+                  color: "#fff",
+                  fontSize: 9.5,
+                  fontWeight: 700,
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontFamily: "var(--font-sans)",
+                }}
+              >
+                {step.num}
+              </div>
+              {/* Large number inside box */}
+              <span
+                style={{
+                  fontFamily: "var(--font-serif)",
+                  fontSize: 22,
+                  fontWeight: 600,
+                  color: "var(--ink-3)",
+                  lineHeight: 1,
+                }}
+              >
+                {step.num}
               </span>
             </div>
-            <h3 className="text-base font-semibold text-[var(--text-primary)]" style={{ fontFamily: "var(--font-hero)" }}>
+
+            <h3
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: 16,
+                fontWeight: 600,
+                marginBottom: 7,
+                color: "var(--ink)",
+              }}
+            >
               {step.title}
             </h3>
-            <p className="mt-1.5 text-[13px] leading-relaxed text-[var(--text-secondary)]">
+            <p
+              style={{
+                fontSize: 13,
+                color: "var(--ink-2)",
+                lineHeight: 1.7,
+                fontFamily: "var(--font-sans)",
+              }}
+            >
               {step.body}
             </p>
-            <span className="mt-2 inline-block rounded-full border border-[var(--accent)]/20 bg-[var(--accent)]/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[var(--accent)]">
+            <span
+              style={{
+                display: "inline-block",
+                fontSize: 10,
+                fontWeight: 700,
+                color: "var(--terra)",
+                background: "var(--terra-lt)",
+                border: "1px solid rgba(181,96,58,.2)",
+                padding: "2px 9px",
+                borderRadius: 100,
+                marginTop: 9,
+                letterSpacing: ".05em",
+                textTransform: "uppercase",
+                fontFamily: "var(--font-sans)",
+              }}
+            >
               {step.badge}
             </span>
-          </motion.div>
+          </RevealWrapper>
         ))}
-      </motion.div>
+      </div>
     </section>
   );
 }

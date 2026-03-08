@@ -5,7 +5,7 @@ import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 
 import { AppProviders } from "@/components/providers/app-providers";
-import { geist, geistMono, instrumentSerif } from "@/lib/fonts";
+import { geist, geistMono, instrumentSerif, lora, nunito } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -15,7 +15,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={cn(lora.variable, nunito.variable)}
+    >
       <body
         className={cn(
           geist.variable,

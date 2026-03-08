@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
 import { cn, scrollToHash } from "@/lib/utils";
 
 const NAV_LINKS = [
@@ -12,16 +11,12 @@ const NAV_LINKS = [
   { label: "FAQ", href: "#faq" },
 ] as const;
 
-const SCROLL_THRESHOLD = 24;
-
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > SCROLL_THRESHOLD);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -33,90 +28,190 @@ export function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full px-4 pt-4 md:px-6 md:pt-5">
-      <div
-        className={cn(
-          "mx-auto flex max-w-7xl items-center justify-between rounded-full transition-[border-color,background,box-shadow] duration-300",
-          scrolled
-            ? "border-b border-[var(--border-default)] bg-[rgba(250,250,248,0.85)] shadow-[var(--shadow-sm)] backdrop-blur-[20px]"
-            : "border-b border-transparent bg-transparent"
-        )}
+    <header
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 500,
+        height: 56,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "0 40px",
+        background: "rgba(253,250,245,.9)",
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+        borderBottom: "1px solid var(--stone)",
+        transition: "box-shadow .3s",
+        boxShadow: scrolled ? "0 2px 20px rgba(30,24,16,.06)" : "none",
+      }}
+    >
+      {/* Logo */}
+      <a
+        href="#hero"
+        onClick={handleAnchorClick}
+        style={{
+          fontFamily: "var(--font-serif)",
+          fontSize: 19,
+          fontWeight: 600,
+          color: "var(--ink)",
+          textDecoration: "none",
+          letterSpacing: "-0.2px",
+        }}
       >
-        <nav
-          className="flex h-14 min-w-0 flex-1 items-center justify-between gap-4 rounded-full px-4 md:h-16 md:px-6"
-          aria-label="Main navigation"
-        >
-          {/* Logo — subtle pill behind wordmark */}
-          <a
-            href="#"
-            onClick={handleAnchorClick}
-            className="flex shrink-0 items-center rounded-full bg-[var(--bg-elevated)] py-2 pl-3 pr-4 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2 focus:ring-offset-[var(--bg-base)] min-h-[44px]"
-          >
-            <span className="font-[family-name:var(--font-body)] text-xl font-semibold text-[var(--text-primary)]">
-              Stack<span className="text-[var(--accent)]">it</span>
-            </span>
-          </a>
+        Stack<span style={{ color: "var(--terra)" }}>it</span>
+      </a>
 
-          {/* Desktop nav links */}
-          <div className="hidden items-center gap-1 md:flex">
-            {NAV_LINKS.map(({ label, href }) => (
-              <a
-                key={href}
-                href={href}
-                onClick={handleAnchorClick}
-                className="rounded-full py-2.5 px-4 text-sm font-normal text-[var(--text-secondary)] transition-colors duration-100 hover:text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2 focus:ring-offset-[var(--bg-base)] min-h-[44px] flex items-center"
-              >
-                {label}
-              </a>
-            ))}
-          </div>
-
-          {/* Desktop CTA — pill */}
-          <div className="hidden md:block shrink-0">
+      {/* Desktop nav links */}
+      <ul
+        className="hidden md:flex"
+        style={{ gap: 2, listStyle: "none", margin: 0, padding: 0 }}
+      >
+        {NAV_LINKS.map(({ label, href }) => (
+          <li key={href}>
             <a
-              href="#cta"
+              href={href}
               onClick={handleAnchorClick}
-              className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-[var(--accent)] px-5 py-2 text-sm font-medium text-[var(--text-inverse)] shadow-[0_2px_8px_rgba(91,87,232,0.25)] transition-colors duration-200 hover:bg-[var(--accent-hover)] hover:shadow-[0_4px_12px_rgba(91,87,232,0.35)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2 focus:ring-offset-[var(--bg-base)]"
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 13,
+                fontWeight: 600,
+                color: "var(--ink-3)",
+                textDecoration: "none",
+                padding: "5px 12px",
+                borderRadius: 100,
+                display: "inline-block",
+                transition: "color .2s, background .2s",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.color = "var(--ink)";
+                (e.currentTarget as HTMLAnchorElement).style.background = "rgba(30,24,16,.05)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.color = "var(--ink-3)";
+                (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
+              }}
             >
-              Get early access
+              {label}
             </a>
-          </div>
+          </li>
+        ))}
+      </ul>
 
-          {/* Mobile hamburger */}
-          <button
-            type="button"
-            onClick={() => setMobileOpen((o) => !o)}
-            className="flex size-11 shrink-0 items-center justify-center rounded-full text-[var(--text-primary)] transition-colors hover:bg-[var(--bg-subtle)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2 focus:ring-offset-[var(--bg-base)] md:hidden"
-            aria-expanded={mobileOpen}
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          >
-            {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
-          </button>
-        </nav>
-      </div>
+      {/* CTA */}
+      <a
+        href="#cta"
+        onClick={handleAnchorClick}
+        className="hidden md:inline-flex"
+        style={{
+          background: "var(--ink)",
+          color: "var(--w)",
+          padding: "8px 20px",
+          borderRadius: 100,
+          fontSize: 13,
+          fontWeight: 700,
+          textDecoration: "none",
+          fontFamily: "var(--font-sans)",
+          letterSpacing: ".01em",
+          transition: "background .2s, transform .15s",
+        }}
+        onMouseEnter={(e) => {
+          (e.currentTarget as HTMLAnchorElement).style.background = "#2c2012";
+          (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-1px)";
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLAnchorElement).style.background = "var(--ink)";
+          (e.currentTarget as HTMLAnchorElement).style.transform = "none";
+        }}
+      >
+        Get early access →
+      </a>
 
-      {/* Mobile menu — light treatment */}
+      {/* Mobile hamburger */}
+      <button
+        type="button"
+        onClick={() => setMobileOpen((o) => !o)}
+        className="flex md:hidden"
+        style={{
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          padding: "8px",
+          color: "var(--ink)",
+        }}
+        aria-label={mobileOpen ? "Close menu" : "Open menu"}
+      >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          {mobileOpen ? (
+            <>
+              <line x1="4" y1="4" x2="16" y2="16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+              <line x1="16" y1="4" x2="4" y2="16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            </>
+          ) : (
+            <>
+              <line x1="3" y1="6" x2="17" y2="6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+              <line x1="3" y1="10" x2="17" y2="10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+              <line x1="3" y1="14" x2="17" y2="14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            </>
+          )}
+        </svg>
+      </button>
+
+      {/* Mobile menu */}
       {mobileOpen && (
-        <div className="mx-auto mt-2 max-w-7xl rounded-2xl border border-[var(--border-default)] bg-[rgba(250,250,248,0.95)] px-4 py-3 backdrop-blur-[20px] shadow-[var(--shadow-md)] md:hidden">
-          <div className="flex flex-col gap-0.5">
-            {NAV_LINKS.map(({ label, href }) => (
-              <a
-                key={href}
-                href={href}
-                onClick={handleAnchorClick}
-                className="flex min-h-[44px] items-center rounded-full px-4 text-[var(--text-primary)] transition-colors hover:bg-[var(--bg-subtle)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-inset"
-              >
-                {label}
-              </a>
-            ))}
+        <div
+          className="md:hidden"
+          style={{
+            position: "absolute",
+            top: 56,
+            left: 0,
+            right: 0,
+            background: "rgba(253,250,245,.97)",
+            backdropFilter: "blur(20px)",
+            borderBottom: "1px solid var(--stone)",
+            padding: "8px 18px 16px",
+          }}
+        >
+          {NAV_LINKS.map(({ label, href }) => (
             <a
-              href="#cta"
+              key={href}
+              href={href}
               onClick={handleAnchorClick}
-              className="mt-2 flex min-h-[44px] items-center justify-center rounded-full bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] shadow-[0_2px_8px_rgba(91,87,232,0.25)]"
+              style={{
+                display: "block",
+                padding: "10px 4px",
+                fontFamily: "var(--font-sans)",
+                fontSize: 15,
+                fontWeight: 600,
+                color: "var(--ink)",
+                textDecoration: "none",
+                borderBottom: "1px solid var(--stone)",
+              }}
             >
-              Get early access
+              {label}
             </a>
-          </div>
+          ))}
+          <a
+            href="#cta"
+            onClick={handleAnchorClick}
+            style={{
+              display: "block",
+              marginTop: 12,
+              background: "var(--ink)",
+              color: "var(--w)",
+              padding: "11px",
+              borderRadius: 100,
+              textAlign: "center",
+              fontFamily: "var(--font-sans)",
+              fontSize: 14,
+              fontWeight: 700,
+              textDecoration: "none",
+            }}
+          >
+            Get early access
+          </a>
         </div>
       )}
     </header>

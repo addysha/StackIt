@@ -1,342 +1,708 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import { animate } from "animejs";
 import { scrollToHash } from "@/lib/utils";
 
-const container = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0,
-    },
-  },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" as const },
-  },
-};
-
 export function Hero() {
-  const mockupRef = useRef<HTMLDivElement>(null);
+  const dotGridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!mockupRef.current) return;
-    animate(mockupRef.current, {
-      translateY: [0, -6, 0],
-      duration: 6000,
-      ease: "inOutSine",
-      loop: true,
-    });
+    const handleScroll = () => {
+      if (dotGridRef.current) {
+        dotGridRef.current.style.transform = `translateY(${window.scrollY * 0.25}px)`;
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <section
       id="hero"
-      className="relative min-h-[85vh] overflow-hidden px-6 pt-[120px] pb-16 md:min-h-[90vh] md:px-10 md:pt-[140px] md:pb-20"
       style={{
-        background:
-          "radial-gradient(ellipse 80% 60% at 50% 0%, #FFFFFF 0%, var(--bg-base) 100%)",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center",
+        padding: "100px 40px 80px",
+        position: "relative",
+        overflow: "hidden",
+        background: "var(--w)",
       }}
     >
+      {/* Background gradient */}
       <div
-        className="hero-dot-grid pointer-events-none absolute inset-0 opacity-40"
         aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(181,96,58,.07) 0%, transparent 65%), radial-gradient(ellipse 40% 35% at 20% 80%, rgba(46,77,56,.05) 0%, transparent 55%), radial-gradient(ellipse 35% 30% at 80% 75%, rgba(181,96,58,.04) 0%, transparent 50%)",
+          pointerEvents: "none",
+        }}
       />
 
-      <div className="relative mx-auto max-w-7xl">
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate="visible"
-          className="mx-auto max-w-3xl text-center"
-        >
-          <motion.div
-            variants={item}
-            className="mb-7 inline-flex items-center gap-1.5 rounded-full border border-[var(--success)]/20 bg-[var(--success)]/5 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--success)]"
-          >
-            <span className="size-1.5 rounded-full bg-[var(--success)]" />
-            Now in early access · NZ-built
-          </motion.div>
-          <motion.h1
-            variants={item}
-            transition={{ duration: 0.5, ease: "easeOut", delay: 0.08 }}
-            className="text-4xl leading-[1.1] tracking-tight md:text-5xl lg:text-6xl xl:text-[72px]"
-            style={{ fontFamily: "var(--font-hero)", fontWeight: 600 }}
-          >
-            <span className="block text-[var(--text-primary)]">
-              Your whole business,
-            </span>
-            <span
-              className="mt-1 block font-[family-name:var(--font-hero)] italic text-[var(--accent)]"
-              style={{ fontFamily: "var(--font-hero)" }}
-            >
-              one screen.
-            </span>
-          </motion.h1>
-          <motion.p
-            variants={item}
-            transition={{ duration: 0.5, ease: "easeOut", delay: 0.16 }}
-            className="mx-auto mt-5 max-w-[520px] text-base leading-relaxed text-[var(--text-secondary)] md:text-lg"
-          >
-            Stackit pulls your revenue, cash, customers, and stock into one live
-            dashboard. Drag the widgets you want. We set it up while you watch.
-          </motion.p>
-          <motion.div
-            variants={item}
-            transition={{ duration: 0.5, ease: "easeOut", delay: 0.24 }}
-            className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row"
-          >
-            <a
-              href="#cta"
-              onClick={scrollToHash}
-              className="inline-flex min-h-[48px] min-w-[200px] items-center justify-center rounded-full bg-[var(--accent)] px-6 py-3 text-base font-semibold text-[var(--text-inverse)] shadow-[0_6px_24px_var(--accent-glow)] transition-colors hover:bg-[var(--accent-hover)] hover:shadow-[0_8px_28px_var(--accent-glow)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2 focus:ring-offset-[var(--bg-base)]"
-            >
-              Book your free setup call
-            </a>
-            <a
-              href="#demo"
-              onClick={scrollToHash}
-              className="inline-flex min-h-[48px] min-w-[200px] items-center justify-center gap-2 rounded-full border border-[var(--border-default)] bg-transparent px-6 py-3 text-base font-semibold text-[var(--text-secondary)] transition-colors hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2 focus:ring-offset-[var(--bg-base)]"
-            >
-              Try the dashboard
-              <ArrowRight className="size-4" />
-            </a>
-          </motion.div>
-          <motion.p
-            variants={item}
-            transition={{ duration: 0.5, ease: "easeOut", delay: 0.32 }}
-            className="mt-4 text-sm text-[var(--text-tertiary)]"
-          >
-            First 10 businesses get in free · 30-min onboarding call · No credit
-            card
-          </motion.p>
-        </motion.div>
+      {/* Parallax dot grid */}
+      <div
+        ref={dotGridRef}
+        aria-hidden
+        className="hero-dot-grid"
+        style={{ position: "absolute", inset: 0, pointerEvents: "none", willChange: "transform" }}
+      />
 
-        {/* Browser-style dashboard mockup */}
-        <motion.div
-          ref={mockupRef}
-          variants={item}
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-          className="mx-auto mt-14 max-w-[900px] md:mt-16"
+      {/* Eyebrow badge */}
+      <div
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 6,
+          background: "var(--forest-lt)",
+          border: "1px solid rgba(46,77,56,.2)",
+          color: "var(--forest)",
+          fontSize: 11,
+          fontWeight: 700,
+          letterSpacing: ".08em",
+          textTransform: "uppercase",
+          padding: "5px 14px",
+          borderRadius: 100,
+          marginBottom: 28,
+          animation: "fadeUp .6s both",
+          position: "relative",
+          zIndex: 1,
+          fontFamily: "var(--font-sans)",
+        }}
+      >
+        <span
+          style={{
+            width: 6,
+            height: 6,
+            background: "var(--forest)",
+            borderRadius: "50%",
+            animation: "blink 2.4s infinite",
+            display: "inline-block",
+          }}
+        />
+        Now in early access · NZ-built
+      </div>
+
+      {/* H1 */}
+      <h1
+        style={{
+          fontFamily: "var(--font-serif)",
+          fontSize: "clamp(40px, 5.5vw, 72px)",
+          fontWeight: 600,
+          lineHeight: 1.1,
+          letterSpacing: "-.025em",
+          maxWidth: 820,
+          marginBottom: 22,
+          animation: "fadeUp .65s .08s both",
+          color: "var(--ink)",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        Your whole business,
+        <br />
+        <em style={{ fontStyle: "italic", color: "var(--terra)" }}>one screen.</em>
+      </h1>
+
+      {/* Subtext */}
+      <p
+        style={{
+          fontSize: "clamp(16px, 1.5vw, 19px)",
+          color: "var(--ink-2)",
+          maxWidth: 520,
+          lineHeight: 1.75,
+          marginBottom: 40,
+          animation: "fadeUp .65s .16s both",
+          fontWeight: 400,
+          fontFamily: "var(--font-sans)",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        Stackit pulls your revenue, cash, customers, and stock into one live
+        dashboard. Drag the widgets you want. We set it up while you watch.
+      </p>
+
+      {/* Buttons */}
+      <div
+        style={{
+          display: "flex",
+          gap: 12,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          animation: "fadeUp .65s .24s both",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        <a
+          href="#cta"
+          onClick={scrollToHash}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 7,
+            padding: "14px 30px",
+            borderRadius: 100,
+            fontFamily: "var(--font-sans)",
+            fontSize: 14.5,
+            fontWeight: 700,
+            textDecoration: "none",
+            background: "var(--terra)",
+            color: "#fff",
+            boxShadow: "0 6px 24px rgba(181,96,58,.3)",
+            transition: "all .22s cubic-bezier(.34,1.56,.64,1)",
+            letterSpacing: ".01em",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLAnchorElement).style.background = "var(--terra-dk)";
+            (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-2px)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLAnchorElement).style.background = "var(--terra)";
+            (e.currentTarget as HTMLAnchorElement).style.transform = "none";
+          }}
         >
-          <div className="overflow-hidden rounded-t-2xl border border-[var(--border-default)] bg-[var(--bg-elevated)] shadow-[var(--shadow-md)]">
-            <div className="flex items-center gap-2.5 border-b border-[var(--border-default)] bg-[var(--bg-elevated)] px-4 py-3">
-              <div className="flex gap-1.5">
-                <span className="size-2.5 rounded-full bg-[#FF6058]" />
-                <span className="size-2.5 rounded-full bg-[#FFBD2E]" />
-                <span className="size-2.5 rounded-full bg-[#29C940]" />
-              </div>
-              <div className="flex-1 rounded-md border border-[var(--border-default)] bg-[var(--bg-surface)] px-3 py-1.5 text-xs font-medium text-[var(--text-tertiary)]">
-                app.stackit.co.nz/dashboard
-              </div>
-              <div className="flex items-center gap-1.5 text-xs font-semibold text-[var(--success)]">
-                <span className="size-1.5 rounded-full bg-[var(--success)]" />
-                LIVE
-              </div>
+          Get early access
+        </a>
+        <a
+          href="#demo"
+          onClick={scrollToHash}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 7,
+            padding: "14px 30px",
+            borderRadius: 100,
+            fontFamily: "var(--font-sans)",
+            fontSize: 14.5,
+            fontWeight: 700,
+            textDecoration: "none",
+            background: "transparent",
+            color: "var(--ink-2)",
+            border: "1.5px solid var(--stone)",
+            transition: "all .22s cubic-bezier(.34,1.56,.64,1)",
+            letterSpacing: ".01em",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLAnchorElement).style.borderColor = "var(--slate)";
+            (e.currentTarget as HTMLAnchorElement).style.color = "var(--ink)";
+            (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-1px)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLAnchorElement).style.borderColor = "var(--stone)";
+            (e.currentTarget as HTMLAnchorElement).style.color = "var(--ink-2)";
+            (e.currentTarget as HTMLAnchorElement).style.transform = "none";
+          }}
+        >
+          See the dashboard →
+        </a>
+      </div>
+
+      {/* Hero note */}
+      <p
+        style={{
+          marginTop: 18,
+          fontSize: 12.5,
+          color: "var(--ink-3)",
+          animation: "fadeUp .65s .32s both",
+          fontFamily: "var(--font-sans)",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        First 10 businesses get in free &nbsp;·&nbsp; No credit card
+      </p>
+
+      {/* Browser chrome mockup */}
+      <div
+        style={{
+          marginTop: 64,
+          animation: "fadeUp .8s .4s both",
+          position: "relative",
+          zIndex: 1,
+          width: "100%",
+          maxWidth: 900,
+        }}
+      >
+        {/* Chrome bar */}
+        <div
+          style={{
+            background: "var(--cream)",
+            border: "1px solid var(--stone)",
+            borderRadius: "14px 14px 0 0",
+            padding: "12px 16px",
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            boxShadow: "var(--sh-md)",
+          }}
+        >
+          <div style={{ display: "flex", gap: 5 }}>
+            <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#FF6058" }} />
+            <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#FFBD2E" }} />
+            <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#29C940" }} />
+          </div>
+          <div
+            style={{
+              flex: 1,
+              background: "rgba(255,255,255,.7)",
+              border: "1px solid var(--stone)",
+              borderRadius: 6,
+              padding: "5px 12px",
+              fontSize: 11.5,
+              color: "var(--ink-3)",
+              fontWeight: 500,
+              margin: "0 16px",
+              fontFamily: "var(--font-sans)",
+            }}
+          >
+            app.stackit.co.nz/dashboard
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 5,
+              fontSize: 10.5,
+              color: "var(--up)",
+              fontWeight: 700,
+              fontFamily: "var(--font-sans)",
+            }}
+          >
+            <span
+              style={{
+                width: 6,
+                height: 6,
+                background: "#3fa85f",
+                borderRadius: "50%",
+                display: "inline-block",
+                animation: "blink 2.4s infinite",
+              }}
+            />
+            LIVE
+          </div>
+        </div>
+
+        {/* Browser body */}
+        <div
+          style={{
+            background: "var(--w)",
+            border: "1px solid var(--stone)",
+            borderTop: "none",
+            borderRadius: "0 0 14px 14px",
+            overflow: "hidden",
+            boxShadow: "var(--sh-lg)",
+          }}
+        >
+          {/* Topbar */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "0 16px",
+              height: 44,
+              background: "rgba(253,250,245,.95)",
+              borderBottom: "1px solid var(--stone)",
+            }}
+          >
+            <div
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: 16,
+                fontWeight: 600,
+                color: "var(--ink)",
+              }}
+            >
+              Stack<span style={{ color: "var(--terra)" }}>it</span>
             </div>
-            <div className="border-t border-[var(--border-default)] bg-[var(--bg-surface)]">
-              <div className="flex items-center justify-between border-b border-[var(--border-default)] px-4 py-2.5">
-                <span
-                  className="text-base font-semibold text-[var(--text-primary)]"
-                  style={{ fontFamily: "var(--font-hero)" }}
-                >
-                  Stack<span className="text-[var(--accent)]">it</span>
-                </span>
-                <div className="flex items-center gap-2">
-                  <span className="rounded-full border border-[var(--border-default)] bg-[var(--bg-surface)] px-3 py-1 text-xs font-semibold text-[var(--text-secondary)]">
-                    Edit
-                  </span>
-                  <span className="flex size-6 items-center justify-center rounded-full bg-gradient-to-br from-[var(--accent)] to-[var(--accent-hover)] text-[10px] font-bold text-white">
-                    AD
-                  </span>
-                </div>
-              </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <div
-                className="grid grid-cols-6 gap-2 p-4"
                 style={{
-                  backgroundImage:
-                    "radial-gradient(var(--border-strong) 1px, transparent 1px)",
-                  backgroundSize: "20px 20px",
+                  background: "var(--surf)",
+                  border: "1px solid var(--stone)",
+                  color: "var(--ink-2)",
+                  padding: "4px 12px",
+                  borderRadius: 100,
+                  fontSize: 11.5,
+                  fontWeight: 600,
+                  fontFamily: "var(--font-sans)",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 5,
                 }}
               >
-                <div className="col-span-3 rounded-xl border border-[var(--border-default)] bg-[var(--bg-surface)] p-4">
-                  <div className="mb-1.5 text-[10px] font-bold uppercase tracking-wider text-[var(--text-tertiary)]">
-                    Revenue · Month
-                  </div>
-                  <div
-                    className="text-2xl font-semibold text-[var(--text-primary)]"
-                    style={{ fontFamily: "var(--font-hero)" }}
-                  >
-                    $14,250
-                  </div>
-                  <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-[var(--success)]/10 px-2 py-0.5 text-[10px] font-semibold text-[var(--success)]">
-                    ↑ 12% vs last month
-                  </span>
-                  <div className="mt-2 h-7 w-full opacity-70">
-                    <svg
-                      viewBox="0 0 220 28"
-                      preserveAspectRatio="none"
-                      className="h-full w-full"
-                    >
-                      <defs>
-                        <linearGradient
-                          id="hg1"
-                          x1="0"
-                          y1="0"
-                          x2="0"
-                          y2="1"
-                        >
-                          <stop
-                            offset="0%"
-                            stopColor="var(--success)"
-                            stopOpacity={0.2}
-                          />
-                          <stop
-                            offset="100%"
-                            stopColor="var(--success)"
-                            stopOpacity={0}
-                          />
-                        </linearGradient>
-                      </defs>
-                      <path
-                        d="M0,26 L28,21 L55,23 L83,14 L110,17 L138,9 L165,12 L193,5 L220,2"
-                        fill="none"
-                        stroke="var(--success)"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                      />
-                      <path
-                        d="M0,26 L28,21 L55,23 L83,14 L110,17 L138,9 L165,12 L193,5 L220,2 L220,28 L0,28Z"
-                        fill="url(#hg1)"
-                      />
-                    </svg>
-                  </div>
-                  <div className="mt-2 flex justify-between border-t border-[var(--border-default)] pt-2 text-[10px] text-[var(--text-tertiary)]">
-                    <span>Synced 3m ago</span>
-                    <span className="rounded border border-[var(--border-default)] bg-[var(--bg-elevated)] px-1.5 py-0.5 font-semibold">
-                      shopify
-                    </span>
-                  </div>
-                </div>
-                <div className="col-span-2 rounded-xl border border-[var(--border-default)] bg-[var(--bg-surface)] p-4">
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-[var(--text-tertiary)]">
-                    Cash · Runway
-                  </div>
-                  <div
-                    className="text-xl font-semibold text-[var(--warning)]"
-                    style={{ fontFamily: "var(--font-hero)" }}
-                  >
-                    18 days
-                  </div>
-                  <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-[var(--border-default)]">
-                    <div
-                      className="h-full rounded-full bg-gradient-to-r from-[var(--success)] via-[var(--warning)] to-[var(--danger)]"
-                      style={{ width: "28%" }}
-                    />
-                  </div>
-                  <div className="mt-1 flex justify-between text-[9px] text-[var(--text-tertiary)]">
-                    <span>$8,420 in bank</span>
-                    <span className="font-semibold text-[var(--danger)]">Low</span>
-                  </div>
-                  <div className="mt-2 flex justify-between border-t border-[var(--border-default)] pt-2 text-[10px] text-[var(--text-tertiary)]">
-                    <span>Synced 1h ago</span>
-                    <span className="rounded border border-[var(--border-default)] bg-[var(--bg-elevated)] px-1.5 py-0.5 font-semibold">
-                      akahu
-                    </span>
-                  </div>
-                </div>
-                <div className="col-span-1 rounded-xl border border-[var(--border-default)] bg-[var(--bg-surface)] p-4">
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-[var(--text-tertiary)]">
-                    Orders
-                  </div>
-                  <div
-                    className="text-xl font-semibold text-[var(--text-primary)]"
-                    style={{ fontFamily: "var(--font-hero)" }}
-                  >
-                    24
-                  </div>
-                  <span className="mt-1 inline-flex rounded-full bg-[var(--success)]/10 px-1.5 py-0.5 text-[9px] font-semibold text-[var(--success)]">
-                    ↑ 3
-                  </span>
-                </div>
-                <div className="col-span-2 rounded-xl border border-[var(--border-default)] bg-[var(--bg-surface)] p-3">
-                  <div className="mb-2 text-[10px] font-bold uppercase tracking-wider text-[var(--text-tertiary)]">
-                    Sales by Day
-                  </div>
-                  <div className="grid grid-cols-7 gap-0.5">
-                    {["M", "T", "W", "T", "F", "S", "S"].map((d) => (
-                      <div
-                        key={d}
-                        className="text-center text-[7px] font-semibold text-[var(--text-tertiary)]"
-                      >
-                        {d}
-                      </div>
-                    ))}
-                    {[
-                      0.15, 0.28, 0.42, 0.2, 0.6, 0.9, 0.75, 0.18, 0.32, 0.48,
-                      0.24, 0.65, 0.88, 0.7,
-                    ].map((opacity, i) => (
-                      <div
-                        key={i}
-                        className="aspect-square rounded-sm bg-[var(--accent)]"
-                        style={{ opacity }}
-                      />
-                    ))}
-                  </div>
-                </div>
-                <div className="col-span-4 rounded-xl border border-[var(--border-default)] bg-[var(--bg-surface)] p-4">
-                  <div className="mb-2 text-[10px] font-bold uppercase tracking-wider text-[var(--text-tertiary)]">
-                    Top Products · Month
-                  </div>
-                  <div className="space-y-0 border-t border-[var(--border-default)]">
-                    {[
-                      { name: "Merino Tee — Black", val: "$4,260", pct: 100 },
-                      { name: "Canvas Tote", val: "$2,940", pct: 69 },
-                      { name: "Beanie — Grey", val: "$1,340", pct: 31 },
-                    ].map((row, idx) => (
-                      <div
-                        key={row.name}
-                        className="flex items-center gap-2 border-b border-[var(--border-default)] py-1.5 last:border-0"
-                      >
-                        <span className="w-3 text-[9px] font-bold text-[var(--text-tertiary)]">
-                          0{idx + 1}
-                        </span>
-                        <span className="flex-1 text-xs font-medium text-[var(--text-primary)]">
-                          {row.name}
-                        </span>
-                        <div className="h-1 w-12 overflow-hidden rounded-full bg-[var(--border-default)]">
-                          <div
-                            className="h-full rounded-full bg-[var(--accent)]"
-                            style={{ width: `${row.pct}%` }}
-                          />
-                        </div>
-                        <span
-                          className="min-w-[38px] text-right text-xs font-bold text-[var(--success)]"
-                          style={{ fontFamily: "var(--font-hero)" }}
-                        >
-                          {row.val}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                  <path d="M1 11L4.5 7.5M10.5 2.5L7 6M4.5 7.5L7 6M4.5 7.5L3 9M7 6L8.5 3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                Edit
+              </div>
+              <div
+                style={{
+                  width: 26,
+                  height: 26,
+                  borderRadius: "50%",
+                  background: "linear-gradient(135deg, var(--terra), var(--terra-dk))",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: 9,
+                  fontWeight: 700,
+                  color: "#fff",
+                  fontFamily: "var(--font-sans)",
+                }}
+              >
+                AD
               </div>
             </div>
           </div>
-          <div className="rounded-b-2xl border border-t-0 border-[var(--border-default)] bg-[var(--bg-surface)] shadow-[var(--shadow-lg)]" />
-        </motion.div>
+
+          {/* Dashboard grid */}
+          <div
+            style={{
+              padding: "16px",
+              background: "var(--w)",
+              backgroundImage: "radial-gradient(var(--stone) 1px, transparent 1px)",
+              backgroundSize: "20px 20px",
+              display: "grid",
+              gridTemplateColumns: "repeat(6, 1fr)",
+              gap: 8,
+            }}
+          >
+            {/* Revenue card */}
+            <div
+              style={{
+                gridColumn: "span 3",
+                background: "#fff",
+                border: "1px solid var(--stone)",
+                borderRadius: 11,
+                padding: 14,
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 9,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: ".08em",
+                  color: "var(--ink-3)",
+                  marginBottom: 6,
+                  fontFamily: "var(--font-sans)",
+                }}
+              >
+                Revenue · Month
+              </div>
+              <div
+                style={{
+                  fontFamily: "var(--font-serif)",
+                  fontSize: 26,
+                  fontWeight: 600,
+                  color: "var(--ink)",
+                  lineHeight: 1,
+                  marginBottom: 5,
+                }}
+              >
+                $14,250
+              </div>
+              <div
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 3,
+                  fontSize: 10,
+                  fontWeight: 700,
+                  padding: "2px 8px",
+                  borderRadius: 100,
+                  background: "var(--up-bg)",
+                  color: "var(--up)",
+                  fontFamily: "var(--font-sans)",
+                }}
+              >
+                ↑ 12% vs last month
+              </div>
+              <div style={{ marginTop: 9, height: 28, opacity: 0.7 }}>
+                <svg viewBox="0 0 220 28" preserveAspectRatio="none" style={{ width: "100%", height: "100%" }}>
+                  <defs>
+                    <linearGradient id="hg1" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="var(--forest)" stopOpacity={0.2} />
+                      <stop offset="100%" stopColor="var(--forest)" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <path d="M0,26 L28,21 L55,23 L83,14 L110,17 L138,9 L165,12 L193,5 L220,2" fill="none" stroke="var(--forest)" strokeWidth="1.8" strokeLinecap="round" />
+                  <path d="M0,26 L28,21 L55,23 L83,14 L110,17 L138,9 L165,12 L193,5 L220,2 L220,28 L0,28Z" fill="url(#hg1)" />
+                </svg>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginTop: 8,
+                  paddingTop: 7,
+                  borderTop: "1px solid var(--stone)",
+                  fontFamily: "var(--font-sans)",
+                }}
+              >
+                <span style={{ fontSize: 9, color: "var(--ink-3)" }}>Synced 3m ago</span>
+                <span
+                  style={{
+                    fontSize: 9,
+                    color: "var(--ink-3)",
+                    background: "var(--cream)",
+                    padding: "1px 6px",
+                    borderRadius: 4,
+                    border: "1px solid var(--stone)",
+                    fontWeight: 600,
+                  }}
+                >
+                  shopify
+                </span>
+              </div>
+            </div>
+
+            {/* Cash Runway card */}
+            <div
+              style={{
+                gridColumn: "span 2",
+                background: "#fff",
+                border: "1px solid var(--stone)",
+                borderRadius: 11,
+                padding: 14,
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 9,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: ".08em",
+                  color: "var(--ink-3)",
+                  marginBottom: 6,
+                  fontFamily: "var(--font-sans)",
+                }}
+              >
+                Cash · Runway
+              </div>
+              <div
+                style={{
+                  fontFamily: "var(--font-serif)",
+                  fontSize: 22,
+                  fontWeight: 600,
+                  color: "var(--warn)",
+                  lineHeight: 1,
+                  marginBottom: 5,
+                }}
+              >
+                18 days
+              </div>
+              <div
+                style={{
+                  height: 5,
+                  background: "var(--stone)",
+                  borderRadius: 100,
+                  overflow: "hidden",
+                  marginTop: 10,
+                }}
+              >
+                <div
+                  style={{
+                    width: "28%",
+                    height: "100%",
+                    background: "linear-gradient(to right, var(--up), var(--warn), var(--dn))",
+                    borderRadius: 100,
+                  }}
+                />
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginTop: 4,
+                  fontFamily: "var(--font-sans)",
+                }}
+              >
+                <span style={{ fontSize: 8.5, color: "var(--ink-3)" }}>$8,420 in bank</span>
+                <span style={{ fontSize: 8.5, color: "var(--dn)", fontWeight: 700 }}>Low</span>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginTop: 9,
+                  paddingTop: 7,
+                  borderTop: "1px solid var(--stone)",
+                  fontFamily: "var(--font-sans)",
+                }}
+              >
+                <span style={{ fontSize: 9, color: "var(--ink-3)" }}>Synced 1h ago</span>
+                <span
+                  style={{
+                    fontSize: 9,
+                    color: "var(--ink-3)",
+                    background: "var(--cream)",
+                    padding: "1px 6px",
+                    borderRadius: 4,
+                    border: "1px solid var(--stone)",
+                    fontWeight: 600,
+                  }}
+                >
+                  akahu
+                </span>
+              </div>
+            </div>
+
+            {/* Orders */}
+            <div
+              style={{
+                gridColumn: "span 1",
+                background: "#fff",
+                border: "1px solid var(--stone)",
+                borderRadius: 11,
+                padding: 14,
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 9,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: ".08em",
+                  color: "var(--ink-3)",
+                  marginBottom: 6,
+                  fontFamily: "var(--font-sans)",
+                }}
+              >
+                Orders
+              </div>
+              <div
+                style={{
+                  fontFamily: "var(--font-serif)",
+                  fontSize: 22,
+                  fontWeight: 600,
+                  color: "var(--ink)",
+                  lineHeight: 1,
+                  marginBottom: 5,
+                }}
+              >
+                24
+              </div>
+              <div
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 3,
+                  fontSize: 9,
+                  fontWeight: 700,
+                  padding: "2px 6px",
+                  borderRadius: 100,
+                  background: "var(--up-bg)",
+                  color: "var(--up)",
+                  fontFamily: "var(--font-sans)",
+                }}
+              >
+                ↑ 3
+              </div>
+            </div>
+
+            {/* Heatmap */}
+            <div
+              style={{
+                gridColumn: "span 2",
+                background: "#fff",
+                border: "1px solid var(--stone)",
+                borderRadius: 11,
+                padding: 14,
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 9,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: ".08em",
+                  color: "var(--ink-3)",
+                  marginBottom: 8,
+                  fontFamily: "var(--font-sans)",
+                }}
+              >
+                Sales by Day
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 2 }}>
+                {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
+                  <div key={i} style={{ fontSize: 7, color: "var(--ink-3)", textAlign: "center", fontFamily: "var(--font-sans)" }}>{d}</div>
+                ))}
+                {[0.15, 0.28, 0.42, 0.2, 0.6, 0.9, 0.75, 0.18, 0.32, 0.48, 0.24, 0.65, 0.88, 0.7].map((op, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      aspectRatio: "1",
+                      borderRadius: 2,
+                      background: `rgba(181,96,58,${op})`,
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Top products */}
+            <div
+              style={{
+                gridColumn: "span 4",
+                background: "#fff",
+                border: "1px solid var(--stone)",
+                borderRadius: 11,
+                padding: 14,
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 9,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: ".08em",
+                  color: "var(--ink-3)",
+                  marginBottom: 8,
+                  fontFamily: "var(--font-sans)",
+                }}
+              >
+                Top Products · Month
+              </div>
+              {[
+                { name: "Merino Tee — Black", val: "$4,260", pct: 100 },
+                { name: "Canvas Tote", val: "$2,940", pct: 69 },
+                { name: "Beanie — Grey", val: "$1,340", pct: 31 },
+              ].map((row, idx) => (
+                <div
+                  key={row.name}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 7,
+                    padding: "5px 0",
+                    borderBottom: idx < 2 ? "1px solid var(--stone)" : "none",
+                  }}
+                >
+                  <span style={{ fontSize: 9, color: "var(--ink-3)", fontWeight: 700, width: 13, fontFamily: "var(--font-sans)" }}>
+                    0{idx + 1}
+                  </span>
+                  <span style={{ fontSize: 11, fontWeight: 500, flex: 1, color: "var(--ink)", fontFamily: "var(--font-sans)" }}>
+                    {row.name}
+                  </span>
+                  <div style={{ width: 48, height: 4, background: "var(--stone)", borderRadius: 100, overflow: "hidden" }}>
+                    <div style={{ width: `${row.pct}%`, height: "100%", background: "var(--terra)", borderRadius: 100 }} />
+                  </div>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: "var(--forest)", fontFamily: "var(--font-serif)", minWidth: 38, textAlign: "right" }}>
+                    {row.val}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

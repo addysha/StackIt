@@ -13,7 +13,7 @@ import { Footer } from "@/components/landing/Footer";
 
 export default function LandingPage() {
   return (
-    <main className="min-h-screen bg-[var(--background)]">
+    <main className="min-h-screen bg-[var(--w)]">
       <Navbar />
       <Hero />
       <TrustStrip />

@@ -1,194 +1,258 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { Twitter, Instagram, Linkedin, Music } from "lucide-react";
 import { scrollToHash } from "@/lib/utils";
 
-const FOOTER_LINKS = [
-  {
-    title: "Product",
-    links: [
-      { label: "Features", href: "#features" },
-      { label: "Live demo", href: "#demo" },
-      { label: "Integrations", href: "#integrations" },
-      { label: "Pricing", href: "#pricing" },
-      { label: "Changelog", href: "#" },
-      { label: "Roadmap", href: "#" },
-    ],
-  },
-  {
-    title: "Use cases",
-    links: [
-      { label: "Shopify stores", href: "#" },
-      { label: "Cafés & hospitality", href: "#" },
-      { label: "Tradies & services", href: "#" },
-      { label: "Market stall sellers", href: "#" },
-      { label: "Etsy sellers", href: "#" },
-      { label: "Retail stores", href: "#" },
-    ],
-  },
-  {
-    title: "Support",
-    links: [
-      { label: "Help centre", href: "#" },
-      { label: "Documentation", href: "#" },
-      { label: "Book onboarding call", href: "#cta" },
-      { label: "Contact us", href: "#" },
-      { label: "Service status ↗", href: "#" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { label: "About us", href: "#" },
-      { label: "Blog", href: "#" },
-      { label: "Privacy policy", href: "#" },
-      { label: "Terms of service", href: "#" },
-      { label: "hello@stackit.co.nz", href: "mailto:hello@stackit.co.nz" },
-    ],
-  },
+const FOOTER_LINKS = {
+  Product: [
+    { label: "Features", href: "#features" },
+    { label: "Try the demo", href: "#demo" },
+    { label: "Pricing", href: "#pricing" },
+    { label: "Integrations", href: "#integrations" },
+  ],
+  Company: [
+    { label: "About", href: "#" },
+    { label: "Blog", href: "#" },
+    { label: "Careers", href: "#" },
+  ],
+  Support: [
+    { label: "FAQ", href: "#faq" },
+    { label: "Contact us", href: "mailto:hello@stackit.co.nz" },
+    { label: "Privacy policy", href: "#" },
+    { label: "Terms of service", href: "#" },
+  ],
+} as const;
+
+const SOCIALS = [
+  { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
+  { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
+  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+  { icon: Music, href: "https://tiktok.com", label: "TikTok" },
 ];
 
 export function Footer() {
   return (
-    <footer className="border-t border-[var(--border-default)] bg-[var(--bg-base)]">
-      <div className="px-4 pt-16 pb-14 md:px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mx-auto max-w-2xl text-center"
+    <footer
+      style={{
+        background: "var(--ink)",
+        borderTop: "1px solid rgba(255,255,255,.07)",
+      }}
+    >
+      {/* Mini CTA band */}
+      <div
+        style={{
+          borderBottom: "1px solid rgba(255,255,255,.07)",
+          padding: "36px 40px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          gap: 16,
+        }}
+      >
+        <div>
+          <div
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: 20,
+              fontWeight: 600,
+              color: "#fff",
+              marginBottom: 4,
+            }}
+          >
+            Ready to get started?
+          </div>
+          <div
+            style={{
+              fontSize: 13,
+              color: "rgba(255,255,255,.4)",
+              fontFamily: "var(--font-sans)",
+            }}
+          >
+            First 10 businesses get in free. No credit card required.
+          </div>
+        </div>
+        <a
+          href="mailto:hello@stackit.co.nz"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 7,
+            padding: "12px 28px",
+            borderRadius: 100,
+            background: "var(--terra)",
+            color: "#fff",
+            fontFamily: "var(--font-sans)",
+            fontSize: 14,
+            fontWeight: 700,
+            textDecoration: "none",
+            transition: "all .2s cubic-bezier(.34,1.56,.64,1)",
+            boxShadow: "0 4px 16px rgba(181,96,58,.3)",
+            letterSpacing: ".01em",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLAnchorElement).style.background = "var(--terra-dk)";
+            (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-2px)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLAnchorElement).style.background = "var(--terra)";
+            (e.currentTarget as HTMLAnchorElement).style.transform = "none";
+          }}
         >
-          <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--accent)] to-[var(--accent-hover)] shadow-lg">
-            <span
-              className="text-xl font-semibold text-white"
-              style={{ fontFamily: "var(--font-hero)" }}
-            >
-              S
-            </span>
-          </div>
-          <h2
-            className="text-2xl font-semibold leading-tight tracking-tight md:text-3xl lg:text-4xl"
-            style={{ fontFamily: "var(--font-hero)" }}
-          >
-            Discover a better way
-            <br />
-            to <em className="italic text-[var(--accent)]">run your business.</em>
-          </h2>
-          <p className="mt-3 text-[15px] leading-relaxed text-[var(--text-secondary)]">
-            Get started today and join the businesses already using Stackit —
-            from local cafés to Shopify sellers across New Zealand.
-          </p>
-          <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-            <a
-              href="#cta"
-              onClick={scrollToHash}
-              className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-[var(--accent)] px-6 py-2.5 text-sm font-bold text-[var(--text-inverse)] transition-colors hover:bg-[var(--accent-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2"
-            >
-              Get started for free
-            </a>
-            <a
-              href="#demo"
-              onClick={scrollToHash}
-              className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-[var(--border-default)] bg-transparent px-6 py-2.5 text-sm font-bold text-[var(--text-secondary)] transition-colors hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2"
-            >
-              Watch the demo
-            </a>
-          </div>
-          <p className="mt-4 text-xs text-[var(--text-tertiary)]">
-            No credit card required · 30-min onboarding included · Cancel anytime
-          </p>
-        </motion.div>
+          Get early access
+        </a>
       </div>
 
-      <div className="border-t border-[var(--border-default)] px-4 py-10 md:px-6">
-        <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-2">
-          <div>
-            <h3 className="text-lg font-semibold text-[var(--text-primary)]" style={{ fontFamily: "var(--font-hero)" }}>
-              Never miss an update
-            </h3>
-            <p className="mt-1 text-[13.5px] leading-relaxed text-[var(--text-secondary)]">
-              Get product updates, NZ business tips, and Stackit news — delivered
-              directly to your inbox. We rarely send more than one email a month.
-            </p>
+      {/* Main footer grid */}
+      <div
+        style={{
+          padding: "56px 40px 48px",
+          display: "grid",
+          gridTemplateColumns: "2fr 1fr 1fr 1fr",
+          gap: 48,
+        }}
+        className="max-md:grid-cols-2 max-sm:grid-cols-1"
+      >
+        {/* Brand column */}
+        <div>
+          <div
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: 20,
+              fontWeight: 600,
+              color: "#fff",
+              marginBottom: 10,
+            }}
+          >
+            Stack<span style={{ color: "var(--terra)" }}>it</span>
           </div>
-          <div>
-            <form
-              className="flex flex-col gap-2 sm:flex-row sm:gap-0"
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <input
-                type="email"
-                placeholder="Email address"
-                className="flex-1 rounded-l-xl rounded-r-xl border border-[var(--border-default)] bg-[var(--bg-surface)] px-4 py-2.5 text-[13.5px] text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] sm:rounded-r-none"
-              />
-              <button
-                type="submit"
-                className="rounded-xl bg-[var(--text-primary)] px-5 py-2.5 text-[13.5px] font-bold text-[var(--bg-base)] transition-colors hover:bg-[var(--text-primary)]/90 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] sm:rounded-l-none sm:rounded-r-xl"
+          <p
+            style={{
+              fontSize: 13,
+              color: "rgba(255,255,255,.4)",
+              lineHeight: 1.75,
+              maxWidth: 260,
+              fontFamily: "var(--font-sans)",
+              marginBottom: 20,
+            }}
+          >
+            The live business dashboard for New Zealand&apos;s small business
+            owners. Open it every morning. Know your numbers.
+          </p>
+          {/* Socials */}
+          <div style={{ display: "flex", gap: 8 }}>
+            {SOCIALS.map(({ icon: Icon, href, label }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: "50%",
+                  background: "rgba(255,255,255,.07)",
+                  border: "1px solid rgba(255,255,255,.1)",
+                  color: "rgba(255,255,255,.5)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textDecoration: "none",
+                  transition: "all .2s",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.background = "rgba(255,255,255,.12)";
+                  (e.currentTarget as HTMLAnchorElement).style.color = "#fff";
+                  (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(255,255,255,.2)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.background = "rgba(255,255,255,.07)";
+                  (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,.5)";
+                  (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(255,255,255,.1)";
+                }}
               >
-                Sign up
-              </button>
-            </form>
-            <label className="mt-2.5 flex cursor-pointer items-center gap-2 text-xs text-[var(--text-tertiary)]">
-              <input type="checkbox" className="accent-[var(--accent)]" />
-              I agree to receive emails from Stackit.
-            </label>
+                <Icon style={{ width: 14, height: 14 }} />
+              </a>
+            ))}
           </div>
         </div>
-      </div>
 
-      <div className="border-t border-[var(--border-default)] px-4 py-10 md:px-6">
-        <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-4">
-          {FOOTER_LINKS.map((col) => (
-            <div key={col.title}>
-              <h4 className="mb-3.5 text-xs font-bold uppercase tracking-wider text-[var(--text-primary)]">
-                {col.title}
-              </h4>
-              <ul className="flex flex-col gap-2">
-                {col.links.map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      onClick={link.href.startsWith("#") ? scrollToHash : undefined}
-                      className="text-[13px] text-[var(--text-tertiary)] transition-colors hover:text-[var(--accent)]"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+        {/* Link columns */}
+        {Object.entries(FOOTER_LINKS).map(([title, links]) => (
+          <div key={title}>
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                letterSpacing: ".1em",
+                textTransform: "uppercase",
+                color: "rgba(255,255,255,.3)",
+                marginBottom: 14,
+                fontFamily: "var(--font-sans)",
+              }}
+            >
+              {title}
             </div>
-          ))}
-        </div>
+            <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 8 }}>
+              {links.map(({ label, href }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    onClick={href.startsWith("#") ? scrollToHash : undefined}
+                    style={{
+                      fontSize: 13,
+                      color: "rgba(255,255,255,.45)",
+                      textDecoration: "none",
+                      fontFamily: "var(--font-sans)",
+                      transition: "color .2s",
+                    }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,.85)";
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,.45)";
+                    }}
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
 
-      <div className="border-t border-[var(--border-default)] px-4 py-6 md:px-6">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 md:flex-row">
-          <span
-            className="text-base font-semibold text-[var(--text-secondary)]"
-            style={{ fontFamily: "var(--font-hero)" }}
-          >
-            Stack<span className="text-[var(--accent)]">it</span>
-          </span>
-          <p className="text-[12.5px] text-[var(--text-tertiary)]">
-            © 2026 Stackit Ltd · Built in Auckland, New Zealand
-          </p>
-          <div className="flex gap-2">
-            <a
-              href="#"
-              className="flex size-8 items-center justify-center rounded-lg border border-[var(--border-default)] bg-[var(--bg-elevated)] text-[var(--text-tertiary)] transition-colors hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
-              aria-label="X / Twitter"
-            >
-              𝕏
-            </a>
-            <a
-              href="#"
-              className="flex size-8 items-center justify-center rounded-lg border border-[var(--border-default)] bg-[var(--bg-elevated)] text-sm font-medium text-[var(--text-tertiary)] transition-colors hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
-              aria-label="LinkedIn"
-            >
-              in
-            </a>
-          </div>
-        </div>
+      {/* Bottom bar */}
+      <div
+        style={{
+          borderTop: "1px solid rgba(255,255,255,.07)",
+          padding: "18px 40px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          gap: 10,
+        }}
+      >
+        <span
+          style={{
+            fontSize: 12,
+            color: "rgba(255,255,255,.25)",
+            fontFamily: "var(--font-sans)",
+          }}
+        >
+          © {new Date().getFullYear()} Stackit Ltd. Made in New Zealand.
+        </span>
+        <span
+          style={{
+            fontSize: 12,
+            color: "rgba(255,255,255,.25)",
+            fontFamily: "var(--font-sans)",
+          }}
+        >
+          Read-only OAuth · Encrypted · NZ data residency
+        </span>
       </div>
     </footer>
   );

@@ -1,72 +1,224 @@
 "use client";
 
-import { motion } from "framer-motion";
-import {
-  ShoppingCart,
-  Landmark,
-  CreditCard,
-  FileText,
-  Store,
-} from "lucide-react";
+import { RevealWrapper } from "@/components/ui/RevealWrapper";
 import { scrollToHash } from "@/lib/utils";
 
-const BADGES = [
-  { icon: ShoppingCart, label: "Shopify" },
-  { icon: Landmark, label: "Bank feed" },
-  { icon: CreditCard, label: "Stripe" },
-  { icon: FileText, label: "Xero" },
-  { icon: Store, label: "Square" },
+const INTEGRATIONS = [
+  "Shopify",
+  "Stripe",
+  "Square",
+  "Xero",
+  "ANZ",
+  "ASB",
+  "BNZ",
+  "Etsy",
+  "PayPal",
+  "MYOB",
+  "+200 more",
 ];
 
 export function FinalCta() {
   return (
     <section
       id="cta"
-      className="border-t border-[var(--border-default)] bg-[var(--bg-elevated)] px-4 py-20 text-center md:px-6 md:py-28"
+      style={{
+        padding: "100px 40px 120px",
+        background: "var(--terra)",
+        position: "relative",
+        overflow: "hidden",
+        textAlign: "center",
+      }}
     >
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="mx-auto max-w-[520px]"
-      >
-        <p className="mb-3.5 text-xs font-bold uppercase tracking-[0.1em] text-[var(--accent)]">
-          Limited spots
-        </p>
-        <h2
-          className="text-3xl font-semibold leading-tight tracking-tight md:text-4xl"
-          style={{ fontFamily: "var(--font-hero)" }}
-        >
-          First 10 businesses
-          <br />
-          get in <em className="italic text-[var(--accent)]">free.</em>
-        </h2>
-        <p className="mt-4 text-base leading-relaxed text-[var(--text-secondary)]">
-          Free setup. Free onboarding. We build your dashboard — you just show
-          up. All we ask is honest feedback and a kind word if you love it.
-        </p>
-        <a
-          href="#cta"
-          onClick={scrollToHash}
-          className="mt-8 inline-flex min-h-[52px] items-center justify-center rounded-full bg-[var(--accent)] px-11 py-4 text-base font-bold text-[var(--text-inverse)] shadow-lg shadow-[var(--accent-glow)] transition-all hover:bg-[var(--accent-hover)] hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2 focus:ring-offset-[var(--bg-elevated)]"
-        >
-          Book your free setup call
-        </a>
-        <p className="mt-4 text-sm text-[var(--text-tertiary)]">
-          30 minutes · No credit card · Live dashboard when you leave
-        </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
-          {BADGES.map((b) => (
-            <span
-              key={b.label}
-              className="flex items-center gap-1.5 rounded-lg border border-[var(--border-default)] bg-[var(--bg-surface)] px-3 py-2 text-xs font-semibold text-[var(--text-tertiary)]"
+      {/* BG gradient */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "radial-gradient(ellipse 70% 60% at 50% 100%, rgba(30,24,16,.18) 0%, transparent 55%)",
+          pointerEvents: "none",
+        }}
+      />
+      {/* Dot grid */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: "radial-gradient(rgba(255,255,255,.12) 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+          pointerEvents: "none",
+        }}
+      />
+
+      <div style={{ position: "relative", zIndex: 1 }}>
+        <RevealWrapper>
+          <p
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              letterSpacing: ".12em",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,.6)",
+              marginBottom: 16,
+              fontFamily: "var(--font-sans)",
+            }}
+          >
+            Early access
+          </p>
+        </RevealWrapper>
+
+        <RevealWrapper delay={1}>
+          <h2
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: "clamp(36px, 5vw, 66px)",
+              fontWeight: 600,
+              lineHeight: 1.1,
+              letterSpacing: "-.03em",
+              color: "#fff",
+              maxWidth: 640,
+              margin: "0 auto 18px",
+            }}
+          >
+            Your business.
+            <br />
+            One screen.
+            <br />
+            <em style={{ fontStyle: "italic", color: "rgba(255,255,255,.65)" }}>Starting today.</em>
+          </h2>
+        </RevealWrapper>
+
+        <RevealWrapper delay={2}>
+          <p
+            style={{
+              fontSize: 17,
+              color: "rgba(255,255,255,.72)",
+              maxWidth: 480,
+              margin: "0 auto 36px",
+              lineHeight: 1.75,
+              fontFamily: "var(--font-sans)",
+            }}
+          >
+            The first 10 businesses get in free. Takes under an hour to set up.
+            No credit card.
+          </p>
+        </RevealWrapper>
+
+        <RevealWrapper delay={3}>
+          <div
+            style={{
+              display: "flex",
+              gap: 12,
+              justifyContent: "center",
+              flexWrap: "wrap",
+              marginBottom: 24,
+            }}
+          >
+            <a
+              href="mailto:hello@stackit.co.nz"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 7,
+                padding: "15px 36px",
+                borderRadius: 100,
+                background: "#fff",
+                color: "var(--terra)",
+                fontFamily: "var(--font-sans)",
+                fontSize: 15,
+                fontWeight: 700,
+                textDecoration: "none",
+                boxShadow: "0 8px 32px rgba(30,24,16,.2)",
+                transition: "all .22s cubic-bezier(.34,1.56,.64,1)",
+                letterSpacing: ".01em",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-3px) scale(1.02)";
+                (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 16px 40px rgba(30,24,16,.28)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.transform = "none";
+                (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 8px 32px rgba(30,24,16,.2)";
+              }}
             >
-              <b.icon className="size-3.5" />
-              {b.label}
-            </span>
-          ))}
-        </div>
-      </motion.div>
+              Get early access
+            </a>
+            <a
+              href="#demo"
+              onClick={scrollToHash}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 7,
+                padding: "15px 36px",
+                borderRadius: 100,
+                background: "transparent",
+                color: "#fff",
+                fontFamily: "var(--font-sans)",
+                fontSize: 15,
+                fontWeight: 700,
+                textDecoration: "none",
+                border: "1.5px solid rgba(255,255,255,.35)",
+                transition: "all .22s cubic-bezier(.34,1.56,.64,1)",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(255,255,255,.7)";
+                (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-2px)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(255,255,255,.35)";
+                (e.currentTarget as HTMLAnchorElement).style.transform = "none";
+              }}
+            >
+              Try the demo →
+            </a>
+          </div>
+        </RevealWrapper>
+
+        {/* Integration chips */}
+        <RevealWrapper delay={4}>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 7,
+              justifyContent: "center",
+              marginBottom: 20,
+            }}
+          >
+            {INTEGRATIONS.map((name) => (
+              <span
+                key={name}
+                style={{
+                  padding: "5px 14px",
+                  borderRadius: 100,
+                  background: "rgba(255,255,255,.1)",
+                  border: "1px solid rgba(255,255,255,.18)",
+                  fontSize: 11.5,
+                  fontWeight: 700,
+                  color: "rgba(255,255,255,.8)",
+                  fontFamily: "var(--font-sans)",
+                  letterSpacing: ".02em",
+                }}
+              >
+                {name}
+              </span>
+            ))}
+          </div>
+        </RevealWrapper>
+
+        <p
+          style={{
+            fontSize: 12,
+            color: "rgba(255,255,255,.4)",
+            fontFamily: "var(--font-sans)",
+          }}
+        >
+          NZ-built · Read-only OAuth · 14-day free trial
+        </p>
+      </div>
     </section>
   );
 }

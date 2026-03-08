@@ -14,22 +14,74 @@ const STRIP_ITEMS = [
 ];
 
 export function TrustStrip() {
-  const duplicated = [...STRIP_ITEMS, ...STRIP_ITEMS];
+  const doubled = [...STRIP_ITEMS, ...STRIP_ITEMS];
   return (
     <div
-      className="relative overflow-hidden border-y border-[var(--border-default)] bg-[var(--bg-elevated)] py-3.5"
       aria-hidden
+      style={{
+        borderTop: "1px solid var(--stone)",
+        borderBottom: "1px solid var(--stone)",
+        padding: "14px 0",
+        overflow: "hidden",
+        position: "relative",
+        background: "var(--cream)",
+      }}
     >
-      <div className="absolute left-0 top-0 bottom-0 z-10 w-24 bg-gradient-to-r from-[var(--bg-elevated)] to-transparent pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 z-10 w-24 bg-gradient-to-l from-[var(--bg-elevated)] to-transparent pointer-events-none" />
-      <div className="flex w-max gap-7 animate-ticker">
-        {duplicated.map((name, i) => (
+      {/* Fade masks */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          bottom: 0,
+          left: 0,
+          width: 120,
+          zIndex: 2,
+          background: "linear-gradient(to right, var(--cream), transparent)",
+          pointerEvents: "none",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          bottom: 0,
+          right: 0,
+          width: 120,
+          zIndex: 2,
+          background: "linear-gradient(to left, var(--cream), transparent)",
+          pointerEvents: "none",
+        }}
+      />
+      <div
+        className="animate-ticker"
+        style={{ display: "flex", gap: 28, width: "max-content" }}
+      >
+        {doubled.map((name, i) => (
           <span
             key={`${name}-${i}`}
-            className="flex shrink-0 items-center gap-2 text-xs font-bold uppercase tracking-wide text-[var(--text-tertiary)]"
+            style={{
+              fontSize: 12,
+              fontWeight: 700,
+              color: "var(--ink-3)",
+              letterSpacing: ".05em",
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              whiteSpace: "nowrap",
+              fontFamily: "var(--font-sans)",
+            }}
           >
             {name}
-            <span className="size-1 rounded-full bg-[var(--accent)] opacity-40" />
+            <span
+              style={{
+                width: 4,
+                height: 4,
+                background: "var(--terra)",
+                borderRadius: "50%",
+                opacity: 0.4,
+                display: "inline-block",
+              }}
+            />
           </span>
         ))}
       </div>

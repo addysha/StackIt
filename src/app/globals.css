@@ -2,6 +2,37 @@
 @plugin "tailwindcss-animate";
 
 :root {
+  /* ═══════════════════════════════════════
+     BRAND PALETTE — landing page
+  ═══════════════════════════════════════ */
+  --terra: #B5603A;
+  --terra-dk: #8F4A2B;
+  --terra-lt: rgba(181, 96, 58, 0.09);
+  --forest: #2E4D38;
+  --forest-lt: #EAF1EB;
+  --ink: #1E1810;
+  --ink-2: #4A3C2C;
+  --ink-3: #8A7A68;
+  --cream: #F4EFE6;
+  --stone: #E2D8CA;
+  --slate: #C8BFB0;
+  --w: #FDFAF5;
+  --surf: #ffffff;
+  --up: #2E7D52;
+  --up-bg: #E8F5EE;
+  --dn: #B5603A;
+  --dn-bg: #FBF0EB;
+  --warn: #C47A1A;
+  --warn-bg: #FEF6E7;
+  --sh-sm: 0 1px 4px rgba(30, 24, 16, 0.06), 0 1px 2px rgba(30, 24, 16, 0.04);
+  --sh-md: 0 4px 16px rgba(30, 24, 16, 0.08), 0 2px 4px rgba(30, 24, 16, 0.05);
+  --sh-lg: 0 8px 32px rgba(30, 24, 16, 0.10), 0 4px 8px rgba(30, 24, 16, 0.06);
+  --sh-xl: 0 20px 60px rgba(30, 24, 16, 0.14), 0 8px 16px rgba(30, 24, 16, 0.08);
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* ═══════════════════════════════════════
+     APP / DASHBOARD PALETTE — kept for backward compat
+  ═══════════════════════════════════════ */
   /* Base backgrounds */
   --bg-base: #fafaf8;
   --bg-surface: #ffffff;
@@ -104,20 +135,40 @@ select {
 }
 
 .hero-dot-grid {
-  background-image: radial-gradient(var(--border-strong) 1px, transparent 1px);
-  background-size: 32px 32px;
-  opacity: 0.4;
+  background-image: radial-gradient(var(--stone) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
 
 @keyframes ticker {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.2; transform: scale(0.7); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
 }
 
 .animate-ticker {
   animation: ticker 24s linear infinite;
 }
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+.reveal.vis {
+  opacity: 1;
+  transform: none;
+}
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+.reveal-d4 { transition-delay: 0.4s; }

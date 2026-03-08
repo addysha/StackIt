@@ -1,30 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
-import {
-  ShoppingCart,
-  Landmark,
-  CreditCard,
-  FileText,
-  Mail,
-  Calendar,
-  Layers,
-  Coffee,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
-
-const container = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.08, delayChildren: 0.05 },
-  },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0 },
-};
+import { RevealWrapper } from "@/components/ui/RevealWrapper";
 
 const MINI_WIDGETS = [
   { label: "Revenue", value: "$14,250", trend: "↑ 12%", up: true },
@@ -34,17 +10,10 @@ const MINI_WIDGETS = [
 ];
 
 const LIVE_SOURCES = [
-  { icon: ShoppingCart, name: "Shopify" },
-  { icon: Landmark, name: "ANZ Bank Feed" },
-  { icon: CreditCard, name: "Stripe" },
-  { icon: FileText, name: "Xero" },
-];
-
-const ONBOARD_STEPS = [
-  { icon: Mail, label: "Sign up", status: "Done" as const },
-  { icon: Calendar, label: "Book call", status: "Done" as const },
-  { icon: Layers, label: "We build live", status: "Now" as const },
-  { icon: Coffee, label: "You use it", status: "Next" as const },
+  { abbr: "SH", name: "Shopify", connected: true },
+  { abbr: "AN", name: "ANZ Bank Feed", connected: true },
+  { abbr: "ST", name: "Stripe", connected: true },
+  { abbr: "XR", name: "Xero", connected: false },
 ];
 
 const TOP_PRODUCTS = [
@@ -53,306 +22,783 @@ const TOP_PRODUCTS = [
   { name: "Beanie — Grey", value: "$1,340", pct: 31 },
 ];
 
+function Monogram({ abbr, size = 28 }: { abbr: string; size?: number }) {
+  return (
+    <div
+      style={{
+        width: size,
+        height: size,
+        borderRadius: 6,
+        background: "rgba(255,255,255,.12)",
+        border: "1px solid rgba(255,255,255,.15)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: size * 0.35,
+        fontWeight: 700,
+        color: "rgba(255,255,255,.8)",
+        fontFamily: "var(--font-sans)",
+        flexShrink: 0,
+        letterSpacing: ".02em",
+      }}
+    >
+      {abbr}
+    </div>
+  );
+}
+
 export function FeaturesBento() {
   return (
     <section
       id="features"
-      className="border-t border-[var(--border-default)] bg-[var(--bg-elevated)] px-4 py-20 md:px-6 md:py-28"
+      style={{
+        padding: "80px 40px 100px",
+        background: "var(--cream)",
+        borderTop: "1px solid var(--stone)",
+      }}
     >
-      <div className="mx-auto max-w-[560px]">
-        <motion.p
-          variants={item}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="mb-3.5 text-xs font-bold uppercase tracking-[0.1em] text-[var(--accent)]"
+      {/* Header */}
+      <RevealWrapper style={{ maxWidth: 560, marginBottom: 48 }}>
+        <p
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            letterSpacing: ".1em",
+            textTransform: "uppercase",
+            color: "var(--terra)",
+            marginBottom: 14,
+            fontFamily: "var(--font-sans)",
+          }}
         >
           Features
-        </motion.p>
-        <motion.h2
-          variants={item}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="text-3xl font-semibold leading-tight tracking-tight md:text-4xl"
-          style={{ fontFamily: "var(--font-hero)" }}
+        </p>
+        <h2
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: "clamp(30px, 4vw, 50px)",
+            fontWeight: 600,
+            lineHeight: 1.18,
+            letterSpacing: "-.02em",
+            color: "var(--ink)",
+            marginBottom: 16,
+          }}
         >
           Everything you need.
           <br />
-          <em className="italic text-[var(--accent)]">Exactly how you need it.</em>
-        </motion.h2>
-        <motion.p
-          variants={item}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="mt-4 text-base leading-relaxed text-[var(--text-secondary)]"
+          <em style={{ fontStyle: "italic", color: "var(--terra)" }}>Exactly how you need it.</em>
+        </h2>
+        <p
+          style={{
+            fontSize: 16.5,
+            color: "var(--ink-2)",
+            lineHeight: 1.8,
+            fontFamily: "var(--font-sans)",
+            maxWidth: 540,
+          }}
         >
-          Each feature was built around one kind of person — someone brilliant
-          at their business, not at software.
-        </motion.p>
-      </div>
+          Each feature was built around one kind of person — someone brilliant at
+          their business, not at software.
+        </p>
+      </RevealWrapper>
 
-      <motion.div
-        variants={container}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-40px" }}
-        className="mx-auto mt-12 grid max-w-6xl grid-cols-12 gap-3.5 md:mt-14"
+      {/* Bento grid */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(12, 1fr)",
+          gap: 14,
+          maxWidth: 1200,
+        }}
+        className="max-md:grid-cols-1"
       >
-        {/* Drag-and-drop canvas — span 5 */}
-        <motion.div
-          variants={item}
-          className="col-span-12 rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)] p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)] md:col-span-5"
+        {/* Cell 1 — span 5, white, drag canvas */}
+        <RevealWrapper
+          style={{
+            gridColumn: "span 5",
+            background: "var(--surf)",
+            border: "1px solid var(--stone)",
+            borderRadius: 18,
+            padding: 28,
+            overflow: "hidden",
+            position: "relative",
+            transition: "transform .28s var(--ease), box-shadow .28s",
+            cursor: "default",
+          }}
+          className="max-md:!col-span-1"
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLElement).style.transform = "translateY(-3px)";
+            (e.currentTarget as HTMLElement).style.boxShadow = "var(--sh-md)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLElement).style.transform = "none";
+            (e.currentTarget as HTMLElement).style.boxShadow = "none";
+          }}
         >
-          <span className="mb-3 inline-flex rounded-full border border-[var(--accent)]/20 bg-[var(--accent)]/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--accent)]">
+          <span
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              fontSize: 10,
+              fontWeight: 700,
+              letterSpacing: ".08em",
+              textTransform: "uppercase",
+              padding: "3px 10px",
+              borderRadius: 100,
+              marginBottom: 12,
+              background: "var(--terra-lt)",
+              color: "var(--terra)",
+              border: "1px solid rgba(181,96,58,.2)",
+              fontFamily: "var(--font-sans)",
+            }}
+          >
             New
           </span>
-          <h3
-            className="text-lg font-semibold leading-snug text-[var(--text-primary)] md:text-xl"
-            style={{ fontFamily: "var(--font-hero)" }}
+          <div
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: 20,
+              fontWeight: 600,
+              lineHeight: 1.3,
+              marginBottom: 8,
+              color: "var(--ink)",
+            }}
           >
             Flexible, drag-and-drop canvas
-          </h3>
-          <p className="mt-2 text-[13px] leading-relaxed text-[var(--text-secondary)]">
+          </div>
+          <p
+            style={{
+              fontSize: 13,
+              color: "var(--ink-2)",
+              lineHeight: 1.7,
+              fontFamily: "var(--font-sans)",
+            }}
+          >
             Build your exact dashboard by dragging metric blocks onto a canvas.
             They snap into place. No code, no config — it works like Lego.
           </p>
-          <div className="mt-4 grid grid-cols-2 gap-2">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: 7,
+              marginTop: 16,
+            }}
+          >
             {MINI_WIDGETS.map((w) => (
               <div
                 key={w.label}
-                className="rounded-lg border border-[var(--border-default)] bg-[var(--bg-base)] p-2.5"
+                style={{
+                  background: "rgba(253,250,245,.9)",
+                  border: "1px solid var(--stone)",
+                  borderRadius: 10,
+                  padding: "10px 12px",
+                }}
               >
-                <div className="text-[9px] font-bold uppercase tracking-wider text-[var(--text-tertiary)]">
+                <div
+                  style={{
+                    fontSize: 9,
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    letterSpacing: ".07em",
+                    color: "var(--ink-3)",
+                    marginBottom: 4,
+                    fontFamily: "var(--font-sans)",
+                  }}
+                >
                   {w.label}
                 </div>
                 <div
-                  className="text-base font-semibold text-[var(--text-primary)]"
-                  style={{ fontFamily: "var(--font-hero)" }}
+                  style={{
+                    fontFamily: "var(--font-serif)",
+                    fontSize: 18,
+                    fontWeight: 600,
+                    color: "var(--ink)",
+                    lineHeight: 1,
+                  }}
                 >
                   {w.value}
                 </div>
                 <div
-                  className={cn(
-                    "mt-0.5 text-[10px] font-semibold",
-                    w.up ? "text-[var(--success)]" : "text-[var(--danger)]"
-                  )}
+                  style={{
+                    fontSize: 10,
+                    fontWeight: 600,
+                    marginTop: 3,
+                    color: w.up ? "var(--up)" : "var(--dn)",
+                    fontFamily: "var(--font-sans)",
+                  }}
                 >
                   {w.trend}
                 </div>
               </div>
             ))}
           </div>
-        </motion.div>
+        </RevealWrapper>
 
-        {/* Live data — dark card span 4 */}
-        <motion.div
-          variants={item}
-          className="col-span-12 rounded-2xl border-0 bg-[var(--text-primary)] p-6 text-white shadow-[var(--shadow-md)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-lg)] md:col-span-4"
+        {/* Cell 2 — span 4, dark, live data */}
+        <RevealWrapper
+          delay={1}
+          style={{
+            gridColumn: "span 4",
+            background: "var(--ink)",
+            borderRadius: 18,
+            padding: 28,
+            overflow: "hidden",
+            transition: "transform .28s var(--ease), box-shadow .28s",
+            cursor: "default",
+          }}
+          className="max-md:!col-span-1"
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLElement).style.transform = "translateY(-3px)";
+            (e.currentTarget as HTMLElement).style.boxShadow = "var(--sh-md)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLElement).style.transform = "none";
+            (e.currentTarget as HTMLElement).style.boxShadow = "none";
+          }}
         >
-          <span className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-[var(--success)]/20 bg-[var(--success)]/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--success)]">
-            <span className="size-1.5 rounded-full bg-[var(--success)]" />
+          <span
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 5,
+              fontSize: 10,
+              fontWeight: 700,
+              letterSpacing: ".08em",
+              textTransform: "uppercase",
+              padding: "3px 10px",
+              borderRadius: 100,
+              marginBottom: 12,
+              background: "var(--up-bg)",
+              color: "var(--up)",
+              border: "1px solid rgba(46,125,82,.2)",
+              fontFamily: "var(--font-sans)",
+            }}
+          >
+            <span
+              style={{
+                width: 5,
+                height: 5,
+                background: "var(--up)",
+                borderRadius: "50%",
+                animation: "blink 2s infinite",
+                display: "inline-block",
+              }}
+            />
             Live
           </span>
-          <h3
-            className="text-lg font-semibold leading-snug md:text-xl"
-            style={{ fontFamily: "var(--font-hero)" }}
+          <div
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: 20,
+              fontWeight: 600,
+              lineHeight: 1.3,
+              marginBottom: 8,
+              color: "#fff",
+            }}
           >
             Always current. Always yours.
-          </h3>
-          <p className="mt-2 text-[13px] leading-relaxed text-white/70">
+          </div>
+          <p
+            style={{
+              fontSize: 13,
+              color: "rgba(255,255,255,.65)",
+              lineHeight: 1.7,
+              fontFamily: "var(--font-sans)",
+            }}
+          >
             Data syncs in real time from every connected source. No manual
             refreshes. No CSV uploads. Open Stackit every morning and your
             numbers are already there.
           </p>
-          <div className="mt-4 space-y-2">
+          <div style={{ display: "flex", flexDirection: "column", gap: 6, marginTop: 12 }}>
             {LIVE_SOURCES.map((s) => (
               <div
                 key={s.name}
-                className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-2.5 py-2"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  background: "rgba(255,255,255,.06)",
+                  border: "1px solid rgba(255,255,255,.1)",
+                  borderRadius: 8,
+                  padding: "8px 10px",
+                }}
               >
-                <s.icon className="size-3.5 shrink-0 text-white/80" />
-                <span className="flex-1 text-xs text-white/80">{s.name}</span>
-                <span className="size-1.5 rounded-full bg-[var(--success)]" />
+                <Monogram abbr={s.abbr} size={26} />
+                <span
+                  style={{
+                    fontSize: 12,
+                    color: "rgba(255,255,255,.75)",
+                    flex: 1,
+                    fontFamily: "var(--font-sans)",
+                  }}
+                >
+                  {s.name}
+                </span>
+                <span
+                  style={{
+                    width: 7,
+                    height: 7,
+                    borderRadius: "50%",
+                    background: s.connected ? "#3fa85f" : "var(--warn)",
+                    boxShadow: s.connected ? "0 0 5px #3fa85f" : "0 0 5px var(--warn)",
+                    animation: "blink 2.4s infinite",
+                    flexShrink: 0,
+                  }}
+                />
               </div>
             ))}
           </div>
-        </motion.div>
+        </RevealWrapper>
 
-        {/* Onboarding — accent card span 3 */}
-        <motion.div
-          variants={item}
-          className="col-span-12 rounded-2xl border-0 bg-[var(--accent)] p-6 text-white shadow-[var(--shadow-md)] transition-all duration-300 hover:-translate-y-0.5 md:col-span-3"
+        {/* Cell 3 — span 3, forest, "Your data. Your way." */}
+        <RevealWrapper
+          delay={2}
+          style={{
+            gridColumn: "span 3",
+            background: "var(--forest)",
+            borderRadius: 18,
+            padding: 28,
+            overflow: "hidden",
+            transition: "transform .28s var(--ease), box-shadow .28s",
+            cursor: "default",
+          }}
+          className="max-md:!col-span-1"
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLElement).style.transform = "translateY(-3px)";
+            (e.currentTarget as HTMLElement).style.boxShadow = "var(--sh-md)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLElement).style.transform = "none";
+            (e.currentTarget as HTMLElement).style.boxShadow = "none";
+          }}
         >
-          <h3
-            className="text-lg font-semibold leading-snug md:text-xl"
-            style={{ fontFamily: "var(--font-hero)" }}
+          <div
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: 20,
+              fontWeight: 600,
+              lineHeight: 1.3,
+              marginBottom: 8,
+              color: "#fff",
+            }}
           >
-            Done for you in 30 minutes
-          </h3>
-          <p className="mt-2 text-[13px] leading-relaxed text-white/75">
-            We get on a Zoom, ask 5 questions, and build your dashboard while
-            you watch. You leave with live data.
+            Your data. Your way.
+          </div>
+          <p
+            style={{
+              fontSize: 13,
+              color: "rgba(255,255,255,.65)",
+              lineHeight: 1.7,
+              fontFamily: "var(--font-sans)",
+            }}
+          >
+            All connections use read-only OAuth. We can see your data — we can
+            never move your money or change anything in your systems.
           </p>
-          <div className="mt-4 space-y-2">
-            {ONBOARD_STEPS.map((step) => (
+          <div style={{ marginTop: 14 }}>
+            {["Read-only OAuth", "Encrypted at rest", "NZ data residency"].map((item) => (
               <div
-                key={step.label}
-                className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-2.5 py-2"
+                key={item}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "6px 0",
+                  borderBottom: "1px solid rgba(255,255,255,.1)",
+                }}
               >
-                <step.icon className="size-3.5 shrink-0 text-white/70" />
-                <span className="flex-1 text-xs text-white/80">{step.label}</span>
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
+                  <path d="M2 6L5 9L10 3" stroke="#6fcf97" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
                 <span
-                  className={cn(
-                    "text-[9.5px] font-bold",
-                    step.status === "Done" && "text-[var(--success)]",
-                    step.status === "Now" && "text-[var(--warning)]",
-                    step.status === "Next" && "text-white/40"
-                  )}
+                  style={{
+                    fontSize: 12,
+                    color: "rgba(255,255,255,.75)",
+                    fontFamily: "var(--font-sans)",
+                  }}
                 >
-                  {step.status}
+                  {item}
                 </span>
               </div>
             ))}
           </div>
-        </motion.div>
+        </RevealWrapper>
 
-        {/* 10 viz types — full width row span 8 */}
-        <motion.div
-          variants={item}
-          className="col-span-12 flex flex-col gap-5 rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)] p-6 md:col-span-8 md:flex-row md:items-center"
+        {/* Cell 4 — span 8, white, viz types */}
+        <RevealWrapper
+          style={{
+            gridColumn: "span 8",
+            background: "var(--surf)",
+            border: "1px solid var(--stone)",
+            borderRadius: 18,
+            padding: 28,
+            overflow: "hidden",
+            transition: "transform .28s var(--ease), box-shadow .28s",
+            cursor: "default",
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: 20,
+            alignItems: "center",
+          }}
+          className="max-md:!col-span-1 max-md:!grid-cols-1"
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLElement).style.transform = "translateY(-3px)";
+            (e.currentTarget as HTMLElement).style.boxShadow = "var(--sh-md)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLElement).style.transform = "none";
+            (e.currentTarget as HTMLElement).style.boxShadow = "none";
+          }}
         >
-          <div className="flex-1">
-            <span className="mb-3 inline-flex rounded-full border border-[var(--accent)]/20 bg-[var(--accent)]/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--accent)]">
+          <div>
+            <span
+              style={{
+                display: "inline-flex",
+                fontSize: 10,
+                fontWeight: 700,
+                letterSpacing: ".08em",
+                textTransform: "uppercase",
+                padding: "3px 10px",
+                borderRadius: 100,
+                marginBottom: 12,
+                background: "var(--terra-lt)",
+                color: "var(--terra)",
+                border: "1px solid rgba(181,96,58,.2)",
+                fontFamily: "var(--font-sans)",
+              }}
+            >
               10 types
             </span>
-            <h3
-              className="text-lg font-semibold leading-snug text-[var(--text-primary)] md:text-xl"
-              style={{ fontFamily: "var(--font-hero)" }}
+            <div
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: 20,
+                fontWeight: 600,
+                lineHeight: 1.3,
+                marginBottom: 8,
+                color: "var(--ink)",
+              }}
             >
               Data shown the way it makes sense
-            </h3>
-            <p className="mt-2 text-[13px] leading-relaxed text-[var(--text-secondary)]">
+            </div>
+            <p
+              style={{
+                fontSize: 13,
+                color: "var(--ink-2)",
+                lineHeight: 1.7,
+                fontFamily: "var(--font-sans)",
+              }}
+            >
               Cash runway is a gauge. Weekly sales is a heatmap. Top products is
               a ranked bar list. Revenue trend is a sparkline. Every metric gets
               the visualisation that fits it.
             </p>
           </div>
-          <div className="flex shrink-0 flex-col gap-2">
-            <div className="grid grid-cols-7 gap-0.5 rounded-xl bg-[var(--bg-elevated)] p-2.5">
+          <div>
+            {/* Heatmap */}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(7, 1fr)",
+                background: "var(--cream)",
+                borderRadius: 10,
+                padding: 10,
+                gap: 3,
+                marginBottom: 8,
+              }}
+            >
               {["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map((d) => (
                 <div
                   key={d}
-                  className="text-center text-[8px] font-semibold text-[var(--text-tertiary)]"
+                  style={{
+                    fontSize: 8,
+                    color: "var(--ink-3)",
+                    textAlign: "center",
+                    fontFamily: "var(--font-sans)",
+                  }}
                 >
                   {d}
                 </div>
               ))}
-              {[0.12, 0.25, 0.4, 0.2, 0.55, 0.85, 0.72, 0.18, 0.3, 0.45, 0.22, 0.6, 0.9, 0.76].map((opacity, i) => (
-                <div
-                  key={i}
-                  className="aspect-square rounded-sm bg-[var(--accent)]"
-                  style={{ opacity }}
-                />
-              ))}
+              {[0.12, 0.25, 0.4, 0.2, 0.55, 0.85, 0.72, 0.18, 0.3, 0.45, 0.22, 0.6, 0.9, 0.78].map(
+                (op, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      aspectRatio: "1",
+                      borderRadius: 3,
+                      background: `rgba(181,96,58,${op})`,
+                    }}
+                  />
+                )
+              )}
             </div>
-            <div className="flex items-end gap-1 rounded-xl bg-[var(--bg-elevated)] p-2.5" style={{ height: 36 }}>
+            {/* Bar chart */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-end",
+                gap: 4,
+                height: 44,
+                background: "var(--cream)",
+                borderRadius: 10,
+                padding: 8,
+              }}
+            >
               {[40, 55, 48, 65, 70, 90].map((h, i) => (
                 <div
                   key={i}
-                  className="flex-1 rounded-sm bg-[var(--accent)]"
-                  style={{ height: `${h}%` }}
+                  style={{
+                    flex: 1,
+                    height: `${h}%`,
+                    background: i === 5 ? "var(--terra)" : "var(--forest)",
+                    opacity: i === 5 ? 1 : 0.5 + i * 0.06,
+                    borderRadius: "2px 2px 0 0",
+                  }}
                 />
               ))}
             </div>
           </div>
-        </motion.div>
+        </RevealWrapper>
 
-        {/* Top products — forest-style dark card span 4 */}
-        <motion.div
-          variants={item}
-          className="col-span-12 rounded-2xl border-0 bg-[#2E4D38] p-6 text-white shadow-[var(--shadow-md)] transition-all duration-300 hover:-translate-y-0.5 md:col-span-4"
+        {/* Cell 5 — span 4, forest, top products */}
+        <RevealWrapper
+          delay={1}
+          style={{
+            gridColumn: "span 4",
+            background: "var(--forest)",
+            borderRadius: 18,
+            padding: 28,
+            overflow: "hidden",
+            transition: "transform .28s var(--ease), box-shadow .28s",
+            cursor: "default",
+          }}
+          className="max-md:!col-span-1"
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLElement).style.transform = "translateY(-3px)";
+            (e.currentTarget as HTMLElement).style.boxShadow = "var(--sh-md)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLElement).style.transform = "none";
+            (e.currentTarget as HTMLElement).style.boxShadow = "none";
+          }}
         >
-          <h3
-            className="text-lg font-semibold leading-snug md:text-xl"
-            style={{ fontFamily: "var(--font-hero)" }}
+          <div
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: 20,
+              fontWeight: 600,
+              lineHeight: 1.3,
+              marginBottom: 8,
+              color: "#fff",
+            }}
           >
             See what's driving revenue
-          </h3>
-          <p className="mt-2 text-[13px] leading-relaxed text-white/65">
+          </div>
+          <p
+            style={{
+              fontSize: 13,
+              color: "rgba(255,255,255,.65)",
+              lineHeight: 1.7,
+              fontFamily: "var(--font-sans)",
+            }}
+          >
             Ranked product performance with proportional bars. Know your
             best-sellers at a glance.
           </p>
-          <div className="mt-4 space-y-0">
+          <div style={{ display: "flex", flexDirection: "column", gap: 5, marginTop: 12 }}>
             {TOP_PRODUCTS.map((row, idx) => (
               <div
                 key={row.name}
-                className="flex items-center gap-2 border-b border-white/10 py-1.5 last:border-0"
+                style={{ display: "flex", alignItems: "center", gap: 8 }}
               >
-                <span className="w-4 text-[9.5px] font-bold text-white/40">
+                <span
+                  style={{
+                    fontSize: 9.5,
+                    color: "rgba(255,255,255,.4)",
+                    fontWeight: 700,
+                    width: 14,
+                    fontFamily: "var(--font-sans)",
+                  }}
+                >
                   0{idx + 1}
                 </span>
-                <span className="flex-1 text-[11.5px] text-white/80">
+                <span
+                  style={{
+                    fontSize: 11.5,
+                    color: "rgba(255,255,255,.8)",
+                    flex: 1,
+                    fontFamily: "var(--font-sans)",
+                  }}
+                >
                   {row.name}
                 </span>
-                <div className="h-1 w-12 overflow-hidden rounded-full bg-white/10">
+                <div
+                  style={{
+                    width: 50,
+                    height: 4,
+                    background: "rgba(255,255,255,.12)",
+                    borderRadius: 100,
+                    overflow: "hidden",
+                  }}
+                >
                   <div
-                    className="h-full rounded-full bg-white/70"
-                    style={{ width: `${row.pct}%` }}
+                    style={{
+                      height: "100%",
+                      borderRadius: 100,
+                      background: "rgba(255,255,255,.7)",
+                      width: `${row.pct}%`,
+                    }}
                   />
                 </div>
                 <span
-                  className="text-[11px] font-bold"
-                  style={{ fontFamily: "var(--font-hero)" }}
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: "rgba(255,255,255,.9)",
+                    fontFamily: "var(--font-serif)",
+                  }}
                 >
                   {row.value}
                 </span>
               </div>
             ))}
           </div>
-        </motion.div>
+        </RevealWrapper>
 
-        {/* Custom widgets — span 4 */}
-        <motion.div
-          variants={item}
-          className="col-span-12 rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)] p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)] md:col-span-4"
+        {/* Cell 6 — span 4, white, custom widgets */}
+        <RevealWrapper
+          delay={2}
+          style={{
+            gridColumn: "span 4",
+            background: "var(--surf)",
+            border: "1px solid var(--stone)",
+            borderRadius: 18,
+            padding: 28,
+            overflow: "hidden",
+            transition: "transform .28s var(--ease), box-shadow .28s",
+            cursor: "default",
+          }}
+          className="max-md:!col-span-1"
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLElement).style.transform = "translateY(-3px)";
+            (e.currentTarget as HTMLElement).style.boxShadow = "var(--sh-md)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLElement).style.transform = "none";
+            (e.currentTarget as HTMLElement).style.boxShadow = "none";
+          }}
         >
-          <span className="mb-3 inline-flex rounded-full border border-[var(--accent)]/20 bg-[var(--accent)]/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--accent)]">
+          <span
+            style={{
+              display: "inline-flex",
+              fontSize: 10,
+              fontWeight: 700,
+              letterSpacing: ".08em",
+              textTransform: "uppercase",
+              padding: "3px 10px",
+              borderRadius: 100,
+              marginBottom: 12,
+              background: "var(--terra-lt)",
+              color: "var(--terra)",
+              border: "1px solid rgba(181,96,58,.2)",
+              fontFamily: "var(--font-sans)",
+            }}
+          >
             Custom
           </span>
-          <h3
-            className="text-lg font-semibold leading-snug text-[var(--text-primary)] md:text-xl"
-            style={{ fontFamily: "var(--font-hero)" }}
+          <div
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: 20,
+              fontWeight: 600,
+              lineHeight: 1.3,
+              marginBottom: 8,
+              color: "var(--ink)",
+            }}
           >
             Add any metric you want
-          </h3>
-          <p className="mt-2 text-[13px] leading-relaxed text-[var(--text-secondary)]">
+          </div>
+          <p
+            style={{
+              fontSize: 13,
+              color: "var(--ink-2)",
+              lineHeight: 1.7,
+              fontFamily: "var(--font-sans)",
+            }}
+          >
             No integration for it? Name it, enter the value, pick how it
             displays. Your dashboard, your rules.
           </p>
-          <div className="mt-4 rounded-xl border-2 border-dashed border-[var(--border-strong)] bg-[var(--bg-elevated)] p-3">
-            <div className="mb-1.5 text-[10px] font-bold text-[var(--text-tertiary)]">
+          <div
+            style={{
+              marginTop: 14,
+              background: "var(--cream)",
+              border: "1.5px dashed var(--slate)",
+              borderRadius: 10,
+              padding: 12,
+            }}
+          >
+            <div
+              style={{
+                fontSize: 10,
+                fontWeight: 700,
+                color: "var(--ink-3)",
+                marginBottom: 6,
+                fontFamily: "var(--font-sans)",
+              }}
+            >
               Widget name
             </div>
-            <div className="rounded-lg border border-[var(--border-default)] bg-[var(--bg-surface)] px-2.5 py-1.5 text-xs font-semibold text-[var(--accent)]">
+            <div
+              style={{
+                background: "#fff",
+                border: "1px solid var(--stone)",
+                borderRadius: 7,
+                padding: "7px 10px",
+                fontSize: 12,
+                color: "var(--terra)",
+                fontWeight: 600,
+                fontFamily: "var(--font-sans)",
+              }}
+            >
               Weekly Tips
             </div>
-            <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-[var(--border-default)]">
+            <div
+              style={{
+                height: 5,
+                background: "var(--stone)",
+                borderRadius: 100,
+                overflow: "hidden",
+                marginTop: 9,
+              }}
+            >
               <div
-                className="h-full rounded-full bg-[var(--accent)]"
-                style={{ width: "62%" }}
+                style={{
+                  width: "62%",
+                  height: "100%",
+                  background: "var(--terra)",
+                  borderRadius: 100,
+                }}
               />
             </div>
-            <div className="mt-1 flex justify-between text-[10px] text-[var(--text-tertiary)]">
+            <div
+              style={{
+                fontSize: 10,
+                color: "var(--ink-3)",
+                marginTop: 4,
+                display: "flex",
+                justifyContent: "space-between",
+                fontFamily: "var(--font-sans)",
+              }}
+            >
               <span>$0</span>
-              <span className="font-bold text-[var(--text-secondary)]">
-                $1,240 / $2,000
-              </span>
+              <span style={{ fontWeight: 700, color: "var(--ink-2)" }}>$1,240 / $2,000</span>
             </div>
           </div>
-        </motion.div>
-      </motion.div>
+        </RevealWrapper>
+      </div>
     </section>
   );
 }
