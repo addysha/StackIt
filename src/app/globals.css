@@ -2,18 +2,42 @@
 @plugin "tailwindcss-animate";
 
 :root {
-  --background: #0a0a0f;
-  --surface: #111118;
-  --surface-raised: #1a1a24;
-  --border: #2a2a3a;
-  --primary: #6366f1;
-  --primary-soft: rgb(99 102 241 / 0.12);
-  --success: #22c55e;
-  --warning: #f59e0b;
-  --danger: #ef4444;
-  --text-primary: #f8f8ff;
-  --text-secondary: #94a3b8;
-  --text-tertiary: #475569;
+  /* Base */
+  --bg-base: #0c0c0e;
+  --bg-surface: #141416;
+  --bg-elevated: #1c1c1f;
+
+  /* Glass */
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-highlight: rgba(255, 255, 255, 0.12);
+  --glass-blur: blur(20px);
+
+  /* Accent */
+  --accent: #7c6ff7;
+  --accent-glow: rgba(124, 111, 247, 0.15);
+  --accent-soft: rgba(124, 111, 247, 0.08);
+
+  /* Text */
+  --text-primary: #f0f0f2;
+  --text-secondary: #8a8a9a;
+  --text-tertiary: #4a4a5a;
+
+  /* Functional */
+  --success: #34d399;
+  --warning: #fbbf24;
+  --danger: #f87171;
+
+  /* Notion-inspired alt section */
+  --section-alt: #111114;
+
+  /* Backward compatibility for app/dashboard */
+  --background: var(--bg-base);
+  --surface: var(--bg-surface);
+  --surface-raised: var(--bg-elevated);
+  --border: var(--glass-border);
+  --primary: var(--accent);
+  --primary-soft: var(--accent-soft);
   --radius: 12px;
 }
 
@@ -28,10 +52,11 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background:
-    radial-gradient(circle at top, rgb(99 102 241 / 0.08), transparent 30%),
-    var(--background);
+  background: var(--background);
   color: var(--text-primary);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  /* Geist for both body and display; Instrument Serif only in Hero via --font-hero */
+  --font-display: var(--font-body);
 }
 
 a {
@@ -46,46 +71,42 @@ select {
   font: inherit;
 }
 
+/* Reusable glass card — use for landing cards, panels, tiles */
+.glass-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-top: 1px solid var(--glass-highlight);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-radius: 16px;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+    0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+    0 24px 48px rgba(0, 0, 0, 0.5),
+    0 0 60px var(--accent-glow);
+  transition: all 200ms ease;
+}
+
 .surface-card {
-  border: 1px solid rgb(42 42 58 / 0.9);
-  background: linear-gradient(180deg, rgb(26 26 36 / 0.92), rgb(17 17 24 / 0.96));
-  box-shadow: 0 20px 60px rgb(0 0 0 / 0.25);
+  border: 1px solid var(--glass-border);
+  background: var(--bg-surface);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
 }
 
 .canvas-grid {
-  background-image:
-    radial-gradient(rgb(42 42 58 / 0.35) 0.8px, transparent 0.8px);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
-@keyframes hero-glow {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.15;
-  }
-  50% {
-    transform: translate(2%, 2%) scale(1.02);
-    opacity: 0.2;
-  }
-}
-
-@keyframes hero-glow-delayed {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.08;
-  }
-  50% {
-    transform: translate(-2%, -1%) scale(1.03);
-    opacity: 0.12;
-  }
-}
-
-.animate-hero-glow {
-  animation: hero-glow 8s ease-in-out infinite;
-}
-
-.animate-hero-glow-delayed {
-  animation: hero-glow-delayed 10s ease-in-out infinite 1s;
+/* Hero dot grid (32px) */
+.hero-dot-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
 }

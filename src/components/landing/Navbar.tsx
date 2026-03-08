@@ -32,71 +32,78 @@ export function Navbar() {
   };
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-50 w-full transition-colors duration-300",
-        scrolled ? "bg-[#0A0A0F] border-b border-[var(--border)]" : "bg-transparent"
-      )}
-    >
-      <nav
-        className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 md:h-[72px] md:px-10"
-        aria-label="Main navigation"
+    <header className="sticky top-0 z-50 w-full px-4 pt-4 md:px-6 md:pt-5">
+      {/* Floating pill container — granola-style */}
+      <div
+        className={cn(
+          "mx-auto flex max-w-7xl items-center justify-between rounded-full border backdrop-blur-[20px] transition-[border-color,background,box-shadow] duration-300",
+          "border-white/[0.08] bg-[rgba(12,12,14,0.6)] shadow-[0_4px_24px_rgba(0,0,0,0.25)]",
+          scrolled &&
+            "border-white/[0.1] bg-[rgba(12,12,14,0.75)] shadow-[0_8px_32px_rgba(0,0,0,0.35)]"
+        )}
       >
-        {/* Wordmark */}
-        <a
-          href="#"
-          className="font-[family-name:var(--font-display)] text-xl font-semibold text-[var(--text-primary)] transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 focus:ring-offset-[#0A0A0F] rounded-md min-h-[44px] min-w-[44px] flex items-center"
+        <nav
+          className="flex h-14 min-w-0 flex-1 items-center justify-between gap-4 rounded-full px-4 md:h-16 md:px-6"
+          aria-label="Main navigation"
         >
-          StackIt
-        </a>
-
-        {/* Desktop nav links */}
-        <div className="hidden items-center gap-8 md:flex">
-          {NAV_LINKS.map(({ label, href }) => (
-            <a
-              key={href}
-              href={href}
-              onClick={handleAnchorClick}
-              className="text-sm font-medium text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 focus:ring-offset-[#0A0A0F] rounded-md py-2 px-1 min-h-[44px] flex items-center"
-            >
-              {label}
-            </a>
-          ))}
-        </div>
-
-        {/* Desktop CTA */}
-        <div className="hidden md:block">
+          {/* Wordmark — no extra pill so the bar is the pill */}
           <a
-            href="#early-access"
-            onClick={handleAnchorClick}
-            className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--radius)] bg-[var(--primary)] px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 focus:ring-offset-[#0A0A0F]"
+            href="#"
+            className="flex shrink-0 items-center focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2 focus:ring-offset-[var(--bg-base)] rounded-full py-2 px-1 min-h-[44px]"
           >
-            Get Early Access
+            <span className="font-[family-name:var(--font-body)] text-xl font-semibold text-[var(--text-primary)]">
+              StackIt
+            </span>
           </a>
-        </div>
 
-        {/* Mobile hamburger */}
-        <button
-          type="button"
-          onClick={() => setMobileOpen((o) => !o)}
-          className="flex size-11 items-center justify-center rounded-[var(--radius)] text-[var(--text-primary)] transition-colors hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 focus:ring-offset-[#0A0A0F] md:hidden"
-          aria-expanded={mobileOpen}
-          aria-label={mobileOpen ? "Close menu" : "Open menu"}
-        >
-          {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
-        </button>
-      </nav>
-
-      {/* Mobile menu */}
-      {mobileOpen && (
-        <div className="border-t border-[var(--border)] bg-[#0A0A0F] px-6 py-4 md:hidden">
-          <div className="flex flex-col gap-1">
+          {/* Desktop nav links — pill-shaped hover */}
+          <div className="hidden items-center gap-1 md:flex">
             {NAV_LINKS.map(({ label, href }) => (
               <a
                 key={href}
                 href={href}
                 onClick={handleAnchorClick}
-                className="min-h-[44px] flex items-center rounded-[var(--radius)] px-3 text-[var(--text-primary)] transition-colors hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-inset"
+                className="rounded-full py-2.5 px-4 text-sm font-medium text-[var(--text-secondary)] transition-[color,background] duration-200 hover:bg-white/[0.08] hover:text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2 focus:ring-offset-[var(--bg-base)] min-h-[44px] flex items-center"
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+
+          {/* Desktop CTA — pill (already rounded-full) */}
+          <div className="hidden md:block shrink-0">
+            <a
+              href="#early-access"
+              onClick={handleAnchorClick}
+              className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-[rgba(124,111,247,0.3)] bg-[rgba(124,111,247,0.12)] px-5 py-2.5 text-sm font-medium text-white shadow-[0_0_20px_rgba(124,111,247,0.1)] transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2 focus:ring-offset-[var(--bg-base)]"
+            >
+              Get Early Access
+            </a>
+          </div>
+
+          {/* Mobile hamburger */}
+          <button
+            type="button"
+            onClick={() => setMobileOpen((o) => !o)}
+            className="flex size-11 shrink-0 items-center justify-center rounded-full text-[var(--text-primary)] transition-colors hover:bg-white/[0.08] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2 focus:ring-offset-[var(--bg-base)] md:hidden"
+            aria-expanded={mobileOpen}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          >
+            {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
+        </nav>
+      </div>
+
+      {/* Mobile menu — drops down from pill, same glass style */}
+      {mobileOpen && (
+        <div className="mx-auto mt-2 max-w-7xl rounded-2xl border border-white/[0.08] bg-[rgba(12,12,14,0.85)] px-4 py-3 backdrop-blur-[20px] shadow-[0_8px_32px_rgba(0,0,0,0.35)] md:hidden">
+          <div className="flex flex-col gap-0.5">
+            {NAV_LINKS.map(({ label, href }) => (
+              <a
+                key={href}
+                href={href}
+                onClick={handleAnchorClick}
+                className="flex min-h-[44px] items-center rounded-full px-4 text-[var(--text-primary)] transition-colors hover:bg-white/[0.08] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-inset"
               >
                 {label}
               </a>
@@ -104,7 +111,7 @@ export function Navbar() {
             <a
               href="#early-access"
               onClick={handleAnchorClick}
-              className="mt-2 flex min-h-[44px] items-center justify-center rounded-[var(--radius)] bg-[var(--primary)] px-4 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+              className="mt-2 flex min-h-[44px] items-center justify-center rounded-full border border-[rgba(124,111,247,0.3)] bg-[rgba(124,111,247,0.12)] px-4 py-2.5 text-sm font-medium text-white shadow-[0_0_20px_rgba(124,111,247,0.1)]"
             >
               Get Early Access
             </a>

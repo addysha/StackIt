@@ -5,7 +5,7 @@ import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 
 import { AppProviders } from "@/components/providers/app-providers";
-import { dmSans, jetbrainsMono, sora } from "@/lib/fonts";
+import { geist, geistMono, instrumentSerif } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -18,9 +18,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body
         className={cn(
-          dmSans.variable,
-          sora.variable,
-          jetbrainsMono.variable,
+          geist.variable,
+          geistMono.variable,
+          instrumentSerif.variable,
           "min-h-screen bg-[var(--background)] font-sans text-[var(--text-primary)] antialiased",
         )}
       >
