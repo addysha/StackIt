@@ -2,40 +2,44 @@
 @plugin "tailwindcss-animate";
 
 :root {
-  /* Base */
-  --bg-base: #0c0c0e;
-  --bg-surface: #141416;
-  --bg-elevated: #1c1c1f;
+  /* Base backgrounds */
+  --bg-base: #fafaf8;
+  --bg-surface: #ffffff;
+  --bg-elevated: #f4f4f1;
+  --bg-subtle: #f0efeb;
 
-  /* Glass */
-  --glass-bg: rgba(255, 255, 255, 0.04);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-highlight: rgba(255, 255, 255, 0.12);
-  --glass-blur: blur(20px);
+  /* Borders */
+  --border-default: #e8e8e3;
+  --border-strong: #d4d4cc;
 
-  /* Accent */
-  --accent: #7c6ff7;
-  --accent-glow: rgba(124, 111, 247, 0.15);
-  --accent-soft: rgba(124, 111, 247, 0.08);
+  /* Accent — single indigo, warm-shifted */
+  --accent: #5b57e8;
+  --accent-hover: #4a46d4;
+  --accent-soft: #eeedfd;
+  --accent-glow: rgba(91, 87, 232, 0.12);
 
   /* Text */
-  --text-primary: #f0f0f2;
-  --text-secondary: #8a8a9a;
-  --text-tertiary: #4a4a5a;
+  --text-primary: #1a1a1a;
+  --text-secondary: #6b6b6b;
+  --text-tertiary: #a8a8a8;
+  --text-inverse: #ffffff;
 
   /* Functional */
-  --success: #34d399;
-  --warning: #fbbf24;
-  --danger: #f87171;
+  --success: #16a34a;
+  --warning: #d97706;
+  --danger: #dc2626;
 
-  /* Notion-inspired alt section */
-  --section-alt: #111114;
+  /* Shadow tokens */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.12), 0 8px 16px rgba(0, 0, 0, 0.06);
 
   /* Backward compatibility for app/dashboard */
   --background: var(--bg-base);
   --surface: var(--bg-surface);
   --surface-raised: var(--bg-elevated);
-  --border: var(--glass-border);
+  --border: var(--border-default);
   --primary: var(--accent);
   --primary-soft: var(--accent-soft);
   --radius: 12px;
@@ -71,42 +75,36 @@ select {
   font: inherit;
 }
 
-/* Reusable glass card — use for landing cards, panels, tiles */
-.glass-card {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-top: 1px solid var(--glass-highlight);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
+/* Light card — Sketch.com inspired */
+.light-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
   border-radius: 16px;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
-    0 20px 40px rgba(0, 0, 0, 0.4);
-}
-
-.glass-card:hover {
-  border-color: rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.06);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.06) inset,
-    0 24px 48px rgba(0, 0, 0, 0.5),
-    0 0 60px var(--accent-glow);
+  box-shadow: var(--shadow-md);
   transition: all 200ms ease;
 }
 
+.light-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
 .surface-card {
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--border-default);
   background: var(--bg-surface);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow-xl);
 }
 
+/* Optional faint dot grid */
 .canvas-grid {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 24px 24px;
+  background-image: radial-gradient(var(--border-strong) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.4;
 }
 
-/* Hero dot grid (32px) */
 .hero-dot-grid {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-image: radial-gradient(var(--border-strong) 1px, transparent 1px);
   background-size: 32px 32px;
+  opacity: 0.4;
 }

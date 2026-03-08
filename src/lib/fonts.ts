@@ -14,4 +14,5 @@ export const instrumentSerif = Instrument_Serif({
   variable: "--font-hero",
   subsets: ["latin"],
   weight: "400",
+  style: ["normal", "italic"],
 });

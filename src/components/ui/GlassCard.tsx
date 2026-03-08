@@ -13,7 +13,7 @@ export function GlassCard({
 }: GlassCardProps) {
   return (
     <Component
-      className={cn("glass-card", className)}
+      className={cn("light-card", className)}
       {...props}
     />
   );
