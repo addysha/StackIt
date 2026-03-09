@@ -17,9 +17,9 @@ const LIVE_SOURCES = [
 ];
 
 const TOP_PRODUCTS = [
-  { name: "Merino Tee — Black", value: "$4,260", pct: 100 },
+  { name: "Merino Tee - Black", value: "$4,260", pct: 100 },
   { name: "Canvas Tote", value: "$2,940", pct: 69 },
-  { name: "Beanie — Grey", value: "$1,340", pct: 31 },
+  { name: "Beanie - Grey", value: "$1,340", pct: 31 },
 ];
 
 function Monogram({ abbr, size = 28 }: { abbr: string; size?: number }) {
@@ -96,7 +96,7 @@ export function FeaturesBento() {
             maxWidth: 540,
           }}
         >
-          Each feature was built around one kind of person — someone brilliant at
+          Each feature was built around one kind of person - someone brilliant at
           their business, not at software.
         </p>
       </RevealWrapper>
@@ -112,7 +112,7 @@ export function FeaturesBento() {
         }}
         className="max-md:grid-cols-1"
       >
-        {/* Cell 1 — span 5, white, drag canvas */}
+        {/* Cell 1 - span 5, white, drag canvas */}
         <RevealWrapper
           style={{
             gridColumn: "span 5",
@@ -175,7 +175,7 @@ export function FeaturesBento() {
             }}
           >
             Build your exact dashboard by dragging metric blocks onto a canvas.
-            They snap into place. No code, no config — it works like Lego.
+            They snap into place. No code, no config - it works like Lego.
           </p>
           <div
             style={{
@@ -235,7 +235,7 @@ export function FeaturesBento() {
           </div>
         </RevealWrapper>
 
-        {/* Cell 2 — span 4, dark, live data */}
+        {/* Cell 2 - span 4, dark, live data */}
         <RevealWrapper
           delay={1}
           style={{
@@ -352,7 +352,7 @@ export function FeaturesBento() {
           </div>
         </RevealWrapper>
 
-        {/* Cell 3 — span 3, terra, "Done for you in 30 minutes" */}
+        {/* Cell 3 - span 3, terra, "Done for you in 30 minutes" */}
         <RevealWrapper
           delay={2}
           style={{
@@ -395,7 +395,7 @@ export function FeaturesBento() {
               marginBottom: 14,
             }}
           >
-            We get you set up in 4 guaranteed steps — onboard your tools and
+            We get you set up in 4 guaranteed steps - onboard your tools and
             your numbers are already there.
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
@@ -447,7 +447,7 @@ export function FeaturesBento() {
           </div>
         </RevealWrapper>
 
-        {/* Cell 4 — span 8, white, viz types */}
+        {/* Cell 4 - span 8, white, viz types */}
         <RevealWrapper
           style={{
             gridColumn: "span 8",
@@ -590,7 +590,7 @@ export function FeaturesBento() {
           </div>
         </RevealWrapper>
 
-        {/* Cell 5 — span 4, forest, top products */}
+        {/* Cell 5 - span 4, forest, top products */}
         <RevealWrapper
           delay={1}
           style={{
@@ -695,7 +695,7 @@ export function FeaturesBento() {
           </div>
         </RevealWrapper>
 
-        {/* Cell 6 — span 4, white, custom widgets */}
+        {/* Cell 6 - span 4, white, custom widgets */}
         <RevealWrapper
           delay={2}
           style={{
