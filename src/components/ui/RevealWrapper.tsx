@@ -3,11 +3,24 @@
 import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
+/** HTML element tags that accept standard HTML attributes (avoids SVG/union complexity). */
+type HtmlRevealTag =
+  | "div"
+  | "section"
+  | "article"
+  | "aside"
+  | "header"
+  | "footer"
+  | "main"
+  | "span"
+  | "p"
+  | "nav";
+
 type RevealWrapperProps = React.HTMLAttributes<HTMLElement> & {
   children: React.ReactNode;
   className?: string;
   delay?: 1 | 2 | 3 | 4;
-  as?: keyof React.JSX.IntrinsicElements;
+  as?: HtmlRevealTag;
 };
 
 export function RevealWrapper({
@@ -41,7 +54,7 @@ export function RevealWrapper({
 
   return (
     <Tag
-      ref={ref as React.RefObject<HTMLElement & HTMLDivElement>}
+      ref={ref as unknown as React.Ref<HTMLDivElement>}
       className={cn(
         "reveal",
         delay === 1 && "reveal-d1",
@@ -50,7 +63,7 @@ export function RevealWrapper({
         delay === 4 && "reveal-d4",
         className
       )}
-      {...(rest as React.HTMLAttributes<HTMLDivElement>)}
+      {...rest}
     >
       {children}
     </Tag>
