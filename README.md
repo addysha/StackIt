@@ -7,7 +7,7 @@
 
 ## Running the app locally
 
-**One-time setup**
+**-One-time setup-**
 
 1. Install dependencies:
    ```bash
