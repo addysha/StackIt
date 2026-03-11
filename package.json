@@ -4,15 +4,19 @@
   "private": true,
   "description": "Personal business assistant for small business owners.",
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
+    "dev": "next dev",
     "start": "next start",
     "lint": "eslint .",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "worker:dev": "tsx watch src/server/index.ts",
     "worker:start": "tsx src/server/index.ts",
-    "dev:all": "concurrently \"npm run dev\" \"npm run worker:dev\""
+    "dev:all": "concurrently \"npm run dev\" \"npm run worker:dev\"",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "keywords": [
     "nextjs",
@@ -39,12 +43,14 @@
     "prisma": "^6.19.2",
     "tailwindcss": "^4.2.1",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "wrangler": "^4.72.0"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.0.1",
     "@clerk/themes": "^2.4.57",
     "@hookform/resolvers": "^5.2.2",
+    "@opennextjs/cloudflare": "^1.17.1",
     "@prisma/client": "^6.19.2",
     "@sentry/nextjs": "^10.42.0",
     "@tanstack/react-query": "^5.90.21",
