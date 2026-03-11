@@ -3,7 +3,7 @@
 
 :root {
   /* ═══════════════════════════════════════
-     BRAND PALETTE — landing page
+     BRAND PALETTE - landing page
   ═══════════════════════════════════════ */
   --terra: #B5603A;
   --terra-dk: #8F4A2B;
@@ -31,7 +31,7 @@
   --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
   /* ═══════════════════════════════════════
-     APP / DASHBOARD PALETTE — kept for backward compat
+     APP / DASHBOARD PALETTE - kept for backward compat
   ═══════════════════════════════════════ */
   /* Base backgrounds */
   --bg-base: #fafaf8;
@@ -43,7 +43,7 @@
   --border-default: #e8e8e3;
   --border-strong: #d4d4cc;
 
-  /* Accent — single indigo, warm-shifted */
+  /* Accent - single indigo, warm-shifted */
   --accent: #5b57e8;
   --accent-hover: #4a46d4;
   --accent-soft: #eeedfd;
@@ -106,7 +106,7 @@ select {
   font: inherit;
 }
 
-/* Light card — Sketch.com inspired */
+/* Light card - Sketch.com inspired */
 .light-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-default);
@@ -127,7 +127,7 @@ select {
   box-shadow: var(--shadow-xl);
 }
 
-/* Optional faint dot grid */
+/* Optional faint dot grid - used in dashboard canvas */
 .canvas-grid {
   background-image: radial-gradient(var(--border-strong) 1px, transparent 1px);
   background-size: 32px 32px;
@@ -158,7 +158,7 @@ select {
   animation: ticker 24s linear infinite;
 }
 
-/* Scroll reveal */
+/* Scroll reveal - used in landing page */
 .reveal {
   opacity: 0;
   transform: translateY(24px);

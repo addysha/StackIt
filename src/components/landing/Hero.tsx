@@ -672,9 +672,9 @@ export function Hero() {
                 Top Products · Month
               </div>
               {[
-                { name: "Merino Tee — Black", val: "$4,260", pct: 100 },
+                { name: "Merino Tee - Black", val: "$4,260", pct: 100 },
                 { name: "Canvas Tote", val: "$2,940", pct: 69 },
-                { name: "Beanie — Grey", val: "$1,340", pct: 31 },
+                { name: "Beanie - Grey", val: "$1,340", pct: 31 },
               ].map((row, idx) => (
                 <div
                   key={row.name}

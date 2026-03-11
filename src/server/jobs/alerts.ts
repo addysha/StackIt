@@ -13,7 +13,7 @@ export async function evaluateAlerts() {
     createMemoryAlert({
       type: "cash_low",
       severity: "warning",
-      message: "Cash is tighter than usual — you have about 19 days of runway at current spend.",
+      message: "Cash is tighter than usual - you have about 19 days of runway at current spend.",
     });
   }
 
@@ -29,7 +29,7 @@ export async function evaluateAlerts() {
     createMemoryAlert({
       type: "no_sales_today",
       severity: "info",
-      message: "No sales yet today — unusual for this time of day based on your history.",
+      message: "No sales yet today - unusual for this time of day based on your history.",
     });
   }
 

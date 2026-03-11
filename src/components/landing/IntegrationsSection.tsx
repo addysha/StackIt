@@ -199,7 +199,7 @@ export function IntegrationsSection() {
             fontFamily: "var(--font-sans)",
           }}
         >
-          One click to connect. OAuth login — no API keys, no CSV uploads, no
+          One click to connect. OAuth login - no API keys, no CSV uploads, no
           technical knowledge needed.
         </p>
       </RevealWrapper>

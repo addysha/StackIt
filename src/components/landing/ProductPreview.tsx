@@ -39,7 +39,7 @@ const DEMO_DETAIL: Record<
     title: "Cash & Runway",
     val: "$8,420",
     dir: "dn",
-    txt: "18-day runway — low",
+    txt: "18-day runway - low",
     meta: "Synced 1h ago · Akahu",
   },
   orders: {
@@ -258,7 +258,7 @@ export function ProductPreview() {
               margin: "0 auto 40px",
             }}
           >
-            Not a video. Not screenshots. A working demo — drag widgets around,
+            Not a video. Not screenshots. A working demo - drag widgets around,
             go into edit mode, add new widgets, click any metric to see the
             detail view.
           </motion.p>
@@ -515,9 +515,9 @@ export function ProductPreview() {
             >
               <AlertTriangle style={{ width: 14, height: 14, flexShrink: 0 }} />
               <span style={{ flex: 1 }}>
-                Cash runway is tighter than usual — <strong>18 days</strong> at current spend
+                Cash runway is tighter than usual - <strong>18 days</strong> at current spend
               </span>
-              <span style={{ opacity: 0.4 }}>›</span>
+              <span style={{ opacity: 0.4 }}>&gt;</span>
             </button>
 
             {/* Canvas */}
@@ -1234,10 +1234,10 @@ function ProductsWidget() {
       <WidgetHeader label="Top Products · Month" />
       <div style={{ display: "flex", flexDirection: "column" }}>
         {[
-          { name: "Merino Tee — Black", val: "$4,260", pct: 100 },
+          { name: "Merino Tee - Black", val: "$4,260", pct: 100 },
           { name: "Canvas Tote", val: "$2,940", pct: 69 },
-          { name: "Beanie — Grey", val: "$1,340", pct: 31 },
-          { name: "Hoodie — Slate", val: "$980", pct: 23 },
+          { name: "Beanie - Grey", val: "$1,340", pct: 31 },
+          { name: "Hoodie - Slate", val: "$980", pct: 23 },
         ].map((row, idx) => (
           <div key={row.name} style={{ display: "flex", alignItems: "center", gap: 7, padding: "5px 0", borderBottom: idx < 3 ? "1px solid rgba(255,255,255,.07)" : "none" }}>
             <span style={{ fontSize: 9.5, color: "rgba(255,255,255,.25)", fontWeight: 700, width: 14, fontFamily: "var(--font-sans)" }}>0{idx + 1}</span>
@@ -1436,7 +1436,7 @@ function PickerWidget({ type }: { type: string }) {
   return (
     <>
       <WidgetHeader label="Custom Metric" />
-      <div style={{ fontFamily: "var(--font-serif)", fontSize: 22, fontWeight: 600, color: "rgba(255,255,255,.5)", marginBottom: 6 }}>—</div>
+      <div style={{ fontFamily: "var(--font-serif)", fontSize: 22, fontWeight: 600, color: "rgba(255,255,255,.5)", marginBottom: 6 }}>-</div>
       <div style={{ fontSize: 11, color: "rgba(255,255,255,.3)", fontFamily: "var(--font-sans)", lineHeight: 1.6 }}>
         Enter a name, value, and display type to create your own metric.
       </div>

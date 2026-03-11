@@ -181,7 +181,7 @@ export const demoAlerts: AlertRecord[] = [
   {
     id: "alert-1",
     type: "cash_low",
-    message: "Cash is tighter than usual — you have about 19 days of runway at current spend.",
+    message: "Cash is tighter than usual - you have about 19 days of runway at current spend.",
     severity: "warning",
     createdAt: subMinutes(now, 25).toISOString(),
     read: false,

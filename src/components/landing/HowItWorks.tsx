@@ -5,14 +5,14 @@ import { RevealWrapper } from "@/components/ui/RevealWrapper";
 const STEPS = [
   {
     num: 1,
-    title: "Sign up — no card",
+    title: "Sign up - no card",
     body: "Email, password, done. Takes under a minute.",
     badge: "1 min",
   },
   {
     num: 2,
     title: "Connect your tools",
-    body: "One click to link Shopify, your bank, Stripe. OAuth login — no API keys needed.",
+    body: "One click to link Shopify, your bank, Stripe. OAuth login - no API keys needed.",
     badge: "5 min",
   },
   {
@@ -107,7 +107,7 @@ export function HowItWorks() {
         }}
         className="max-md:grid-cols-1 max-md:gap-8"
       >
-        {/* Connector line — desktop only */}
+        {/* Connector line - desktop only */}
         <div
           aria-hidden
           className="hidden md:block"

@@ -6,7 +6,7 @@ import { RevealWrapper } from "@/components/ui/RevealWrapper";
 const FAQ_ITEMS = [
   {
     q: "Do I need technical knowledge to use Stackit?",
-    a: "No. Stackit is built for business owners, not developers. If you can log in to Shopify, you can set up Stackit. It works entirely through OAuth login flows — no API keys, no code.",
+    a: "No. Stackit is built for business owners, not developers. If you can log in to Shopify, you can set up Stackit. It works entirely through OAuth login flows - no API keys, no code.",
   },
   {
     q: "How does data actually get into my dashboard?",
@@ -14,11 +14,11 @@ const FAQ_ITEMS = [
   },
   {
     q: "What if I don't use one of the listed integrations?",
-    a: "We support 200+ tools via Apideck. If your software isn't listed, use the custom metric widget to enter any number manually. We're adding integrations regularly — email us and we'll prioritise yours.",
+    a: "We support 200+ tools via Apideck. If your software isn't listed, use the custom metric widget to enter any number manually. We're adding integrations regularly - email us and we'll prioritise yours.",
   },
   {
     q: "Is my data safe?",
-    a: "All connections are read-only OAuth. We can see your data — we can never change anything or move money. Data is encrypted at rest and in transit. We store it in New Zealand.",
+    a: "All connections are read-only OAuth. We can see your data - we can never change anything or move money. Data is encrypted at rest and in transit. We store it in New Zealand.",
   },
   {
     q: "Can I try it before paying?",
@@ -26,11 +26,11 @@ const FAQ_ITEMS = [
   },
   {
     q: "How is this different from a spreadsheet or a BI tool?",
-    a: "Spreadsheets require manual updates — your data is already stale the moment you save it. BI tools like Looker or Tableau cost thousands of dollars and take weeks to set up. Stackit is live, automatic, and ready in under an hour.",
+    a: "Spreadsheets require manual updates - your data is already stale the moment you save it. BI tools like Looker or Tableau cost thousands of dollars and take weeks to set up. Stackit is live, automatic, and ready in under an hour.",
   },
   {
     q: "What does 'live' actually mean?",
-    a: "Data syncs on a rolling schedule — typically every few minutes for sales platforms, hourly for bank feeds. You see a 'Synced X ago' label on each widget so you always know how current the data is.",
+    a: "Data syncs on a rolling schedule - typically every few minutes for sales platforms, hourly for bank feeds. You see a 'Synced X ago' label on each widget so you always know how current the data is.",
   },
 ];
 

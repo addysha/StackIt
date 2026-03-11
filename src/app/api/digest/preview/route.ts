@@ -27,7 +27,7 @@ export async function GET() {
   }\n\nOpen your dashboard →`;
 
   return ok({
-    subject: `☀️ ${organization.name} — ${new Date().toLocaleDateString("en-NZ")}`,
+    subject: `☀️ ${organization.name} - ${new Date().toLocaleDateString("en-NZ")}`,
     content,
   });
 }

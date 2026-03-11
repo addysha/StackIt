@@ -17,7 +17,7 @@
    ```bash
    npm run prisma:generate
    ```
-3. (Optional) Copy `.env.example` to `.env` and add any keys you need. For local development with the current prototype you can leave it minimal—Clerk runs in keyless mode and the app uses in-memory data when the database is not configured.
+3. (Optional) Copy `.env.example` to `.env` and add any keys you need. For local development with the current prototype you can leave it minimal-Clerk runs in keyless mode and the app uses in-memory data when the database is not configured.
 
 **Run the app**
 
@@ -46,11 +46,11 @@
 
 ---
 
-## Phase 1 — Landing Page (Current Focus)
+## Phase 1 - Landing Page (Current Focus)
 
 **Goal:** Build a fully shippable, conversion-optimised public marketing website before any app or service code.
 
-The website must stand on its own — it should be investor-ready, customer-ready, and deployable to Vercel as a standalone site.
+The website must stand on its own - it should be investor-ready, customer-ready, and deployable to Vercel as a standalone site.
 
 No app logic, no auth, no dashboard code in this phase.
 
@@ -76,13 +76,13 @@ No app logic, no auth, no dashboard code in this phase.
 - Lucide React (icons)
 - Fonts: Instrument Serif (hero display) + Geist (headings + body) + Geist Mono (labels)
 
-**Design direction — Sketch.com inspired light theme:**
+**Design direction - Sketch.com inspired light theme:**
 
-- Warm off-white base (`#FAFAF8`) — not pure white
+- Warm off-white base (`#FAFAF8`) - not pure white
 - Single accent colour: Indigo (`#5B57E8`) used sparingly
 - All-in-one scroll layout
 - Sticky nav with blur-on-scroll
-- Soft diffused shadows — no harsh drop shadows
+- Soft diffused shadows - no harsh drop shadows
 - Rounded corners (16px) everywhere
 - Alternating section backgrounds for rhythm (no hard dividers)
 - Mobile responsive
@@ -90,17 +90,17 @@ No app logic, no auth, no dashboard code in this phase.
 **Colour palette:**
 
 ```
---bg-base:      #FAFAF8   warm off-white — main page background
---bg-surface:   #FFFFFF   pure white — cards
---bg-elevated:  #F4F4F1   warm grey — alt sections
---bg-subtle:    #F0EFEB   subtle tint — hover states
+--bg-base:      #FAFAF8   warm off-white - main page background
+--bg-surface:   #FFFFFF   pure white - cards
+--bg-elevated:  #F4F4F1   warm grey - alt sections
+--bg-subtle:    #F0EFEB   subtle tint - hover states
 --border:       #E8E8E3   soft warm grey border
---accent:       #5B57E8   indigo — CTAs, links, active
+--accent:       #5B57E8   indigo - CTAs, links, active
 --accent-hover: #4A46D4   darker on hover
---accent-soft:  #EEEDFD   light indigo tint — badges
---text-primary: #1A1A1A   near black — headlines
---text-secondary:#6B6B6B  medium grey — body
---text-tertiary: #A8A8A8  light grey — labels, metadata
+--accent-soft:  #EEEDFD   light indigo tint - badges
+--text-primary: #1A1A1A   near black - headlines
+--text-secondary:#6B6B6B  medium grey - body
+--text-tertiary: #A8A8A8  light grey - labels, metadata
 --shadow-sm:    0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)
 --shadow-md:    0 4px 16px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04)
 --shadow-lg:    0 8px 32px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.04)
@@ -110,10 +110,10 @@ No app logic, no auth, no dashboard code in this phase.
 **Typography:**
 
 ```
-Display (hero only): Instrument Serif — editorial, elegant
+Display (hero only): Instrument Serif - editorial, elegant
                      Mix normal + italic for headline emphasis word
-Headings + Body:     Geist — clean, modern, highly legible
-Mono:                Geist Mono — timestamps, labels only
+Headings + Body:     Geist - clean, modern, highly legible
+Mono:                Geist Mono - timestamps, labels only
 Never use:           Inter, Roboto, Arial, system-ui, Sora, DM Sans
 ```
 
@@ -141,24 +141,24 @@ hover:
 
 **Animation libraries:**
 
-- Framer Motion — scroll reveals, page transitions, entrance animations
-- anime.js v4 — continuous loops (hero float), timeline sequences, count-up numbers
-- Import: `import anime from 'animejs'` (v4 API — do not use v3 syntax)
+- Framer Motion - scroll reveals, page transitions, entrance animations
+- anime.js v4 - continuous loops (hero float), timeline sequences, count-up numbers
+- Import: `import anime from 'animejs'` (v4 API - do not use v3 syntax)
 
 **Page sections (in order):**
 
-1. Nav Bar — sticky, blur-on-scroll, logo + links + CTA
-2. Hero — mixed typography headline, CTAs, floating dashboard mockup
-3. Social Proof Bar — "trusted by NZ small businesses"
-4. Problem Section — 3 pain point cards
-5. Features Section — bento grid layout, 6 tiles
-6. How It Works — 3-step flow with connector line
-7. Integrations — Shopify, Square, open banking logo grid
-8. Pricing — 3 tiers (Starter $99 / Growth $149 / Pro $199)
-9. Testimonials — 3 staggered cards
-10. FAQ — accordion with Framer Motion AnimatePresence
-11. Final CTA — full-width panel + email capture
-12. Footer — links, "Made in NZ 🇳🇿", copyright
+1. Nav Bar - sticky, blur-on-scroll, logo + links + CTA
+2. Hero - mixed typography headline, CTAs, floating dashboard mockup
+3. Social Proof Bar - "trusted by NZ small businesses"
+4. Problem Section - 3 pain point cards
+5. Features Section - bento grid layout, 6 tiles
+6. How It Works - 3-step flow with connector line
+7. Integrations - Shopify, Square, open banking logo grid
+8. Pricing - 3 tiers (Starter $99 / Growth $149 / Pro $199)
+9. Testimonials - 3 staggered cards
+10. FAQ - accordion with Framer Motion AnimatePresence
+11. Final CTA - full-width panel + email capture
+12. Footer - links, "Made in NZ 🇳🇿", copyright
 
 ---
 
@@ -169,11 +169,11 @@ hover:
 - [ ] Fully responsive on mobile
 - [ ] Pricing section with 3 tiers, middle card highlighted
 - [ ] FAQ accordion functional with smooth animation
-- [ ] Consistent light theme throughout — warm, clean, premium
-- [ ] No placeholder lorem ipsum — real StackIt copy throughout
+- [ ] Consistent light theme throughout - warm, clean, premium
+- [ ] No placeholder lorem ipsum - real StackIt copy throughout
 - [ ] Early access CTA captures email (static form, no backend needed yet)
 - [ ] Deployable to Vercel as a standalone site
-- [ ] Feels like sketch.com quality — not a generic SaaS template
+- [ ] Feels like sketch.com quality - not a generic SaaS template
 
 ---
 
@@ -184,8 +184,8 @@ Day 1:   Nav + Hero (typography, mockup, animations)
 Day 2:   Social Proof + Problem + Features (bento grid)
 Day 3:   How It Works + Integrations + Pricing
 Day 4:   Testimonials + FAQ + Final CTA + Footer
-Day 5:   Polish — animations, mobile, copy review
-Day 6:   Deploy to Vercel — share URL
+Day 5:   Polish - animations, mobile, copy review
+Day 6:   Deploy to Vercel - share URL
 ```
 
 ---
@@ -230,7 +230,7 @@ lib/
 
 ---
 
-## Phase 2 — MVP App
+## Phase 2 - MVP App
 
 > Full product spec. Build begins after Phase 1 landing page is live and deployed.
 
@@ -240,7 +240,7 @@ lib/
 
 A **personal business assistant** for small business owners. Not a BI tool. Not a reporting platform. Not a dashboard for data teams.
 
-A lightweight, modular screen that pulls from their existing tools — Shopify, their bank account, Stripe — and gives them **30 seconds of clarity every morning**, set up for them in a single onboarding call.
+A lightweight, modular screen that pulls from their existing tools - Shopify, their bank account, Stripe - and gives them **30 seconds of clarity every morning**, set up for them in a single onboarding call.
 
 ### The One Liner
 
@@ -248,7 +248,7 @@ A lightweight, modular screen that pulls from their existing tools — Shopify, 
 
 ### The Aha Moment (north star for every product decision)
 
-> "By the end of the onboarding call, the owner can answer: how much came in, what sold, and whether cash is improving — without logging into 3 apps."
+> "By the end of the onboarding call, the owner can answer: how much came in, what sold, and whether cash is improving - without logging into 3 apps."
 
 ### What This Is Not
 
@@ -263,13 +263,13 @@ Do not build toward any of these. Do not let descriptions drift toward these:
 
 ---
 
-## 0.2 Product Philosophy — Adaptability & Creative Freedom
+## 0.2 Product Philosophy - Adaptability & Creative Freedom
 
 This is the most important product principle after data trust.
 
 Starting a business is hard. Complex. Overwhelming. The last thing
 a new or growing business owner needs is software that adds to that
-complexity — software that forces them into someone else's idea of
+complexity - software that forces them into someone else's idea of
 how a business should be run.
 
 Every business owner runs their business differently.
@@ -297,7 +297,7 @@ to them. We provide the building blocks. They build their view.
 **1. Any block, any position, any size**
 
 Owners are not locked into a preset layout after onboarding.
-The preset layout is a helpful starting point — not a template
+The preset layout is a helpful starting point - not a template
 they are stuck with. From day one they can:
 
 - Drag any block anywhere on the canvas
@@ -321,7 +321,7 @@ Owners can create more than one dashboard:
 - "Monthly Review" dashboard (deeper metrics, bigger picture)
 - "Cash Focus" dashboard (all cash/invoice blocks)
 
-**4. Block library — open and growing**
+**4. Block library - open and growing**
 
 The block library is not locked to 8 metrics. It is a growing library organised by category:
 
@@ -335,7 +335,7 @@ Cash & Finance: Cash in Bank, Payments Received This Week, Outstanding Invoices,
 
 Custom: Custom Metric (manual input), Custom Goal (target + progress), Notes Block (freeform text)
 
-**5. Custom Metric block — the wildcard**
+**5. Custom Metric block - the wildcard**
 
 An owner can create a Custom Metric block where they:
 
@@ -347,9 +347,9 @@ An owner can create a Custom Metric block where they:
 
 Owners can set goals and track them visually:
 
-- "Revenue goal: $20,000 this month" — progress bar filling up
-- "New customers goal: 50 this month" — % complete
-- "Cash target: $15,000 by end of quarter" — trend line toward target
+- "Revenue goal: $20,000 this month" - progress bar filling up
+- "New customers goal: 50 this month" - % complete
+- "Cash target: $15,000 by end of quarter" - trend line toward target
 
 **7. Block appearance customisation**
 
@@ -368,12 +368,12 @@ Each block can be customised visually:
 - No configuration screens with 20 settings
 - No JSON editors or code inputs
 - No setup wizards for individual blocks
-- No required fields — every customisation is optional
+- No required fields - every customisation is optional
 - No customisation that takes more than 3 clicks to complete
 
 Every customisation option must pass this test:
 "Could a cafe owner figure this out without reading any instructions?"
-If the answer is no — simplify it or remove it.
+If the answer is no - simplify it or remove it.
 
 ---
 
@@ -381,17 +381,17 @@ If the answer is no — simplify it or remove it.
 
 When a business owner looks at their dashboard they should feel:
 
-- **Ownership** — "This is MY dashboard. It shows MY business."
-- **Clarity** — "I know exactly what is happening right now."
-- **Control** — "I can change anything I do not like."
-- **Pride** — "I built this view. It works for how I run things."
+- **Ownership** - "This is MY dashboard. It shows MY business."
+- **Clarity** - "I know exactly what is happening right now."
+- **Control** - "I can change anything I do not like."
+- **Pride** - "I built this view. It works for how I run things."
 
 ---
 
-### The Block Registry — Architecture Requirement
+### The Block Registry - Architecture Requirement
 
 ```typescript
-// Every block type is registered here — never hardcoded elsewhere
+// Every block type is registered here - never hardcoded elsewhere
 const BLOCK_REGISTRY: BlockDefinition[] = [
   {
     type: "revenue_today",
@@ -418,21 +418,21 @@ const BLOCK_REGISTRY: BlockDefinition[] = [
 
 ### Phased Customisation Rollout
 
-**v0.1 — Foundation**
+**v0.1 - Foundation**
 
 - Drag, resize, remove blocks
 - Add blocks from library (8 core blocks)
 - Preset starter layout
 - Block registry pattern in place
 
-**v0.2 — Personalisation**
+**v0.2 - Personalisation**
 
 - Custom block labels (double-click to rename)
 - Multiple dashboards
 - Custom Metric block (manual input)
 - Block time range selector
 
-**v0.3 — Goals & Expression**
+**v0.3 - Goals & Expression**
 
 - Custom Goal blocks with progress tracking
 - Block accent colour picker
@@ -448,7 +448,7 @@ const BLOCK_REGISTRY: BlockDefinition[] = [
 
 ---
 
-## 0.5 UI/UX & Aesthetic Standard — Non-Negotiable
+## 0.5 UI/UX & Aesthetic Standard - Non-Negotiable
 
 UI and UX is a primary selling point of this product. The interface is part of the moat. Small business owners choose tools they enjoy opening.
 
@@ -456,7 +456,7 @@ UI and UX is a primary selling point of this product. The interface is part of t
 
 ---
 
-### Visual Identity — App Direction
+### Visual Identity - App Direction
 
 The app aesthetic is **refined dark-mode first, with warm accents**.
 
@@ -471,22 +471,22 @@ Background:    #0A0A0F  (near black, slightly warm)
 Surface:       #111118  (card/block backgrounds)
 Surface raised:#1A1A24  (elevated elements, hover states)
 Border:        #2A2A3A  (subtle borders)
-Primary:       #6366F1  (indigo — action, CTAs, active states)
-Primary soft:  #6366F120 (indigo with opacity — subtle highlights)
-Success:       #22C55E  (green — positive metrics, ok status)
-Warning:       #F59E0B  (amber — stale, watch out)
-Danger:        #EF4444  (red — error, critical alerts)
+Primary:       #6366F1  (indigo - action, CTAs, active states)
+Primary soft:  #6366F120 (indigo with opacity - subtle highlights)
+Success:       #22C55E  (green - positive metrics, ok status)
+Warning:       #F59E0B  (amber - stale, watch out)
+Danger:        #EF4444  (red - error, critical alerts)
 Text primary:  #F8F8FF  (near white)
-Text secondary:#94A3B8  (muted — labels, metadata)
-Text tertiary: #475569  (very muted — timestamps, helper text)
+Text secondary:#94A3B8  (muted - labels, metadata)
+Text tertiary: #475569  (very muted - timestamps, helper text)
 ```
 
 **App Typography:**
 
 ```
-Display font:  "Sora" (Google Fonts) — headings, metric values, large numbers
-Body font:     "DM Sans" (Google Fonts) — all body text, labels, UI copy
-Mono font:     "JetBrains Mono" — timestamps, sync logs, technical metadata only
+Display font:  "Sora" (Google Fonts) - headings, metric values, large numbers
+Body font:     "DM Sans" (Google Fonts) - all body text, labels, UI copy
+Mono font:     "JetBrains Mono" - timestamps, sync logs, technical metadata only
 Never use:     Inter, Roboto, Arial, system-ui as primary fonts
 ```
 
@@ -515,7 +515,7 @@ Padding inside blocks: minimum 24px. Gap between blocks: 12px.
 1. The number (large, bold, primary colour or white)
 2. The label (smaller, muted)
 3. The trend (colour-coded arrow + percentage)
-4. The trust bar (smallest, most muted — present but not distracting)
+4. The trust bar (smallest, most muted - present but not distracting)
 
 **Consistent radius.** All blocks, cards, buttons, inputs use `border-radius: 12px`.
 
@@ -544,7 +544,7 @@ Hover state:
 Loading state:
 - Skeleton shimmer animation in surface colour
 - Pulse at 1.5s interval
-- Never show empty blocks — always shimmer or real data
+- Never show empty blocks - always shimmer or real data
 
 Error state:
 - Red border: #EF444440
@@ -612,7 +612,7 @@ Tutorial tooltips:
 
 ```
 Max width: 600px
-Background: #0A0A0F (dark email — stands out in inbox)
+Background: #0A0A0F (dark email - stands out in inbox)
 Font: -apple-system, BlinkMacSystemFont, Segoe UI
 
 Structure:
@@ -631,7 +631,7 @@ Tone: like a message from a smart friend, not a system notification.
 ### Responsive Design Standard
 
 ```
-Desktop first (primary use case — morning check)
+Desktop first (primary use case - morning check)
   → full drag-and-drop canvas with sidebar
 
 Tablet (secondary)
@@ -655,7 +655,7 @@ Mobile (digest + quick check only)
 □ Has loading state
 □ Has error state
 □ Has empty state
-□ Transitions are smooth — no jarring snaps
+□ Transitions are smooth - no jarring snaps
 □ Works on dark background without looking washed out
 □ Typography hierarchy is clear at a glance
 □ Touch targets minimum 44px on mobile
@@ -676,7 +676,7 @@ Mobile (digest + quick check only)
 ❌ No hover states on interactive elements
 ❌ Skeleton loaders that look different from real content shape
 ❌ Inconsistent border radius across components
-❌ Pure white (#FFFFFF) text on near-black — use #F8F8FF
+❌ Pure white (#FFFFFF) text on near-black - use #F8F8FF
 ❌ Alerts that look like browser alert() dialogs
 ❌ Generic pie charts as the default metric visualisation
 ❌ Any screen with no clear visual hierarchy
@@ -689,76 +689,76 @@ Mobile (digest + quick check only)
 
 > **The dashboard should feel like something a business owner is proud to open in front of someone else.**
 
-If it looks like a spreadsheet — we have failed.
-If it looks like enterprise SaaS — we have failed.
-If it looks like it was built with care, specifically for them — we have succeeded.
+If it looks like a spreadsheet - we have failed.
+If it looks like enterprise SaaS - we have failed.
+If it looks like it was built with care, specifically for them - we have succeeded.
 
 ---
 
-## 1. Tech Stack — Use Exactly This
+## 1. Tech Stack - Use Exactly This
 
-### Frontend — Core (Fixed)
+### Frontend - Core (Fixed)
 
-- **Next.js 14+ with TypeScript** — App Router
-- **Tailwind CSS** — all styling, no other CSS frameworks
-- **shadcn/ui** — base UI components (always customise, never use defaults as-is)
-- **TanStack Query** — all data fetching and caching
-- **react-grid-layout** — drag and drop dashboard canvas
-- **React Hook Form + Zod** — all forms and validation
-- **Recharts** — metric visualisations inside blocks
+- **Next.js 14+ with TypeScript** - App Router
+- **Tailwind CSS** - all styling, no other CSS frameworks
+- **shadcn/ui** - base UI components (always customise, never use defaults as-is)
+- **TanStack Query** - all data fetching and caching
+- **react-grid-layout** - drag and drop dashboard canvas
+- **React Hook Form + Zod** - all forms and validation
+- **Recharts** - metric visualisations inside blocks
 
-### Frontend — UI/UX & Animation (Flexible)
+### Frontend - UI/UX & Animation (Flexible)
 
-The following layer is **not fixed**. When building any screen, page, or component, pick the best available tool for the visual and interaction goal. Do not default to the simplest option — default to the best option.
+The following layer is **not fixed**. When building any screen, page, or component, pick the best available tool for the visual and interaction goal. Do not default to the simplest option - default to the best option.
 
 Preferred starting points (use, swap, or combine as needed):
 
-- **Framer Motion** — page transitions, block animations, scroll reveals, spring physics
-- **anime.js v4** — continuous loops, timeline sequences, count-up numbers (`import anime from 'animejs'`)
-- **GSAP** — complex timeline animations, scroll-triggered sequences
-- **Motion One** — lightweight CSS-based animations for micro-interactions
-- **Lottie (lottie-react)** — icon animations, loading states
-- **Three.js / React Three Fiber** — 3D elements, hero backgrounds
-- **Tailwind CSS animations** — simple hover states, fade-ins, utility-first transitions
+- **Framer Motion** - page transitions, block animations, scroll reveals, spring physics
+- **anime.js v4** - continuous loops, timeline sequences, count-up numbers (`import anime from 'animejs'`)
+- **GSAP** - complex timeline animations, scroll-triggered sequences
+- **Motion One** - lightweight CSS-based animations for micro-interactions
+- **Lottie (lottie-react)** - icon animations, loading states
+- **Three.js / React Three Fiber** - 3D elements, hero backgrounds
+- **Tailwind CSS animations** - simple hover states, fade-ins, utility-first transitions
 
 **Fonts:** Always use Google Fonts or a premium font that fits the aesthetic. Landing page uses Instrument Serif + Geist. App uses Sora + DM Sans.
 
 **Colour:** App palette (section 0.5) is fixed for the dashboard. Landing page uses the light palette defined in Phase 1.
 
-**Rule:** Before picking any UI/animation library, ask — _does this produce something a world-class product studio would ship?_ If yes, use it. If it produces generic output, find something better.
+**Rule:** Before picking any UI/animation library, ask - _does this produce something a world-class product studio would ship?_ If yes, use it. If it produces generic output, find something better.
 
 ### Backend
 
-- **Next.js API routes** — simple CRUD endpoints
-- **Fastify + TypeScript** — dedicated backend for sync, webhooks, jobs
-- **Prisma ORM** — all database access
-- **BullMQ** — background job queue
-- **Pino** — structured logging (log by orgId, integrationId, jobId)
+- **Next.js API routes** - simple CRUD endpoints
+- **Fastify + TypeScript** - dedicated backend for sync, webhooks, jobs
+- **Prisma ORM** - all database access
+- **BullMQ** - background job queue
+- **Pino** - structured logging (log by orgId, integrationId, jobId)
 
 ### Database & Infrastructure
 
-- **PostgreSQL via Neon** — primary database
-- **Redis via Upstash** — BullMQ queues and short-lived cache
-- **Vercel** — Next.js frontend deployment
-- **Railway** — Fastify backend + BullMQ workers
+- **PostgreSQL via Neon** - primary database
+- **Redis via Upstash** - BullMQ queues and short-lived cache
+- **Vercel** - Next.js frontend deployment
+- **Railway** - Fastify backend + BullMQ workers
 
 ### Auth & External Services
 
-- **Clerk** — authentication and session management
-- **Sentry** — error tracking (required from day one)
-- **PostHog** — product analytics (track logins, refresh clicks, block usage)
-- **Resend** — morning digest emails
-- **Akahu** — NZ open banking / bank feed integration
-- **Shopify Admin API** — direct integration, no middleware abstraction
+- **Clerk** - authentication and session management
+- **Sentry** - error tracking (required from day one)
+- **PostHog** - product analytics (track logins, refresh clicks, block usage)
+- **Resend** - morning digest emails
+- **Akahu** - NZ open banking / bank feed integration
+- **Shopify Admin API** - direct integration, no middleware abstraction
 
 ### Important Decisions
 
-- Never use middleware (Apideck/Merge) for Shopify — build direct for control and trust
-- Never compute metrics live from external APIs in the request path — always serve from MetricSnapshot table
-- Never use GraphQL — REST only for v0.1
-- Never use WebSockets — use 60-second polling from frontend + manual refresh button
+- Never use middleware (Apideck/Merge) for Shopify - build direct for control and trust
+- Never compute metrics live from external APIs in the request path - always serve from MetricSnapshot table
+- Never use GraphQL - REST only for v0.1
+- Never use WebSockets - use 60-second polling from frontend + manual refresh button
 - TypeScript strict mode throughout
-- UI/UX library choices are the engineer's call per screen — optimise for quality, not familiarity
+- UI/UX library choices are the engineer's call per screen - optimise for quality, not familiarity
 
 ---
 
@@ -813,8 +813,8 @@ model Integration {
   id             String       @id @default(cuid())
   organizationId String
   provider       String       // "shopify" | "akahu" | "stripe"
-  accessToken    String       // encrypted at rest — never log this
-  refreshToken   String?      // encrypted at rest — never log this
+  accessToken    String       // encrypted at rest - never log this
+  refreshToken   String?      // encrypted at rest - never log this
   shopDomain     String?
   status         String       @default("active") // active | error | disconnected
   connectedAt    DateTime     @default(now())
@@ -948,7 +948,7 @@ model DigestLog {
 
 ```
 // Auth
-POST   /api/auth/webhook                     Clerk webhook — create User + Org on signup
+POST   /api/auth/webhook                     Clerk webhook - create User + Org on signup
 
 // Organizations
 GET    /api/organizations/:id                get org details + digest settings
@@ -957,9 +957,9 @@ PATCH  /api/organizations/:id                update org name, digest time, timez
 // Integrations
 GET    /api/integrations                     list all integrations for org + status
 POST   /api/integrations/shopify/connect     initiate Shopify OAuth flow
-GET    /api/integrations/shopify/callback    Shopify OAuth callback — save token
+GET    /api/integrations/shopify/callback    Shopify OAuth callback - save token
 POST   /api/integrations/akahu/connect       initiate Akahu OAuth flow
-GET    /api/integrations/akahu/callback      Akahu OAuth callback — save token
+GET    /api/integrations/akahu/callback      Akahu OAuth callback - save token
 DELETE /api/integrations/:id                 disconnect integration
 GET    /api/integrations/:id/status          connection health check
 
@@ -968,7 +968,7 @@ POST   /api/sync/:integrationId/run          manually trigger full sync for inte
 
 // Dashboards
 GET    /api/dashboards/:id                   get dashboard with blocks + layout
-POST   /api/dashboards/:id/layout            save layout after drag/drop — fires on dragStop
+POST   /api/dashboards/:id/layout            save layout after drag/drop - fires on dragStop
 POST   /api/dashboards/:id/blocks            add a block to dashboard
 DELETE /api/dashboards/:id/blocks/:blockId   remove a block from dashboard
 PATCH  /api/dashboards/:id/blocks/:blockId   update block label or config
@@ -992,7 +992,7 @@ GET    /api/digest/preview                   preview digest content for org
 
 ---
 
-## 4. Metric Types — All Valid Values
+## 4. Metric Types - All Valid Values
 
 ```typescript
 type MetricType =
@@ -1061,7 +1061,7 @@ AND direction = 'credit'
 AND DATE(date) >= startOfThisWeek
 ```
 
-### Trust Metadata — Required on Every Snapshot
+### Trust Metadata - Required on Every Snapshot
 
 ```typescript
 {
@@ -1106,12 +1106,12 @@ const PRESET_LAYOUT = [
 
 // Save layout to DB on onDragStop and onResizeStop
 // POST /api/dashboards/:id/layout with full layout array
-// Optimistic update on frontend — don't wait for API response
+// Optimistic update on frontend - don't wait for API response
 ```
 
 ---
 
-## 6. Block Component — What Every Block Renders
+## 6. Block Component - What Every Block Renders
 
 ```tsx
 <BlockContainer>
@@ -1179,7 +1179,7 @@ const JOBS = {
     backoff: "fixed",
   },
   "digest.send_morning": {
-    schedule: "daily cron — check each org's digestTime field",
+    schedule: "daily cron - check each org's digestTime field",
     retries: 3,
     backoff: "exponential",
   },
@@ -1190,7 +1190,7 @@ const JOBS = {
 // 2. Write SyncJobLog record with status = "running"
 // 3. Handle errors → SyncJobLog status = "failed" with errorMessage
 // 4. On success → SyncJobLog status = "success" with recordCount
-// 5. Never throw unhandled exceptions — always catch and log to Sentry
+// 5. Never throw unhandled exceptions - always catch and log to Sentry
 ```
 
 ---
@@ -1216,8 +1216,8 @@ const SHOPIFY_WEBHOOKS = [
 ];
 
 // Webhook handler:
-// 1. Verify HMAC-SHA256 signature — reject 401 if invalid
-// 2. Check idempotency — store webhook ID, reject duplicates
+// 1. Verify HMAC-SHA256 signature - reject 401 if invalid
+// 2. Check idempotency - store webhook ID, reject duplicates
 // 3. Identify org from shop domain in header
 // 4. Enqueue appropriate sync job
 // 5. Return 200 immediately
@@ -1266,7 +1266,7 @@ const ALERT_RULES = [
     },
     severity: "warning",
     message: (data) =>
-      `Cash is tighter than usual — you have about ${data.runwayDays} days of runway at current spend.`,
+      `Cash is tighter than usual - you have about ${data.runwayDays} days of runway at current spend.`,
   },
   {
     type: "revenue_drop",
@@ -1291,7 +1291,7 @@ const ALERT_RULES = [
     },
     severity: "info",
     message: () =>
-      `No sales yet today — unusual for this time of day based on your history.`,
+      `No sales yet today - unusual for this time of day based on your history.`,
   },
 ];
 
@@ -1304,7 +1304,7 @@ const ALERT_RULES = [
 
 ```typescript
 const digestTemplate = (data: DigestData) => `
-Subject: ☀️ ${data.businessName} — ${formatDate(data.date)}
+Subject: ☀️ ${data.businessName} - ${formatDate(data.date)}
 
 Good morning ${data.ownerFirstName},
 
@@ -1323,7 +1323,7 @@ ${
 
 Open your dashboard →
 
-— Your business assistant
+- Your business assistant
 `;
 
 // DigestLog record created on send
@@ -1335,13 +1335,13 @@ Open your dashboard →
 ## 12. Onboarding Flow (Self-Serve)
 
 ```
-Step 1 — Sign Up (Clerk)
-Step 2 — Name Your Business
-Step 3 — Tell Us About Your Setup (tools + digest time)
-Step 4 — Connect Your Tools (OAuth per integration)
-Step 5 — Interactive Tutorial (3 tooltips, skippable)
-Step 6 — Preset Dashboard Loads With Real Data
-Step 7 — Confirmation banner on live dashboard
+Step 1 - Sign Up (Clerk)
+Step 2 - Name Your Business
+Step 3 - Tell Us About Your Setup (tools + digest time)
+Step 4 - Connect Your Tools (OAuth per integration)
+Step 5 - Interactive Tutorial (3 tooltips, skippable)
+Step 6 - Preset Dashboard Loads With Real Data
+Step 7 - Confirmation banner on live dashboard
 ```
 
 **Design principles:** One screen, one job. Progress always visible. Errors are human. Tutorial is optional. First value in under 5 minutes.
@@ -1352,15 +1352,15 @@ Step 7 — Confirmation banner on live dashboard
 
 ```typescript
 // 1. Encrypt all OAuth tokens at rest (AES-256-GCM)
-// 2. Never log access tokens — use Pino redact
+// 2. Never log access tokens - use Pino redact
 const logger = pino({
   redact: ["accessToken", "refreshToken", "authorization", "*.token"],
 });
 // 3. Verify Shopify webhook signatures on every request
-// 4. Row-level access control — every DB query includes WHERE organizationId = session.orgId
+// 4. Row-level access control - every DB query includes WHERE organizationId = session.orgId
 // 5. Clerk session verification on every protected API route
 // 6. Minimum OAuth scopes only
-// 7. All secrets via environment variables — never hardcoded
+// 7. All secrets via environment variables - never hardcoded
 ```
 
 ---
@@ -1428,12 +1428,12 @@ const handleManualRefresh = async () => {
 ❌ "Why did this happen" causal/correlation engine
 ❌ Business Health Score (0–100)
 ❌ AI features of any kind
-❌ Xero integration — API pricing too expensive early stage
-❌ Square integration — phase 2
+❌ Xero integration - API pricing too expensive early stage
+❌ Square integration - phase 2
 ❌ GraphQL
 ❌ Microservices architecture
 ❌ WebSockets or SSE
-❌ Custom charting library — use Recharts
+❌ Custom charting library - use Recharts
 ❌ Inventory management module
 ❌ Staff/labour cost tracking
 ❌ Marketing attribution
@@ -1447,7 +1447,7 @@ const handleManualRefresh = async () => {
 
 ---
 
-## 17. Build Order — Follow This Exactly
+## 17. Build Order - Follow This Exactly
 
 ```
 ── PHASE 1 ─────────────────────────────────────────────
@@ -1456,15 +1456,15 @@ Day 1:   Nav + Hero (typography, mockup, animations)
 Day 2:   Social Proof + Problem + Features (bento grid)
 Day 3:   How It Works + Integrations + Pricing
 Day 4:   Testimonials + FAQ + Final CTA + Footer
-Day 5:   Polish — animations, mobile, copy review
-Day 6:   Deploy to Vercel — share URL
+Day 5:   Polish - animations, mobile, copy review
+Day 6:   Deploy to Vercel - share URL
 
 ── PHASE 2 / WEEK 1 ────────────────────────────────────
 
 Day 1–2: Project scaffold
   □ Next.js 14 + TypeScript + Tailwind + shadcn/ui
   □ Clerk auth integration
-  □ Prisma + Neon Postgres — run migrations
+  □ Prisma + Neon Postgres - run migrations
   □ Sentry + PostHog initialised
   □ Environment variables configured
 
@@ -1505,7 +1505,7 @@ Day 20:    Polish + pilot prep
 
 ---
 
-## 18. Definition of Done — v0.1 Is Complete When
+## 18. Definition of Done - v0.1 Is Complete When
 
 ```
 □ User can sign up and create an organization
@@ -1514,7 +1514,7 @@ Day 20:    Polish + pilot prep
 □ Dashboard loads with preset layout and real data in all 5 blocks
 □ Every block shows last synced timestamp, source label, status dot, and manual refresh
 □ Revenue data matches Shopify Admin within acceptable rounding tolerance
-□ User can drag blocks to rearrange — layout persists on refresh
+□ User can drag blocks to rearrange - layout persists on refresh
 □ User can add a block from the sidebar panel
 □ User can remove a block from the canvas
 □ Morning digest email sends at configured time with plain English summary
