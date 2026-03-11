@@ -3,6 +3,9 @@ import type { Metadata } from "next";
 import "@/app/globals.css";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from "@vercel/analytics/next"
+
 
 import { AppProviders } from "@/components/providers/app-providers";
 import { geist, geistMono, instrumentSerif, lora, nunito } from "@/lib/fonts";
@@ -28,6 +31,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         )}
       >
         <AppProviders>{children}</AppProviders>
+        <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
