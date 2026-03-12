@@ -13,10 +13,15 @@ import { Footer } from "@/components/landing/Footer";
 
 export default function LandingPage() {
   return (
-    <main className="min-h-screen bg-[var(--w)]">
+    <main className="min-h-screen bg-[var(--w)] pt-[calc(56px+env(safe-area-inset-top,0px))]">
       <Navbar />
-      <Hero />
-      <IntegrationStrip />
+      {/* Hero + trust strip: on mobile hero is content-height so strip sits closer (less whitespace) */}
+      <div className="md:contents">
+        <Hero />
+        <div className="pt-2 pb-4 md:pt-0 md:pb-0">
+          <IntegrationStrip />
+        </div>
+      </div>
       <FeaturesSection />
       <ProblemSection />
       <ProductPreview />

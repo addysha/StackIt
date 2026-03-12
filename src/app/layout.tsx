@@ -19,6 +19,7 @@ export const metadata: Metadata = {
 export const viewport = {
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           instrumentSerif.variable,
           "min-h-screen bg-[var(--background)] font-sans text-[var(--text-primary)] antialiased",
         )}
+        suppressHydrationWarning
       >
         <AppProviders>{children}</AppProviders>
         <SpeedInsights />

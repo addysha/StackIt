@@ -30,13 +30,14 @@ export function Navbar() {
 
   return (
     <header
-      className="px-5 md:px-10"
+      className="px-5 md:px-10 pt-[env(safe-area-inset-top)]"
       style={{
         position: "fixed",
         top: 0,
         left: 0,
         right: 0,
         zIndex: 500,
+        minHeight: 56,
         height: 56,
         display: "flex",
         alignItems: "center",
@@ -140,7 +141,7 @@ export function Navbar() {
           className="md:hidden"
           style={{
             position: "absolute",
-            top: 56,
+            top: "calc(56px + env(safe-area-inset-top, 0px))",
             left: 0,
             right: 0,
             background: "rgba(253,250,245,.97)",
