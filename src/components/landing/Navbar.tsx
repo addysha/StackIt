@@ -120,8 +120,8 @@ export function Navbar() {
           (e.currentTarget as HTMLAnchorElement).style.transform = "none";
         }}
       >
-        <span className="hidden md:inline">Get early access →</span>
-        <span className="md:hidden">Get access</span>
+        <span className="hidden md:inline text-white">Get early access →</span>
+        <span className="md:hidden text-white">Get access</span>
       </a>
 
       {/* Mobile hamburger */}
