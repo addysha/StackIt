@@ -40,9 +40,9 @@ export function Footer() {
     >
       {/* Mini CTA band */}
       <div
+        className="px-5 md:px-10 py-9"
         style={{
           borderBottom: "1px solid rgba(255,255,255,.07)",
-          padding: "36px 40px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -74,9 +74,8 @@ export function Footer() {
         </div>
         <a
           href="mailto:hello@stackit.co.nz"
+          className="min-h-[44px] inline-flex items-center justify-center"
           style={{
-            display: "inline-flex",
-            alignItems: "center",
             gap: 7,
             padding: "12px 28px",
             borderRadius: 100,
@@ -103,16 +102,8 @@ export function Footer() {
         </a>
       </div>
 
-      {/* Main footer grid */}
-      <div
-        style={{
-          padding: "56px 40px 48px",
-          display: "grid",
-          gridTemplateColumns: "2fr 1fr 1fr 1fr",
-          gap: 48,
-        }}
-        className="max-md:grid-cols-2 max-sm:grid-cols-1"
-      >
+      {/* Main footer grid — 1 col default, 2 cols sm, 4 cols lg (2fr 1fr 1fr 1fr) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-12 lg:gap-12 px-5 md:px-10 py-14 lg:py-14 pb-12">
         {/* Brand column */}
         <div>
           <div
@@ -140,7 +131,7 @@ export function Footer() {
             owners. Open it every morning. Know your numbers.
           </p>
           {/* Socials */}
-          <div style={{ display: "flex", gap: 8 }}>
+          <div className="flex gap-2">
             {SOCIALS.map(({ icon: Icon, href, label }) => (
               <a
                 key={label}
@@ -148,18 +139,11 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
+                className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full no-underline transition-all duration-200"
                 style={{
-                  width: 32,
-                  height: 32,
-                  borderRadius: "50%",
                   background: "rgba(255,255,255,.07)",
                   border: "1px solid rgba(255,255,255,.1)",
                   color: "rgba(255,255,255,.5)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  textDecoration: "none",
-                  transition: "all .2s",
                 }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLAnchorElement).style.background = "rgba(255,255,255,.12)";
@@ -223,16 +207,11 @@ export function Footer() {
         ))}
       </div>
 
-      {/* Bottom bar */}
+      {/* Bottom bar — center on mobile */}
       <div
+        className="px-5 md:px-10 py-4 flex flex-col md:flex-row items-center justify-center md:justify-between gap-2 text-center md:text-left"
         style={{
           borderTop: "1px solid rgba(255,255,255,.07)",
-          padding: "18px 40px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          flexWrap: "wrap",
-          gap: 10,
         }}
       >
         <span

@@ -16,6 +16,11 @@ export const metadata: Metadata = {
   description: "Personal business assistant for small business owners.",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html

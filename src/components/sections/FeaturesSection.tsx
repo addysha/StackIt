@@ -23,13 +23,13 @@ function Badge({ label, className }: { label: string; className?: string }) {
 const TERRA_BADGE = "bg-[var(--terra-lt)] text-[var(--terra)] border border-[rgba(181,96,58,.2)]";
 
 const CARD_BASE =
-  "col-span-1 rounded-2xl p-8 overflow-hidden transition-transform duration-[280ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] hover:-translate-y-1 hover:shadow-md cursor-default";
+  "col-span-1 rounded-2xl p-5 lg:p-8 overflow-hidden transition-transform duration-[280ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] hover:-translate-y-1 hover:shadow-md cursor-default";
 
 export function FeaturesSection() {
   return (
     <section
       id="features"
-      className="py-20 px-10 bg-[var(--cream)] border-t border-[var(--stone)]"
+      className="py-12 px-5 lg:py-20 lg:px-10 bg-[var(--cream)] border-t border-[var(--stone)]"
     >
       {/* ── Section header ── */}
       <EntranceDiv className="max-w-[560px] mb-12">
@@ -53,7 +53,7 @@ export function FeaturesSection() {
         {/* Row 1 - Card A: drag canvas, span-5 (light) */}
         <EntranceDiv delay={0} className={`${CARD_BASE} lg:col-span-5 bg-white border border-[var(--stone)]`}>
           <Badge label="New" className={TERRA_BADGE} />
-          <h3 className="font-[family-name:var(--font-serif)] text-xl font-semibold leading-snug text-[var(--ink)] mb-2">
+          <h3 className="font-[family-name:var(--font-serif)] text-lg lg:text-xl font-semibold leading-snug text-[var(--ink)] mb-2">
             Flexible, drag-and-drop canvas
           </h3>
           <p className="text-[13px] text-[var(--ink-2)] leading-[1.7] font-[family-name:var(--font-sans)]">
@@ -69,7 +69,7 @@ export function FeaturesSection() {
             label="● Live"
             className="bg-[var(--up-bg)] text-[var(--up)] border border-[rgba(46,125,82,.2)]"
           />
-          <h3 className="font-[family-name:var(--font-serif)] text-xl font-semibold leading-snug text-white mb-2">
+          <h3 className="font-[family-name:var(--font-serif)] text-lg lg:text-xl font-semibold leading-snug text-white mb-2">
             Always current. Always yours.
           </h3>
           <p className="text-[13px] text-white/65 leading-[1.7] font-[family-name:var(--font-sans)]">
@@ -82,7 +82,7 @@ export function FeaturesSection() {
 
         {/* Row 1 - Card C: 30 minutes, span-3 (terracotta) */}
         <EntranceDiv delay={200} className={`${CARD_BASE} lg:col-span-3 bg-[var(--terra)]`}>
-          <h3 className="font-[family-name:var(--font-serif)] text-xl font-semibold leading-snug text-white mb-2">
+          <h3 className="font-[family-name:var(--font-serif)] text-lg lg:text-xl font-semibold leading-snug text-white mb-2">
             Done for you in 30 minutes
           </h3>
           <p className="text-[13px] text-white/70 leading-[1.7] font-[family-name:var(--font-sans)] mb-3.5">
@@ -99,7 +99,7 @@ export function FeaturesSection() {
         >
           <div>
             <Badge label="10 types" className={TERRA_BADGE} />
-            <h3 className="font-[family-name:var(--font-serif)] text-xl font-semibold leading-snug text-[var(--ink)] mb-2">
+            <h3 className="font-[family-name:var(--font-serif)] text-lg lg:text-xl font-semibold leading-snug text-[var(--ink)] mb-2">
               Data shown the way it makes sense
             </h3>
             <p className="text-[13px] text-[var(--ink-2)] leading-[1.7] font-[family-name:var(--font-sans)]">
@@ -112,7 +112,7 @@ export function FeaturesSection() {
 
         {/* Row 2 - Card E: revenue drivers, span-4 (forest) */}
         <EntranceDiv delay={400} className={`${CARD_BASE} lg:col-span-4 bg-[var(--forest)]`}>
-          <h3 className="font-[family-name:var(--font-serif)] text-xl font-semibold leading-snug text-white mb-2">
+          <h3 className="font-[family-name:var(--font-serif)] text-lg lg:text-xl font-semibold leading-snug text-white mb-2">
             See what&apos;s driving revenue
           </h3>
           <p className="text-[13px] text-white/65 leading-[1.7] font-[family-name:var(--font-sans)]">
@@ -125,7 +125,7 @@ export function FeaturesSection() {
         {/* Row 3 - Card F: custom metric, span-4 (light) */}
         <EntranceDiv delay={500} className={`${CARD_BASE} lg:col-span-4 bg-white border border-[var(--stone)]`}>
           <Badge label="Custom" className={TERRA_BADGE} />
-          <h3 className="font-[family-name:var(--font-serif)] text-xl font-semibold leading-snug text-[var(--ink)] mb-2">
+          <h3 className="font-[family-name:var(--font-serif)] text-lg lg:text-xl font-semibold leading-snug text-[var(--ink)] mb-2">
             Add any metric you want
           </h3>
           <p className="text-[13px] text-[var(--ink-2)] leading-[1.7] font-[family-name:var(--font-sans)]">

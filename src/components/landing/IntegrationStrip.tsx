@@ -43,9 +43,10 @@ export function IntegrationStrip() {
       <div className="absolute left-0 w-1/3 h-full bg-gradient-to-r from-[var(--w)] to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 w-1/3 h-full bg-gradient-to-l from-[var(--w)] to-transparent z-10 pointer-events-none" />
 
+      {/* --duration: lower = faster (e.g. 45s), higher = slower (e.g. 120s) */}
       <div
         className="marquee"
-        style={{ "--gap": "1rem", "--duration": "90s" } as React.CSSProperties}
+        style={{ "--gap": "1rem", "--duration": "200s" } as React.CSSProperties}
       >
         <div className="marquee__content">
           {REPEATED.map((logo, i) => (

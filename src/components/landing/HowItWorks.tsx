@@ -27,8 +27,8 @@ export function HowItWorks() {
   return (
     <section
       id="how"
+      className="py-12 px-5 md:py-24 md:px-10"
       style={{
-        padding: "100px 40px",
         background: "var(--w)",
         position: "relative",
         overflow: "hidden",

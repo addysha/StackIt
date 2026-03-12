@@ -40,8 +40,8 @@ export function FaqSection() {
   return (
     <section
       id="faq"
+      className="py-12 px-5 md:py-24 md:px-10"
       style={{
-        padding: "100px 40px",
         background: "var(--w)",
         borderTop: "1px solid var(--stone)",
       }}

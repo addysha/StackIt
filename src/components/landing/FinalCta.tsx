@@ -21,8 +21,8 @@ export function FinalCta() {
   return (
     <section
       id="cta"
+      className="py-12 px-5 pb-24 md:py-24 md:px-10 md:pb-32"
       style={{
-        padding: "100px 40px 120px",
         background: "var(--terra)",
         position: "relative",
         overflow: "hidden",
@@ -118,9 +118,8 @@ export function FinalCta() {
           >
             <a
               href="mailto:hello@stackit.co.nz"
+              className="min-h-[44px] inline-flex items-center justify-center"
               style={{
-                display: "inline-flex",
-                alignItems: "center",
                 gap: 7,
                 padding: "15px 36px",
                 borderRadius: 100,
@@ -148,9 +147,8 @@ export function FinalCta() {
             <a
               href="#demo"
               onClick={scrollToHash}
+              className="min-h-[44px] inline-flex items-center justify-center"
               style={{
-                display: "inline-flex",
-                alignItems: "center",
                 gap: 7,
                 padding: "15px 36px",
                 borderRadius: 100,

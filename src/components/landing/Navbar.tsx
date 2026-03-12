@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Menu, X } from "lucide-react";
 import { cn, scrollToHash } from "@/lib/utils";
 
 const NAV_LINKS = [
@@ -29,6 +30,7 @@ export function Navbar() {
 
   return (
     <header
+      className="px-5 md:px-10"
       style={{
         position: "fixed",
         top: 0,
@@ -39,7 +41,6 @@ export function Navbar() {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: "0 40px",
         background: "rgba(253,250,245,.9)",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
@@ -100,63 +101,37 @@ export function Navbar() {
         ))}
       </ul>
 
-      {/* CTA */}
+      {/* CTA — visible on mobile (smaller), full size on md+ */}
       <a
         href="#cta"
         onClick={handleAnchorClick}
-        className="hidden md:inline-flex"
+        className={cn(
+          "inline-flex items-center justify-center min-h-[44px] rounded-full font-sans font-bold text-white no-underline transition-colors duration-200 transition-transform duration-150",
+          "py-2 px-4 text-xs md:py-2 md:px-5 md:text-[13px] md:min-h-0",
+          "bg-[var(--terra)] hover:bg-[var(--terra-dk)]"
+        )}
         style={{
-          background: "var(--ink)",
-          color: "var(--w)",
-          padding: "8px 20px",
-          borderRadius: 100,
-          fontSize: 13,
-          fontWeight: 700,
-          textDecoration: "none",
-          fontFamily: "var(--font-sans)",
           letterSpacing: ".01em",
-          transition: "background .2s, transform .15s",
         }}
         onMouseEnter={(e) => {
-          (e.currentTarget as HTMLAnchorElement).style.background = "#2c2012";
           (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-1px)";
         }}
         onMouseLeave={(e) => {
-          (e.currentTarget as HTMLAnchorElement).style.background = "var(--ink)";
           (e.currentTarget as HTMLAnchorElement).style.transform = "none";
         }}
       >
-        Get early access →
+        <span className="hidden md:inline">Get early access →</span>
+        <span className="md:hidden">Get access</span>
       </a>
 
       {/* Mobile hamburger */}
       <button
         type="button"
         onClick={() => setMobileOpen((o) => !o)}
-        className="flex md:hidden"
-        style={{
-          background: "none",
-          border: "none",
-          cursor: "pointer",
-          padding: "8px",
-          color: "var(--ink)",
-        }}
+        className="flex md:hidden min-h-[44px] min-w-[44px] items-center justify-center rounded-none border-0 cursor-pointer p-0 text-[var(--ink)] bg-transparent"
         aria-label={mobileOpen ? "Close menu" : "Open menu"}
       >
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          {mobileOpen ? (
-            <>
-              <line x1="4" y1="4" x2="16" y2="16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-              <line x1="16" y1="4" x2="4" y2="16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-            </>
-          ) : (
-            <>
-              <line x1="3" y1="6" x2="17" y2="6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-              <line x1="3" y1="10" x2="17" y2="10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-              <line x1="3" y1="14" x2="17" y2="14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-            </>
-          )}
-        </svg>
+        {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
       </button>
 
       {/* Mobile menu */}

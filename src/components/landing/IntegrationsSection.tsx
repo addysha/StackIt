@@ -149,8 +149,8 @@ export function IntegrationsSection() {
   return (
     <section
       id="integrations"
+      className="py-12 px-5 md:py-24 md:px-10"
       style={{
-        padding: "100px 40px",
         background: "var(--cream)",
         borderTop: "1px solid var(--stone)",
       }}
@@ -204,16 +204,7 @@ export function IntegrationsSection() {
         </p>
       </RevealWrapper>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1.2fr",
-          gap: 64,
-          alignItems: "start",
-          maxWidth: 1100,
-        }}
-        className="max-md:grid-cols-1"
-      >
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-8 md:gap-16 items-start max-w-[1100px] mx-auto w-full min-w-0">
         {/* Left accordion */}
         <RevealWrapper style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {CATEGORIES.map((cat) => (
@@ -312,16 +303,15 @@ export function IntegrationsSection() {
           ))}
         </RevealWrapper>
 
-        {/* Right diagram */}
+        {/* Right diagram — min-w-0 prevents overflow on mobile */}
         <RevealWrapper
           delay={1}
+          className="md:sticky md:top-20 min-w-0 overflow-hidden w-full"
           style={{
             background: "var(--surf)",
             border: "1px solid var(--stone)",
             borderRadius: 18,
             padding: 24,
-            position: "sticky",
-            top: 76,
             boxShadow: "var(--sh-sm)",
           }}
         >

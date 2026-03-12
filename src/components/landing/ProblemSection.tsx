@@ -46,8 +46,8 @@ export function ProblemSection() {
   return (
     <section
       id="problem"
+      className="py-12 px-5 md:py-24 md:px-10"
       style={{
-        padding: "100px 40px",
         textAlign: "center",
         position: "relative",
         overflow: "hidden",
@@ -115,16 +115,7 @@ export function ProblemSection() {
         </p>
       </RevealWrapper>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: 16,
-          maxWidth: 900,
-          margin: "0 auto",
-        }}
-        className="max-md:grid-cols-1"
-      >
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-[900px] mx-auto">
         {PROBLEM_CARDS.map((card, idx) => (
           <RevealWrapper key={card.title} delay={((idx + 1) as 1 | 2 | 3)}>
             <div

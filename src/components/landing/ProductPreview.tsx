@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Pencil,
@@ -121,6 +121,20 @@ export function ProductPreview() {
   const [widgetIds, setWidgetIds] = useState<string[]>(DEFAULT_WIDGET_IDS);
   const [draggingId, setDraggingId] = useState<string | null>(null);
   const [dropOverId, setDropOverId] = useState<string | null>(null);
+  const touchPosRef = useRef({ clientX: 0, clientY: 0 });
+
+  const reorderWidgets = useCallback((sourceId: string, targetId: string) => {
+    if (sourceId === targetId) return;
+    setWidgetIds((prev) => {
+      const i = prev.indexOf(sourceId);
+      const j = prev.indexOf(targetId);
+      if (i === -1 || j === -1) return prev;
+      const next = [...prev];
+      next.splice(i, 1);
+      next.splice(next.indexOf(targetId), 0, sourceId);
+      return next;
+    });
+  }, []);
 
   const handleDragStart = useCallback(
     (e: React.DragEvent, id: string) => {
@@ -147,19 +161,52 @@ export function ProductPreview() {
       if (!sourceId || sourceId === targetId) {
         setDraggingId(null); setDropOverId(null); return;
       }
-      setWidgetIds((prev) => {
-        const i = prev.indexOf(sourceId);
-        const j = prev.indexOf(targetId);
-        if (i === -1 || j === -1) return prev;
-        const next = [...prev];
-        next.splice(i, 1);
-        next.splice(next.indexOf(targetId), 0, sourceId);
-        return next;
-      });
+      reorderWidgets(sourceId, targetId);
       setDraggingId(null); setDropOverId(null);
     },
-    []
+    [reorderWidgets]
   );
+
+  const handleTouchStart = useCallback((e: React.TouchEvent, id: string) => {
+    if (!editMode) return;
+    setDraggingId(id);
+    touchPosRef.current = { clientX: e.touches[0].clientX, clientY: e.touches[0].clientY };
+  }, [editMode]);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent, id: string) => {
+    if (!editMode || !draggingId) return;
+    e.preventDefault();
+    const t = e.touches[0];
+    touchPosRef.current = { clientX: t.clientX, clientY: t.clientY };
+    const elements = document.elementsFromPoint(t.clientX, t.clientY);
+    const tile = elements.find((el) => {
+      const widgetId = el.getAttribute?.("data-widget-id");
+      return widgetId && widgetId !== id;
+    });
+    const targetId = tile?.getAttribute("data-widget-id") ?? null;
+    setDropOverId(targetId);
+  }, [editMode, draggingId]);
+
+  const handleTouchEnd = useCallback((e: React.TouchEvent, id: string) => {
+    if (!editMode) return;
+    const { clientX, clientY } = touchPosRef.current;
+    const elements = document.elementsFromPoint(clientX, clientY);
+    const tile = elements.find((el) => {
+      const widgetId = el.getAttribute?.("data-widget-id");
+      return widgetId && widgetId !== id;
+    });
+    const targetId = tile?.getAttribute("data-widget-id") ?? null;
+    if (targetId) reorderWidgets(id, targetId);
+    setDraggingId(null);
+    setDropOverId(null);
+  }, [editMode, reorderWidgets]);
+
+  useEffect(() => {
+    if (!draggingId) return;
+    const preventScroll = (e: TouchEvent) => e.preventDefault();
+    document.addEventListener("touchmove", preventScroll, { passive: false });
+    return () => document.removeEventListener("touchmove", preventScroll);
+  }, [draggingId]);
 
   const handleDragEnd = useCallback(() => {
     setDraggingId(null); setDropOverId(null);
@@ -187,8 +234,8 @@ export function ProductPreview() {
   return (
     <section
       id="demo"
+      className="py-12 px-5 md:py-24 md:px-10"
       style={{
-        padding: "100px 40px",
         background: "var(--ink)",
         position: "relative",
         overflow: "hidden",
@@ -547,12 +594,16 @@ export function ProductPreview() {
                   return (
                     <div
                       key={id}
+                      data-widget-id={id}
                       draggable={editMode}
                       onDragStart={(e) => handleDragStart(e, id)}
                       onDragOver={(e) => handleDragOver(e, id)}
                       onDrop={(e) => handleDrop(e, id)}
+                      onTouchStart={(e) => handleTouchStart(e, id)}
+                      onTouchMove={(e) => handleTouchMove(e, id)}
+                      onTouchEnd={(e) => handleTouchEnd(e, id)}
                       onClick={() => !editMode && DEMO_DETAIL[id] && openDetail(id)}
-                      className={cn("relative col-span-2", span)}
+                      className={cn("relative col-span-2", span, editMode && "touch-manipulation")}
                       style={{
                         background: isDropOver ? "rgba(181,96,58,.08)" : "rgba(255,255,255,.06)",
                         border: `1px solid ${isDragging ? "var(--terra)" : isDropOver ? "var(--terra)" : "rgba(255,255,255,.1)"}`,

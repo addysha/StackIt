@@ -19,6 +19,7 @@ export function Hero() {
   return (
     <section
       id="hero"
+      className="px-5 py-12 md:px-10 md:pt-[100px] md:pb-20"
       style={{
         minHeight: "100vh",
         display: "flex",
@@ -26,7 +27,6 @@ export function Hero() {
         alignItems: "center",
         justifyContent: "center",
         textAlign: "center",
-        padding: "100px 40px 80px",
         position: "relative",
         overflow: "hidden",
         background: "var(--w)",
@@ -52,8 +52,9 @@ export function Hero() {
         style={{ position: "absolute", inset: 0, pointerEvents: "none", willChange: "transform" }}
       />
 
-      {/* Eyebrow badge */}
+      {/* Eyebrow badge — centered on mobile */}
       <div
+        className="text-center md:text-left"
         style={{
           display: "inline-flex",
           alignItems: "center",
@@ -87,11 +88,11 @@ export function Hero() {
         Now in early access · NZ-built
       </div>
 
-      {/* H1 */}
+      {/* H1 — text-4xl on mobile, scale up on md+ */}
       <h1
+        className="text-4xl md:text-6xl"
         style={{
           fontFamily: "var(--font-serif)",
-          fontSize: "clamp(40px, 5.5vw, 72px)",
           fontWeight: 600,
           lineHeight: 1.1,
           letterSpacing: "-.025em",
@@ -108,10 +109,10 @@ export function Hero() {
         <em style={{ fontStyle: "italic", color: "var(--terra)" }}>one screen.</em>
       </h1>
 
-      {/* Subtext */}
+      {/* Subtext — text-base on mobile, text-xl on md+ */}
       <p
+        className="text-base md:text-xl"
         style={{
-          fontSize: "clamp(16px, 1.5vw, 19px)",
           color: "var(--ink-2)",
           maxWidth: 520,
           lineHeight: 1.75,
@@ -127,13 +128,10 @@ export function Hero() {
         dashboard. Drag the widgets you want. We set it up while you watch.
       </p>
 
-      {/* Buttons */}
+      {/* Buttons — stack full width on mobile */}
       <div
+        className="flex flex-col md:flex-row gap-3 md:gap-3 w-full max-w-md md:max-w-none md:w-auto md:flex-wrap md:justify-center"
         style={{
-          display: "flex",
-          gap: 12,
-          justifyContent: "center",
-          flexWrap: "wrap",
           animation: "fadeUp .65s .24s both",
           position: "relative",
           zIndex: 1,
@@ -142,20 +140,11 @@ export function Hero() {
         <a
           href="#cta"
           onClick={scrollToHash}
+          className="min-h-[44px] w-full md:w-auto inline-flex items-center justify-center gap-2 rounded-full font-sans text-sm md:text-[14.5px] font-bold no-underline transition-[all_.22s_cubic-bezier(.34,1.56,.64,1)] py-3.5 px-6 md:py-3.5 md:px-8"
           style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 7,
-            padding: "14px 30px",
-            borderRadius: 100,
-            fontFamily: "var(--font-sans)",
-            fontSize: 14.5,
-            fontWeight: 700,
-            textDecoration: "none",
             background: "var(--terra)",
             color: "#fff",
             boxShadow: "0 6px 24px rgba(181,96,58,.3)",
-            transition: "all .22s cubic-bezier(.34,1.56,.64,1)",
             letterSpacing: ".01em",
           }}
           onMouseEnter={(e) => {
@@ -172,20 +161,10 @@ export function Hero() {
         <a
           href="#demo"
           onClick={scrollToHash}
+          className="min-h-[44px] w-full md:w-auto inline-flex items-center justify-center gap-2 rounded-full font-sans text-sm md:text-[14.5px] font-bold no-underline border-[1.5px] border-[var(--stone)] py-3.5 px-6 md:py-3.5 md:px-8 transition-[all_.22s_cubic-bezier(.34,1.56,.64,1)]"
           style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 7,
-            padding: "14px 30px",
-            borderRadius: 100,
-            fontFamily: "var(--font-sans)",
-            fontSize: 14.5,
-            fontWeight: 700,
-            textDecoration: "none",
             background: "transparent",
             color: "var(--ink-2)",
-            border: "1.5px solid var(--stone)",
-            transition: "all .22s cubic-bezier(.34,1.56,.64,1)",
             letterSpacing: ".01em",
           }}
           onMouseEnter={(e) => {
@@ -218,15 +197,13 @@ export function Hero() {
         First 10 businesses get in free &nbsp;·&nbsp; No credit card
       </p>
 
-      {/* Browser chrome mockup */}
+      {/* Browser chrome mockup — hidden on mobile, full width on md+ */}
       <div
+        className="hidden md:block w-full max-w-[900px] mt-16"
         style={{
-          marginTop: 64,
           animation: "fadeUp .8s .4s both",
           position: "relative",
           zIndex: 1,
-          width: "100%",
-          maxWidth: 900,
         }}
       >
         {/* Chrome bar */}
