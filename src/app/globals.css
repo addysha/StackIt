@@ -16,6 +16,8 @@
   --cream: #F4EFE6;
   --stone: #E2D8CA;
   --slate: #C8BFB0;
+  /* Slightly darker than --stone so 1px border reads on cream */
+  --integration-strip-border: #c4b8a8;
   --w: #FDFAF5;
   --surf: #ffffff;
   --up: #2E7D52;
@@ -172,3 +174,25 @@ select {
 .reveal-d2 { transition-delay: 0.2s; }
 .reveal-d3 { transition-delay: 0.3s; }
 .reveal-d4 { transition-delay: 0.4s; }
+
+/* ── Integration Strip marquee ── */
+.marquee {
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  gap: var(--gap, 1rem);
+}
+
+.marquee__content {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-around;
+  gap: var(--gap, 1rem);
+  min-width: 100%;
+  animation: marquee-scroll var(--duration, 90s) linear infinite;
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100% - var(--gap, 1rem))); }
+}

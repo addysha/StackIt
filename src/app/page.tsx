@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/landing/Navbar";
 import { Hero } from "@/components/landing/Hero";
-import { TrustStrip } from "@/components/landing/TrustStrip";
+import { IntegrationStrip } from "@/components/landing/IntegrationStrip";
 import { ProblemSection } from "@/components/landing/ProblemSection";
 import { FeaturesBento } from "@/components/landing/FeaturesBento";
 import { ProductPreview } from "@/components/landing/ProductPreview";
@@ -16,7 +16,7 @@ export default function LandingPage() {
     <main className="min-h-screen bg-[var(--w)]">
       <Navbar />
       <Hero />
-      <TrustStrip />
+      <IntegrationStrip />
       <ProblemSection />
       <FeaturesBento />
       <ProductPreview />

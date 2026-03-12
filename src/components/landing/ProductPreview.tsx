@@ -477,7 +477,7 @@ export function ProductPreview() {
                   marginBottom: 2,
                 }}
               >
-                Morning, Addy
+                Morning, User
               </h3>
               <p
                 style={{
