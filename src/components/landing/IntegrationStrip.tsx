@@ -6,6 +6,8 @@ const LOGOS: { name: string; src: string; icon?: string }[] = [
   { name: "Shopify", src: "/icons/ShopifyLogo.svg" },
   { name: "PayPal", src: "/icons/paypalLarge.svg", icon: "/icons/PaypalSymbol.svg" },
   { name: "Stripe", src: "/icons/Stripe.svg", icon: "/icons/stripe-icon-logo.svg" },
+  { name: "Xero", src: "/icons/xeroLarge.svg", icon: "/icons/xero.svg" },
+  { name: "Sqaure", src: "/icons/Square_Logo_2025_White.svg" }
 ];
 
 const REPEATED = [
