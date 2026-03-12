@@ -19,7 +19,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-0 md:min-h-screen px-5 py-12 md:px-10 md:pt-[100px] md:pb-20"
+      className="min-h-[85vh] md:min-h-screen px-5 py-12 md:px-10 md:pt-[100px] md:pb-20"
       style={{
         display: "flex",
         flexDirection: "column",
