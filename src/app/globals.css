@@ -160,6 +160,26 @@ select {
   animation: ticker 24s linear infinite;
 }
 
+/* Sketch-style entrance animation used by EntranceDiv */
+/* delay is injected via inline style transitionDelay — avoids CSS-var-in-shorthand bugs */
+.entrance {
+  opacity: 0;
+  transform: translateY(28px);
+  transition-property: opacity, transform;
+  transition-duration: 0.65s;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+.entrance.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Dot grid for the integration trust strip */
+.integration-strip-dots {
+  background-image: radial-gradient(var(--stone) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
 /* Scroll reveal - used in landing page */
 .reveal {
   opacity: 0;
