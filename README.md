@@ -46,7 +46,7 @@
 
 ---
 
-## Phase 1 - Landing Page (Current Focus)
+## Phase 1 - Landing Page (Current Focus) 85%
 
 **Goal:** Build a fully shippable, conversion-optimised public marketing website before any app or service code.
 
