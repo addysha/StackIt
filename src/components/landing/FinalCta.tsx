@@ -1,27 +1,14 @@
 "use client";
 
 import { RevealWrapper } from "@/components/ui/RevealWrapper";
+import { IntegrationStrip } from "@/components/landing/IntegrationStrip";
 import { scrollToHash } from "@/lib/utils";
-
-const INTEGRATIONS = [
-  "Shopify",
-  "Stripe",
-  "Square",
-  "Xero",
-  "ANZ",
-  "ASB",
-  "BNZ",
-  "Etsy",
-  "PayPal",
-  "MYOB",
-  "+200 more",
-];
 
 export function FinalCta() {
   return (
     <section
       id="cta"
-      className="py-12 px-5 pb-24 md:py-24 md:px-10 md:pb-32"
+      className="py-12 px-5 pb-12 md:py-24 md:px-10 md:pb-16"
       style={{
         background: "var(--terra)",
         position: "relative",
@@ -52,7 +39,7 @@ export function FinalCta() {
         }}
       />
 
-      <div style={{ position: "relative", zIndex: 1 }}>
+      <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", minHeight: "min(60vh, 480px)" }}>
         <RevealWrapper>
           <p
             style={{
@@ -101,8 +88,7 @@ export function FinalCta() {
               fontFamily: "var(--font-sans)",
             }}
           >
-            The first 10 businesses get in free. Takes under an hour to set up.
-            No credit card.
+            The first 10 businesses get in free.
           </p>
         </RevealWrapper>
 
@@ -175,47 +161,21 @@ export function FinalCta() {
           </div>
         </RevealWrapper>
 
-        {/* Integration chips */}
         <RevealWrapper delay={4}>
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: 7,
-              justifyContent: "center",
-              marginBottom: 20,
-            }}
-          >
-            {INTEGRATIONS.map((name) => (
-              <span
-                key={name}
-                style={{
-                  padding: "5px 14px",
-                  borderRadius: 100,
-                  background: "rgba(255,255,255,.1)",
-                  border: "1px solid rgba(255,255,255,.18)",
-                  fontSize: 11.5,
-                  fontWeight: 700,
-                  color: "rgba(255,255,255,.8)",
-                  fontFamily: "var(--font-sans)",
-                  letterSpacing: ".02em",
-                }}
-              >
-                {name}
-              </span>
-            ))}
+          <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
+            <IntegrationStrip theme="dark" />
+            <p
+              style={{
+                fontSize: 12,
+                color: "rgba(255,255,255,.4)",
+                fontFamily: "var(--font-sans)",
+                margin: 0,
+              }}
+            >
+              NZ-built · Read-only OAuth · 14-day free trial
+            </p>
           </div>
         </RevealWrapper>
-
-        <p
-          style={{
-            fontSize: 12,
-            color: "rgba(255,255,255,.4)",
-            fontFamily: "var(--font-sans)",
-          }}
-        >
-          NZ-built · Read-only OAuth · 14-day free trial
-        </p>
       </div>
     </section>
   );

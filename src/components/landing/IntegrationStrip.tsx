@@ -37,11 +37,36 @@ function LogoCard({ name, src, icon, invert }: { name: string; src: string; icon
   );
 }
 
-export function IntegrationStrip() {
+type IntegrationStripProps = { theme?: "light" | "dark" };
+
+export function IntegrationStrip({ theme = "light" }: IntegrationStripProps) {
+  const isDark = theme === "dark";
   return (
-    <div className="relative overflow-hidden max-w-full lg:max-w-4xl xl:max-w-7xl mx-auto integration-strip-dots">
-      <div className="absolute left-0 w-1/3 h-full bg-gradient-to-r from-[var(--w)] to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 w-1/3 h-full bg-gradient-to-l from-[var(--w)] to-transparent z-10 pointer-events-none" />
+    <div
+      className={`relative overflow-hidden max-w-full lg:max-w-4xl xl:max-w-7xl mx-auto ${isDark ? "integration-strip-dots-dark" : "integration-strip-dots"}`}
+    >
+      <div
+        className="absolute left-0 w-1/3 h-full z-10 pointer-events-none"
+        style={{
+          background: isDark
+            ? "linear-gradient(to right, var(--terra), transparent)"
+            : undefined,
+        }}
+      />
+      {!isDark && (
+        <>
+          <div className="absolute left-0 w-1/3 h-full bg-gradient-to-r from-[var(--w)] to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 w-1/3 h-full bg-gradient-to-l from-[var(--w)] to-transparent z-10 pointer-events-none" />
+        </>
+      )}
+      <div
+        className="absolute right-0 w-1/3 h-full z-10 pointer-events-none"
+        style={{
+          background: isDark
+            ? "linear-gradient(to left, var(--terra), transparent)"
+            : undefined,
+        }}
+      />
 
       {/* --duration: lower = faster (e.g. 45s), higher = slower (e.g. 120s) */}
       <div

@@ -191,6 +191,10 @@ select {
   background-image: radial-gradient(var(--stone) 1px, transparent 1px);
   background-size: 24px 24px;
 }
+.integration-strip-dots-dark {
+  background-image: radial-gradient(rgba(255,255,255,.12) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
 
 /* Scroll reveal - used in landing page */
 .reveal {
